@@ -5,17 +5,17 @@ public class Cloud : MonoBehaviour {
 	float speed;
 	private CloudSpawner spawner;
 	float xBound;
-	// Use this for initialization
+
 	void Start () {
 		speed = Random.Range(0.5f, 1.5f);
 
 		spawner = GameObject.FindObjectOfType<CloudSpawner>();
 		xBound = spawner.getMinX();
 
-//		float zDistance = transform.position.z - Camera.main.transform.position.z;
-//		Vector3 cameraX = Camera.main.ViewportToWorldPoint(new Vector3(0,0,zDistance));
-//
-//		xBound = cameraX.x - 5f;
+		float zDistance = transform.position.z - Camera.main.transform.position.z;
+		Vector3 cameraX = Camera.main.ViewportToWorldPoint(new Vector3(0,0,zDistance));
+
+		xBound = cameraX.x - 5f;
 	}
 	
 	// Update is called once per frame
