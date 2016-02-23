@@ -64,4 +64,9 @@ public class CloudSpawner : MonoBehaviour {
 		cloud.transform.localScale = new Vector3(cloudScale, cloudScale, 0);
 		cloud.transform.parent = this.transform;
 	}
+
+	public float getMinX ()
+	{
+		return minX;
+	}
 }
