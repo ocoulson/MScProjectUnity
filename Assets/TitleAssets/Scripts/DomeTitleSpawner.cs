@@ -3,49 +3,39 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class DomeTitleSpawner : MonoBehaviour {
-	float timer= 0f;
 	bool finished = false;
 	public GameObject dome;
 	public GameObject title;
-
-	public GameObject canvas;
 	public GameObject startText;
-
 	bool textSpawned = false;
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		timer += Time.deltaTime;
-
-		if (!finished && timer >= 5f) {
+		if (!finished && Input.GetMouseButtonDown (0)) {
+			//Create vectors for spawn points of dome and title
 			Vector3 domePos = new Vector3 (20, 35, transform.position.z);
 			Vector3 titlePos = new Vector3 (20, 50, transform.position.z);
+			//Instantiate dome and title
 			GameObject myDome = Instantiate (dome, domePos, Quaternion.identity) as GameObject;
 			GameObject myTitle = Instantiate (title, titlePos, Quaternion.identity) as GameObject;
-
+			//Set dome and title as children of the Spawner object
 			myDome.transform.parent = this.transform;
 			myTitle.transform.parent = this.transform;
+
 			finished = true;
-		} else {
-			if (timer >= 10f && !textSpawned) {
-				SpawnStartText();
-			}
 
+		} else if (!textSpawned && Input.GetMouseButtonDown (0)) {
+			//Set vector for text button spawn point
+			Vector3 textPos = new Vector3 (0, -140, 0);
+			//Instantiate button
+			GameObject myStartText = Instantiate (startText, textPos, Quaternion.identity) as GameObject;
+			//Set the button as a child of the UI canvas object
+			myStartText.transform.SetParent (GameObject.FindObjectOfType<Canvas> ().transform, false);
+
+			textSpawned = true;
 		}
+
 	}
-
-
-	void SpawnStartText() {
-		Vector3 textPos = new Vector3(0, -140, 0);
-
-		GameObject myStartText = Instantiate(startText, textPos, Quaternion.identity) as GameObject;
-
-		myStartText.transform.SetParent(canvas.transform,false);
-
-		textSpawned = true;
-	}
-
-
 
 }
