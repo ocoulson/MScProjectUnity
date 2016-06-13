@@ -8,11 +8,14 @@ public class DomeTitleSpawner : MonoBehaviour {
 	public GameObject title;
 	public GameObject startText;
 	bool textSpawned = false;
+	float timer = 0;
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!finished && Input.GetMouseButtonDown (0)) {
+		timer += Time.deltaTime;
+
+		if (!finished && (Input.anyKeyDown|| timer > 5f ||Input.GetKeyDown(KeyCode.Space))) {
 			//Create vectors for spawn points of dome and title
 			Vector3 domePos = new Vector3 (20, 35, transform.position.z);
 			Vector3 titlePos = new Vector3 (20, 50, transform.position.z);
@@ -25,7 +28,7 @@ public class DomeTitleSpawner : MonoBehaviour {
 
 			finished = true;
 
-		} else if (!textSpawned && Input.GetMouseButtonDown (0)) {
+		} else if (!textSpawned && (Input.anyKeyDown|| timer > 15f)) {
 			//Set vector for text button spawn point
 			Vector3 textPos = new Vector3 (0, -140, 0);
 			//Instantiate button

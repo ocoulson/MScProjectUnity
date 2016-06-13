@@ -18,10 +18,5 @@ public class Dome : MonoBehaviour {
 			aSource.clip = sounds [1];
 			aSource.Play();
 		}
-
-
 	}
-
-	
-
 }
