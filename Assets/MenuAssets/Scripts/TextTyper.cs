@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TextTyper : MonoBehaviour {
 
-	public float letterPause = 0.01f;
+	private float letterPause = 0.05f;
 	public AudioClip[] sounds;
 
 	private AudioSource source { get { return GetComponent<AudioSource> (); } }

@@ -2,8 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class MainMenuUiManager : MonoBehaviour {
-	float pause = 0.6f;
+public class UiManager : MonoBehaviour {
+	float pause = 1f;
 	public GameObject canvas;
 	public GameObject[] text;
 
