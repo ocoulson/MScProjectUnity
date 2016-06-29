@@ -5,7 +5,7 @@ public class Warp : MonoBehaviour {
 	public Transform target;
 
 	void OnTriggerEnter2D(Collider2D col) {
-		Debug.Log("Triggered");
+		Debug.Log("Triggered: " + target.name);
 		col.transform.position = target.position;
 	}
 

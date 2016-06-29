@@ -18,7 +18,7 @@ namespace Tiled2Unity
     // Concentrates on the Xml file being imported
     partial class ImportTiled2Unity
     {
-        public static readonly string ThisVersion = "1.0.6.0";
+        public static readonly string ThisVersion = "1.0.7.1";
 
         // Called when Unity detects the *.tiled2unity.xml file needs to be (re)imported
         public void ImportBegin(string xmlPath)
@@ -88,7 +88,7 @@ namespace Tiled2Unity
                     string materialPath = GetMaterialAssetPath(name);
                     Material material = CreateMaterialFromXml(tex);
                     ImportUtils.ReadyToWrite(materialPath);
-                    AssetDatabase.CreateAsset(material, materialPath);
+                    ImportUtils.CreateOrReplaceAsset(material, materialPath);
                 }
             }
         }
@@ -110,7 +110,7 @@ namespace Tiled2Unity
 
                 // Write the material to our asset database
                 ImportUtils.ReadyToWrite(materialPath);
-                AssetDatabase.CreateAsset(material, materialPath);
+                ImportUtils.CreateOrReplaceAsset(material, materialPath);
             }
         }
 
@@ -138,6 +138,12 @@ namespace Tiled2Unity
             if (!String.IsNullOrEmpty(htmlColor))
             {
                 shaderName += " Color Key";
+
+                // Sometimes Tiled saves out color without the leading # but we expect it to be there
+                if (!htmlColor.StartsWith("#"))
+                {
+                    htmlColor = "#" + htmlColor;
+                }
 
                 byte r = byte.Parse(htmlColor.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
                 byte g = byte.Parse(htmlColor.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
