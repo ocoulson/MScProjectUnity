@@ -1,20 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class PlayerMovement : MonoBehaviour {
-	Rigidbody2D rBody;
-	Animator anim;
-	// Use this for initialization
+	public float speed;
+	private Rigidbody2D rBody;
+	private Animator anim;
+
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
+
 	void Update ()
 	{
-		Vector2 movement_vector = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+		float xInput = 0; 
+		float yInput = 0;
 
+
+
+		bool left = Input.GetKey (KeyCode.LeftArrow);
+		bool right = Input.GetKey (KeyCode.RightArrow);
+		bool up = Input.GetKey (KeyCode.UpArrow);
+		bool down = Input.GetKey (KeyCode.DownArrow);
+
+		//Choose the movement, diagonal movement is disabled.
+		if (left) {
+			xInput = -1f;
+		} else if (right) {
+			xInput = 1f;
+		} else if (up) {
+			yInput = 1f;
+		} else if (down) {
+			yInput = -1f;
+		}
+
+		Vector2 movement_vector = new Vector2 (xInput, yInput) * speed;
+
+		//move between the idle and moving blend trees in the animation controller
 		if (movement_vector != Vector2.zero) {
 			anim.SetBool ("IsWalking", true);
 			anim.SetFloat("Input_x", movement_vector.x);
