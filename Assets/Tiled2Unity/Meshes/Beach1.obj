@@ -7822,7 +7822,7 @@ vt 0.8334554 0.8123779
 # Normal
 vn 0 0 -1
 
-# Groups (Count = 12)
+# Groups (Count = 11)
 
 g mesh_0001
 f 1/1/1 2/2/1 3/3/1 4/4/1

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f40a357f1a3c54755ad277297187a33d
-timeCreated: 1467404373
+guid: 53926afec071a44c3878db1d40681951
+timeCreated: 1467649901
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -28,30 +28,6 @@ TextureImporter:
     21300042: FlyRight1
     21300044: FlyRight2
     21300046: FlyRight3
-    21300048: Front0
-    21300050: Front1
-    21300052: Front2
-    21300054: Front3
-    21300056: Front4
-    21300058: Front5
-    21300060: Front6
-    21300062: Front7
-    21300064: Right0
-    21300066: Right1
-    21300068: Right2
-    21300070: Right3
-    21300072: Left0
-    21300074: Left1
-    21300076: Left2
-    21300078: Left3
-    21300080: FlyLeft0
-    21300082: FlyLeft1
-    21300084: FlyLeft2
-    21300086: FlyLeft3
-    21300088: FlyRight0
-    21300090: FlyRight1
-    21300092: FlyRight2
-    21300094: FlyRight3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
