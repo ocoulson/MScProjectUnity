@@ -69,17 +69,41 @@ public class CrabMovement : MonoBehaviour {
 		}
 		anim.SetBool("IsMoving", true);
 		IsMoving = true;
-		moveCounter = moveTime;
+		moveCounter = moveTime + Random.Range(0, 1f);
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
+	void OnTriggerEnter2D (Collider2D col)
+	{
 		if (col.tag == "Player") {
-			Vector3 pos = gameObject.transform.position;
-			Vector3 playerPos = col.transform.position;
-			Vector3 escapeDirection = (pos - playerPos) * runSpeed;
+			
 			IsMoving = true;
-			anim.SetBool("IsMoving", true);
+			anim.SetBool ("IsMoving", true);
 			moveCounter = moveTime * 2; 
-		} 
+			body.velocity = Vector2.zero;
+
+			//Move away from the player but not directly
+			ChooseOppositeDirection(col.transform.position.x, transform.position.x);
+		} else {
+			IsMoving = false;
+			anim.SetBool("IsMoving", false);
+			waitCounter = waitTime;
+			body.velocity = Vector2.zero;
+		}
+	}
+
+	void OnTriggerStay2D (Collider2D col)
+	{
+		//Layer 12 is the terrain layer
+		if (col.gameObject.layer == 12) {
+			ChooseOppositeDirection(col.transform.position.x, transform.position.x);
+		}
+	}
+
+	void ChooseOppositeDirection(float colX, float thisX) {
+		if (colX > thisX) {
+				currentDirection = Vector2.left;
+			} else {
+				currentDirection = Vector2.right;
+			}
 	}
 }

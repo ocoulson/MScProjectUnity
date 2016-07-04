@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 03/07/2016 21:11:41-->
+<!--Last exported: 04/07/2016 14:16:15-->
 <Tiled2Unity version="1.0.7.1">
   <AssignMaterial mesh="mesh_0001" material="ground" />
   <AssignMaterial mesh="mesh_0002" material="beach" />
@@ -70,7 +70,7 @@
         </PolygonCollider2D>
       </GameObject>
     </GameObject>
-    <GameObject name="Beach2" x="0" y="0" z="0">
+    <GameObject name="BeachFeatures" x="0" y="0" z="0">
       <GameObject name="beach" copy="mesh_0003" sortingLayerName="Behind" sortingOrder="1" opacity="1" />
       <GameObject name="objects" copy="mesh_0004" sortingLayerName="Behind" sortingOrder="1" opacity="1" />
       <GameObject name="Collision">
@@ -96,7 +96,7 @@
         </PolygonCollider2D>
       </GameObject>
     </GameObject>
-    <GameObject name="Ridges" x="0" y="0" z="0">
+    <GameObject name="Ridges" x="0" y="0" z="0" layer="Terrain">
       <GameObject name="ridges" copy="mesh_0007" sortingLayerName="Behind" sortingOrder="4" opacity="1" />
       <GameObject name="Collision">
         <PolygonCollider2D>
@@ -114,7 +114,7 @@
         </PolygonCollider2D>
       </GameObject>
     </GameObject>
-    <GameObject name="Features" x="0" y="0" z="0">
+    <GameObject name="Features" x="0" y="0" z="0" layer="Terrain">
       <GameObject name="objects" copy="mesh_0008" sortingLayerName="Behind" sortingOrder="5" opacity="1" />
       <GameObject name="ground" copy="mesh_0009" sortingLayerName="Behind" sortingOrder="5" opacity="1" />
       <GameObject name="beach" copy="mesh_0010" sortingLayerName="Behind" sortingOrder="5" opacity="1" />
@@ -130,7 +130,7 @@
         </PolygonCollider2D>
       </GameObject>
     </GameObject>
-    <GameObject name="Trunks" x="0" y="0" z="0">
+    <GameObject name="Trunks" x="0" y="0" z="0" layer="Terrain">
       <GameObject name="Trees" copy="mesh_0011" sortingLayerName="Behind" sortingOrder="6" opacity="1" />
       <GameObject name="palms" copy="mesh_0012" sortingLayerName="Behind" sortingOrder="6" opacity="1" />
       <GameObject name="Collision">
@@ -175,7 +175,7 @@
         </PolygonCollider2D>
       </GameObject>
     </GameObject>
-    <GameObject name="TallTrunks" x="0" y="0" z="0">
+    <GameObject name="TallTrunks" x="0" y="0" z="0" layer="Terrain">
       <GameObject name="Trees" copy="mesh_0013" sortingLayerName="Infront" sortingOrder="7" opacity="1" />
       <GameObject name="Collision">
         <PolygonCollider2D>

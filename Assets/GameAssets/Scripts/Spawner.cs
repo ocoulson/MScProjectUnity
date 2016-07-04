@@ -15,12 +15,27 @@ public class Spawner : MonoBehaviour {
 
 	}
 
-	public void Spawn () {
+	public void Spawn ()
+	{
 		foreach (GameObject point in spawnPoints) {
-			int random = Random.Range(0, names.Length);
-			GameObject go = Instantiate(prefab, point.transform.position, Quaternion.identity) as GameObject;
+			GameObject go = Instantiate (prefab, point.transform.position, Quaternion.identity) as GameObject;
 			go.transform.parent = gameObject.transform;
-			go.GetComponent<ReskinAnimation>().SetSpriteSheetName(names[random]);
+			if (names.Length > 0) {
+				int random = Random.Range (0, names.Length);
+				go.GetComponent<ReskinAnimation> ().SetSpriteSheetName (names [random]);
+			}
+		}
+	}
+
+	public bool Despawn ()
+	{
+		for (int i = 0; i < transform.childCount; i++) {
+			Destroy (transform.GetChild (i).gameObject);
+		}
+		if (transform.childCount == 0) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
