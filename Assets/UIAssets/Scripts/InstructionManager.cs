@@ -20,7 +20,7 @@ public class InstructionManager : MonoBehaviour {
 	}
 
 
-	public void DisplayInstruction (string beforeText, string keyText, string afterText)
+	public void ShowInstruction (string beforeText, string keyText, string afterText)
 	{
 		if (keyText == "Space") {
 			key.sprite = blankSpace;
@@ -38,7 +38,7 @@ public class InstructionManager : MonoBehaviour {
 		instruction.SetActive(true);
 	}
 
-	public void RemoveInstruction() {
+	public void HideInstruction() {
 		instruction.SetActive(false);
 	}
 }
