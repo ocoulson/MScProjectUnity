@@ -1,12 +1,12 @@
 fileFormatVersion: 2
 guid: e2b9025f2eb3f431d8214d8206a4a1cb
-timeCreated: 1467409270
+timeCreated: 1467720279
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Down0
     21300002: Down1
-    21300004: Down3
+    21300004: Down2
     21300006: Left0
     21300008: Left1
     21300010: Left2
@@ -110,7 +110,7 @@ TextureImporter:
         - {x: 6, y: 1}
         - {x: 8, y: 4}
         - {x: 8, y: 14}
-    - name: Down3
+    - name: Down2
       rect:
         serializedVersion: 2
         x: 64

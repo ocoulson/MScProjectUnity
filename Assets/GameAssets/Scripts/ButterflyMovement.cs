@@ -38,7 +38,7 @@ public class ButterflyMovement : MonoBehaviour {
 				body.velocity = Vector2.zero;
 				isMoving = false;
 				anim.SetBool("IsMoving", false);
-				waitCounter = waitTime;
+				waitCounter = waitTime + Random.Range(0, 3f);
 			} else {
 				body.velocity = direction * speed;
 				anim.SetFloat("Xmove", body.velocity.x);
@@ -57,7 +57,7 @@ public class ButterflyMovement : MonoBehaviour {
 	void ChooseDirection() {
 		direction = directions[Random.Range(0,4)];
 		isMoving = true;
-		moveCounter = moveTime;
+		moveCounter = moveTime + Random.Range(0, 1f);
 	}
 
 	void OnCollisionEnter2D (Collision2D col)
