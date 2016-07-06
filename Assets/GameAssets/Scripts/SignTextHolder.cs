@@ -5,11 +5,16 @@ public class SignTextHolder : MonoBehaviour {
 
 	SignpostManager sMan;
 	InstructionManager iMan;
-	public string text;
+	public string signText;
+
+	public bool hasDirections;
+	public string[] directionArrows;
+	public string[] directionText;
 	// Use this for initialization
 	private bool instructionActive = false;
 	private bool signpostDisplayed = false;
 	private bool signPostActive = false;
+
 	void Start ()
 	{
 		sMan = GameObject.FindObjectOfType<SignpostManager> ();
@@ -39,7 +44,14 @@ public class SignTextHolder : MonoBehaviour {
 		if (signPostActive && !signpostDisplayed && Input.GetKeyUp (KeyCode.Space)) {
 			ShowCloseInstruction ();
 			instructionActive = true;
-			sMan.ShowSign (text);
+			if (hasDirections) {
+				sMan.ShowSignDirections (directionArrows, directionText);
+			} else {
+				Debug.Log(signText);
+				sMan.ShowSignText(signText);
+
+			}
+
 			signpostDisplayed = true;
 		} else if (signPostActive && signpostDisplayed && Input.GetKeyUp (KeyCode.Space)) {
 			ShowReadInstruction ();
@@ -63,4 +75,6 @@ public class SignTextHolder : MonoBehaviour {
 		}
 
 	}
+
+
 }
