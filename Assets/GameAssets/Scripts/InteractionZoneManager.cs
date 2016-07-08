@@ -5,9 +5,11 @@ public class InteractionZoneManager : MonoBehaviour {
 
 	public string instruction1 = "";
 	public string instructionKey;
-	public string instruciton2 = "";
+	public string instruction2 = "";
 	private SpriteRenderer spriteRenderer;
 	private InstructionManager iManager;
+
+
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = gameObject.GetComponentInParent<SpriteRenderer>();
@@ -17,7 +19,7 @@ public class InteractionZoneManager : MonoBehaviour {
 	{
 		//show contextual interaction
 		if (col.gameObject.name == "Player") {
-			iManager.ShowInstruction(instruction1, instructionKey, instruciton2);
+			iManager.ShowInstruction(instruction1, instructionKey, instruction2);
 		}
 	}
 
@@ -25,7 +27,7 @@ public class InteractionZoneManager : MonoBehaviour {
 		if (col.gameObject.name == "Player") {
 			ChangeSortingOrder(col);
 
-			//Input response to Space press, ie. ("Its a huge pile of rubbish! I can't get past")
+			//TODO: Input response to Space press, ie. ("Its a huge pile of rubbish! I can't get past")
 		}
 	}
 

@@ -98,6 +98,8 @@ public class NpcController : MonoBehaviour {
 		if (col.gameObject.name == "Player") {
 			Debug.Log("Interaction with " + col.gameObject.name);
 		}
+
+		//TODO: Add interactions
 	}
 
 	//A method for dealing with things entering the trigger interaction zone collider (i.e. the player)
@@ -106,8 +108,15 @@ public class NpcController : MonoBehaviour {
 	public void InteractionZoneStay (Collider2D col)
 	{
 		if (col.gameObject.name == "Player") {
-			Debug.Log(col.gameObject.name + " is in the Interaction Zone");
+			Debug.Log(col.gameObject.name + " is in "+gameObject.name + "\'s Interaction Zone");
 		}
+		//TODO: Add interactions
 	}
 
+	void OnCollisionEnter2D (Collision2D col)
+	{
+		if (!(col.collider.gameObject.name == "Player")) {
+			currentDirection = Vector2.zero - currentDirection;
+		}
+	}
 }
