@@ -4,7 +4,7 @@ using System.Collections;
 public class Warp : MonoBehaviour {
 	public Transform target;
 
-	float timeDelay = 1.5f;
+	float timeDelay = 1f;
 
 	void OnTriggerEnter2D (Collider2D col)
 	{

@@ -11,7 +11,7 @@ public class SignTextHolder : MonoBehaviour {
 	public string[] directionArrows;
 	public string[] directionText;
 	// Use this for initialization
-	private bool instructionActive = false;
+
 	private bool signpostDisplayed = false;
 	private bool signPostActive = false;
 
@@ -32,9 +32,9 @@ public class SignTextHolder : MonoBehaviour {
 	
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if (!instructionActive && col.gameObject.name == "Player") {
+		if (!iMan.IsActive() && col.gameObject.name == "Player") {
 			ShowReadInstruction();
-			instructionActive = true;
+
 			signPostActive = true;
 		}
 	}
@@ -43,7 +43,6 @@ public class SignTextHolder : MonoBehaviour {
 	{
 		if (signPostActive && !signpostDisplayed && Input.GetKeyUp (KeyCode.Space)) {
 			ShowCloseInstruction ();
-			instructionActive = true;
 			if (hasDirections) {
 				sMan.ShowSignDirections (directionArrows, directionText);
 			} else {
@@ -55,7 +54,6 @@ public class SignTextHolder : MonoBehaviour {
 			signpostDisplayed = true;
 		} else if (signPostActive && signpostDisplayed && Input.GetKeyUp (KeyCode.Space)) {
 			ShowReadInstruction ();
-			instructionActive = true;
 			sMan.HideSign ();
 			signpostDisplayed = false;
 		}
@@ -64,9 +62,8 @@ public class SignTextHolder : MonoBehaviour {
 
 	void OnTriggerExit2D (Collider2D col)
 	{
-		if (instructionActive && col.gameObject.name == "Player") {
+		if (iMan.IsActive() && col.gameObject.name == "Player") {
 			iMan.HideInstruction ();
-			instructionActive = false;
 			if (signpostDisplayed) {
 				sMan.HideSign();
 				signpostDisplayed = false;

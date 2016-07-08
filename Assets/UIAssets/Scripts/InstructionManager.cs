@@ -11,8 +11,13 @@ public class InstructionManager : MonoBehaviour {
 	public Sprite blankKey;
 	public Sprite blankSpace;
 
+	//First part of the instruciton (i.e. Press / Hold)
 	public Text before;
+
+	//The text on the key image (i.e. A, W, Space etc)
 	public Text keyText;
+
+	//The text after the key (i.e. to Read/ to Talk etc)
 	public Text after;
 
 	void Start() {
@@ -40,5 +45,10 @@ public class InstructionManager : MonoBehaviour {
 
 	public void HideInstruction() {
 		instruction.SetActive(false);
+	}
+
+	public bool IsActive ()
+	{
+		return instruction.activeInHierarchy;
 	}
 }
