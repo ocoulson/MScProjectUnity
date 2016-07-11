@@ -6,36 +6,66 @@ public class InteractionZoneManager : MonoBehaviour {
 	public string instruction1 = "";
 	public string instructionKey;
 	public string instruction2 = "";
+
+	public string playerInteractionText;
+
 	private SpriteRenderer spriteRenderer;
 	private InstructionManager iManager;
-
+	private PlayerInteractionManager playerInteraction = null;
+	private bool playerInZone;
 
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = gameObject.GetComponentInParent<SpriteRenderer>();
 		iManager = GameObject.FindObjectOfType<InstructionManager>();
+
 	}
-	void OnTriggerEnter2D (Collider2D col)
+
+	void Update ()
 	{
-		//show contextual interaction
-		if (col.gameObject.name == "Player") {
-			iManager.ShowInstruction(instruction1, instructionKey, instruction2);
+		if (playerInZone && Input.GetKeyUp (KeyCode.Space)) {
+			Debug.Log ("Space pressed");
+			if (!playerInteraction.IsThoughtBubbleActive ()) {
+				
+				playerInteraction.DisplayThoughtBubble (playerInteractionText);
+			} else if (playerInteraction.IsThoughtBubbleActive ()) {
+				
+				playerInteraction.HideThoughtBubble ();
+			}
 		}
 	}
 
-	void OnTriggerStay2D(Collider2D col) {
+	void OnTriggerEnter2D (Collider2D col)
+	{
 		if (col.gameObject.name == "Player") {
-			ChangeSortingOrder(col);
+			if (!iManager.IsActive ()) {
+				iManager.ShowInstruction (instruction1, instructionKey, instruction2);
+			}
+			playerInZone = true;
+			playerInteraction = col.gameObject.GetComponent<PlayerInteractionManager> ();
+		}
+	}
 
-			//TODO: Input response to Space press, ie. ("Its a huge pile of rubbish! I can't get past")
+	void OnTriggerStay2D (Collider2D col)
+	{
+		if (col.gameObject.name == "Player") {
+			ChangeSortingOrder (col);
+		
 		}
 	}
 
 	void OnTriggerExit2D (Collider2D col)
 	{
 		if (col.gameObject.name == "Player") {
-			iManager.HideInstruction();
-		} 
+			if (iManager.IsActive ()) {
+				iManager.HideInstruction ();
+			}
+
+			if (playerInteraction.IsThoughtBubbleActive ()) {
+				playerInteraction.HideThoughtBubble();
+			}
+			playerInZone = false;
+		}
 	}
 
 	void ChangeSortingOrder(Collider2D col) {

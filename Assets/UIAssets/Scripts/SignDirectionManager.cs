@@ -9,11 +9,6 @@ public class SignDirectionManager : MonoBehaviour {
 	public Sprite up;
 	public Sprite down;
 
-	void Start ()
-	{
-		HideAll();
-	}
-
 	private void ShowOneDirection (string directionArrow, string text, int index )
 	{
 		GameObject direction = directions [index];

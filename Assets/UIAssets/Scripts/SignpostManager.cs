@@ -17,7 +17,7 @@ public class SignpostManager : MonoBehaviour {
 		signpostBox.SetActive(true);
 		signText.text = newText;
 		signText.gameObject.SetActive(true);
-
+		directionMan.gameObject.SetActive(false);
 	}
 
 	public void ShowSignDirections (string[] directionArrows, string[] directionText)
@@ -25,7 +25,7 @@ public class SignpostManager : MonoBehaviour {
 		
 		isActive = true;	
 		signpostBox.SetActive(true);
-		directionMan = GameObject.FindObjectOfType<SignDirectionManager>();
+		directionMan.gameObject.SetActive(true);
 		//Make the main text blank so the directions can show up.
 		signText.gameObject.SetActive(false);
 		directionMan.ShowDirections(directionArrows, directionText);

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SignTextHolder : MonoBehaviour {
-
+	SpriteRenderer spriteRenderer;
 	SignpostManager sMan;
 	InstructionManager iMan;
 	public string signText;
@@ -10,15 +10,19 @@ public class SignTextHolder : MonoBehaviour {
 	public bool hasDirections;
 	public string[] directionArrows;
 	public string[] directionText;
-	// Use this for initialization
 
 	private bool signpostDisplayed = false;
 	private bool signPostActive = false;
 
+
 	void Start ()
 	{
 		sMan = GameObject.FindObjectOfType<SignpostManager> ();
-		iMan = GameObject.FindObjectOfType<InstructionManager>();
+		iMan = GameObject.FindObjectOfType<InstructionManager> ();
+		spriteRenderer = transform.parent.gameObject.GetComponent<SpriteRenderer> ();
+		if (spriteRenderer) {
+			Debug.Log("spriterenderer found");
+		}
 	}
 
 	void ShowReadInstruction ()
@@ -30,12 +34,11 @@ public class SignTextHolder : MonoBehaviour {
 		iMan.ShowInstruction ("Press", "Space", "to close");
 	}
 	
-	void OnTriggerEnter2D (Collider2D col)
+	void OnTriggerStay2D (Collider2D col)
 	{
-		if (!iMan.IsActive() && col.gameObject.name == "Player") {
-			ShowReadInstruction();
-
-			signPostActive = true;
+		ChangeSortingOrder (col);
+		if (!iMan.IsActive () && col.gameObject.name == "Player") {
+			ShowReadInstruction ();
 		}
 	}
 
@@ -46,17 +49,20 @@ public class SignTextHolder : MonoBehaviour {
 			if (hasDirections) {
 				sMan.ShowSignDirections (directionArrows, directionText);
 			} else {
-				Debug.Log(signText);
 				sMan.ShowSignText(signText);
 
 			}
-
+			Debug.Log(spriteRenderer.sortingOrder);
 			signpostDisplayed = true;
 		} else if (signPostActive && signpostDisplayed && Input.GetKeyUp (KeyCode.Space)) {
 			ShowReadInstruction ();
 			sMan.HideSign ();
 			signpostDisplayed = false;
+			Debug.Log(spriteRenderer.sortingOrder);
 		}
+
+
+
 	}
 
 
@@ -73,5 +79,16 @@ public class SignTextHolder : MonoBehaviour {
 
 	}
 
+	void ChangeSortingOrder(Collider2D col) {
+		int playerSortingOrder = col.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
+
+		if (col.transform.position.y < transform.position.y) {
+			spriteRenderer.sortingOrder = playerSortingOrder - 1;
+			signPostActive = true;
+		} else {
+			spriteRenderer.sortingOrder = playerSortingOrder + 1;
+			signPostActive = false;
+		}
+	}
 
 }
