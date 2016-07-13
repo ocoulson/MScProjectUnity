@@ -24,7 +24,9 @@ public class NpcController : MonoBehaviour {
 	private int directionIndex;
 	private Vector2 currentDirection;
 
-			// Use this for initialization
+	public bool movementEnabled;
+
+	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
 		body = GetComponent<Rigidbody2D>();
@@ -42,6 +44,7 @@ public class NpcController : MonoBehaviour {
 			Vector2.down,
 			Vector2.left, 
 			Vector2.right};
+		movementEnabled = true;
 	}
 
 	private bool OutOfMovementBox ()
@@ -56,28 +59,34 @@ public class NpcController : MonoBehaviour {
 
 	void Update ()
 	{
-		if (isMoving) {
-			moveCounter -= Time.deltaTime;
-			if (moveCounter < 0) {
-				body.velocity = Vector2.zero;
-				isMoving = false;
-				anim.SetBool ("IsMoving", false);
-				waitCounter = waitTime + Random.Range (0, 3f);
-			} else {
-				if (OutOfMovementBox ()) {
-					currentDirection = Vector2.zero - currentDirection;
+		if (movementEnabled) {
+			if (isMoving) {
+				moveCounter -= Time.deltaTime;
+				if (moveCounter < 0) {
+					body.velocity = Vector2.zero;
+					isMoving = false;
+					anim.SetBool ("IsMoving", false);
+					waitCounter = waitTime + Random.Range (0, 3f);
 				} else {
-					body.velocity = currentDirection * speed;
-					anim.SetFloat ("Xmove", body.velocity.x);
-					anim.SetFloat ("Ymove", body.velocity.y);
+					if (OutOfMovementBox ()) {
+						currentDirection = Vector2.zero - currentDirection;
+					} else {
+						body.velocity = currentDirection * speed;
+						anim.SetFloat ("Xmove", body.velocity.x);
+						anim.SetFloat ("Ymove", body.velocity.y);
+					}
+				}
+
+			} else {
+				waitCounter -= Time.deltaTime;
+				if (waitCounter < 0) {
+					ChooseDirection ();
 				}
 			}
-
 		} else {
-			waitCounter -= Time.deltaTime;
-			if (waitCounter < 0) {
-				ChooseDirection();
-			}
+			body.velocity = Vector2.zero;
+			isMoving = false;
+			waitCounter = waitTime;
 		}
 	
 	}
@@ -90,27 +99,12 @@ public class NpcController : MonoBehaviour {
 		moveCounter = moveTime;
 	}
 
-	//A method for dealing with things entering the trigger interaction zone collider (i.e. the player)
-	//This method is effectively the OnTriggerEnter2D method for the NPC even though the NPC has a 
-	//non-trigger collider.
-	public void InteractionZoneEnter (Collider2D col)
+	public void TurnTowards (Vector2 target)
 	{
-		if (col.gameObject.name == "Player") {
-			Debug.Log("Interaction with " + col.gameObject.name);
-		}
+		Vector2 relativeTarget = new Vector2(target.x - transform.position.x, target.y - transform.position.y);
 
-		//TODO: Add interactions
-	}
-
-	//A method for dealing with things entering the trigger interaction zone collider (i.e. the player)
-	//This method is effectively the OnTriggerStay2D method for the NPC even though the NPC has a 
-	//non-trigger collider.
-	public void InteractionZoneStay (Collider2D col)
-	{
-		if (col.gameObject.name == "Player") {
-			Debug.Log(col.gameObject.name + " is in "+gameObject.name + "\'s Interaction Zone");
-		}
-		//TODO: Add interactions
+		anim.SetFloat("Xmove", relativeTarget.x);
+		anim.SetFloat("Ymove", relativeTarget.y);
 	}
 
 	void OnCollisionEnter2D (Collision2D col)

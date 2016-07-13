@@ -20,9 +20,7 @@ public class SignTextHolder : MonoBehaviour {
 		sMan = GameObject.FindObjectOfType<SignpostManager> ();
 		iMan = GameObject.FindObjectOfType<InstructionManager> ();
 		spriteRenderer = transform.parent.gameObject.GetComponent<SpriteRenderer> ();
-		if (spriteRenderer) {
-			Debug.Log("spriterenderer found");
-		}
+
 	}
 
 	void ShowReadInstruction ()
@@ -82,7 +80,7 @@ public class SignTextHolder : MonoBehaviour {
 	void ChangeSortingOrder(Collider2D col) {
 		int playerSortingOrder = col.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
 
-		if (col.transform.position.y < transform.position.y) {
+		if (col.transform.position.y < transform.parent.position.y) {
 			spriteRenderer.sortingOrder = playerSortingOrder - 1;
 			signPostActive = true;
 		} else {

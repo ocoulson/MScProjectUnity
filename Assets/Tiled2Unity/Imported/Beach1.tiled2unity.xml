@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 11/07/2016 20:48:12-->
+<!--Last exported: 13/07/2016 15:45:37-->
 <Tiled2Unity version="1.0.7.1">
   <AssignMaterial mesh="mesh_0001" material="beach" />
   <AssignMaterial mesh="mesh_0002" material="beach" />
@@ -72,6 +72,12 @@
     </GameObject>
     <GameObject name="Features" x="0" y="0" z="0" layer="Terrain">
       <GameObject name="beach" copy="mesh_0007" sortingLayerName="FloorFeatures" sortingOrder="5" opacity="1" />
+      <GameObject name="Collision">
+        <PolygonCollider2D>
+          <Path>7.14,-1.11 7.07,-1.11 7.07,-1.28 7.14,-1.28</Path>
+          <Path>6.84,-1.12 6.76,-1.12 6.76,-1.28 6.84,-1.28</Path>
+        </PolygonCollider2D>
+      </GameObject>
     </GameObject>
     <GameObject name="Features2" x="0" y="0" z="0">
       <GameObject name="beach" copy="mesh_0008" sortingLayerName="" sortingOrder="6" opacity="1" />

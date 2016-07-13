@@ -4,23 +4,23 @@ using System.Collections;
 public class NpcInteractionZone : MonoBehaviour {
 
 	
-	private NpcController controller;
+
 	private SpriteRenderer spriteRenderer;
 	private InstructionManager iManager;
 
+	public bool playerInZone;
+
 	void Start () {
 		iManager = GameObject.FindObjectOfType<InstructionManager>();
-		controller = GetComponentInParent<NpcController>();
+	
 		spriteRenderer = GetComponentInParent<SpriteRenderer>();
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		//Call the interaction zone method in the NPC controller.
-		controller.InteractionZoneEnter (col);
-
 		if (!iManager.IsActive () && col.gameObject.name == "Player") {
 			iManager.ShowInstruction("Press", "Space", "to talk");
+			playerInZone = true;
 		}
 	}
 
@@ -29,15 +29,16 @@ public class NpcInteractionZone : MonoBehaviour {
 		if (col.gameObject.name == "Player") {
 			ChangeSortingOrder(col);
 		}
-		//Call the handler method of the NPC controller
-		controller.InteractionZoneStay(col);
 	}
 
 	void OnTriggerExit2D (Collider2D col)
-	{
+	{	
+		
 		if (col.gameObject.name == "Player") {
 			iManager.HideInstruction();
+			playerInZone = false;
 		} 
+
 	}
 
 	//Change the sorting layer order of the NPC depending on where the player is (below or above it)
