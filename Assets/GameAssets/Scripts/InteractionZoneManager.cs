@@ -24,7 +24,6 @@ public class InteractionZoneManager : MonoBehaviour {
 	void Update ()
 	{
 		if (playerInZone && Input.GetKeyUp (KeyCode.Space)) {
-			Debug.Log ("Space pressed");
 			if (!playerInteraction.IsThoughtBubbleActive ()) {
 				
 				playerInteraction.DisplayThoughtBubble (playerInteractionText);

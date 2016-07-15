@@ -1,26 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DialogueBlocks;
 
 public class SimpleDialogueController : MonoBehaviour {
 
-	public string[] mainDialogueText;
-	public string[] returnText;
+	
+	public string characterName;
 	public GameObject player;
+
+	private DialogueBlock[] dialogue;
+	private DialogueBlock currentDialogueBlock;
+	private int currentLine;
+	private bool blockFinished;
+
+	private bool currentIsBranch;
 
 	private NpcController movementController;
 	private NpcInteractionZone zone;
 	private DialogueManager dManager;
 	private InstructionManager iManager;
 
-	private int dialogueCounter;
-	private bool dialogueFinished;
 
 	//Initialise variables and find objects needed.
 	void Start ()
 	{
-		dialogueCounter = 0;
-		dialogueFinished = false;
+		ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
+
+		dialogue = jsonReader.GetCharacterDialogue (characterName);
+		foreach (DialogueBlock d in dialogue) {
+			Debug.Log (d);
+			foreach (string s in d.script_en_GB) {
+				Debug.Log(s);
+			}
+		}
+
+		SetCurrentDialogueBlock(0);
+
 		movementController = gameObject.GetComponent<NpcController>();
 		dManager = GameObject.FindObjectOfType<DialogueManager>();
 		iManager = GameObject.FindObjectOfType<InstructionManager>();
@@ -28,11 +44,6 @@ public class SimpleDialogueController : MonoBehaviour {
 	}
 
 
-
-	void Update ()
-	{
-		SimpleDialogueLoop();
-	}
 	/** 
 	* Simple checks using the InteractionZone element to check if the player is near the npc.
 	* An array of dialogue strings is iterated through until it is finished, or until escape
@@ -40,25 +51,37 @@ public class SimpleDialogueController : MonoBehaviour {
 	* If the dialogue is read all the way through, instead of reading it all again on a second
 	* interaction, the player reads a shortened version held in the returnText array.
 	*/
-	private void SimpleDialogueLoop ()
+
+	void Update ()
 	{
 		if (zone.playerInZone) {
-
+			
 			if (!dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Space)) {
 				iManager.HideInstruction ();
 				movementController.TurnTowards (player.transform.position);
 				EnableCharacterMovement (false);
 
-				dManager.ShowDialogueBox (mainDialogueText [dialogueCounter]);
+				dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
 				dManager.HideAllInstructions ();
 				IncrementDialogueCounter ();
 
+
 			} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Space)) {
-				dManager.ShowDialogueBox (mainDialogueText [dialogueCounter]);
+				dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
 
 				IncrementDialogueCounter ();
 
-			} else if (dialogueFinished && Input.GetKeyDown (KeyCode.C)) {
+
+			} else if (blockFinished && currentIsBranch) {
+
+				if (Input.GetKeyDown(KeyCode.Y)) {
+					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).yesNext);
+				} if (Input.GetKeyDown(KeyCode.N)) {
+					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).noNext);
+				}
+
+
+			} else if (blockFinished && !currentIsBranch && Input.GetKeyDown (KeyCode.C)) {
 				CloseDialogue(true);
 
 			} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Escape)) {
@@ -68,6 +91,24 @@ public class SimpleDialogueController : MonoBehaviour {
 		else if (dManager.DialogueActive ()) {
 			dManager.HideDialogueBox();
 		}
+	}
+
+	private void SetCurrentDialogueBlock (int id)
+	{
+		foreach (DialogueBlock block in dialogue) {
+			if (block.id == id) {
+				currentDialogueBlock = block;
+			}
+		}
+
+		if (currentDialogueBlock is BranchDialogueBlock) {
+			currentIsBranch = true;
+		} else {
+			currentIsBranch = false;
+		}
+
+		currentLine = 0;
+		blockFinished = false;
 	}
 
 	/**
@@ -82,15 +123,15 @@ public class SimpleDialogueController : MonoBehaviour {
 		iManager.ShowInstruction ("Press", "Space", "to Talk");
 		EnableCharacterMovement (true);
 
-		dialogueCounter = 0;
+		currentLine = 0;
 
 		if (finished) {
-			mainDialogueText = returnText;
+			//TODO add code here
 		}
 	}
 
 	/**
-	* Simple method to freeze the player and npc so no movement is allowed during the dialogue
+	* Simple method to freeze/unfreeze the player and npc so no movement is allowed during the dialogue
 	*/ 
 	private void EnableCharacterMovement (bool toggle)
 	{
@@ -105,12 +146,19 @@ public class SimpleDialogueController : MonoBehaviour {
 	*/
 	private void IncrementDialogueCounter ()
 	{
-		if (dialogueCounter < mainDialogueText.Length - 1) {
-			dialogueCounter++;
-			dManager.ShowRightInstruction("Press Space to Continue");
+		if (currentLine < currentDialogueBlock.script_en_GB.Length - 1) {
+			currentLine++;
+			dManager.ShowRightInstruction ("Press Space to Continue");
 		} else {
-			dialogueFinished = true;
-			dManager.ShowRightInstruction("Press C to Close");
+			blockFinished = true;
+			if (!currentIsBranch) {
+				dManager.ShowRightInstruction ("Press C to Close");
+			} else {
+				dManager.ShowLeftInstruction("Press Y for Yes");
+				dManager.ShowRightInstruction("Press N for No");
+			}
+
+
 		}
 	}
 }

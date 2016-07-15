@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour {
 			rBody.MovePosition (rBody.position + movement_vector * Time.deltaTime);
 		} else {
 			anim.SetBool("IsWalking", false);
+			rBody.velocity = Vector2.zero;
 		}
 
 	}
