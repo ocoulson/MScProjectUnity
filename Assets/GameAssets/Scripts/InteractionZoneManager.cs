@@ -7,8 +7,6 @@ public class InteractionZoneManager : MonoBehaviour {
 	public string instructionKey;
 	public string instruction2 = "";
 
-	public string playerInteractionText;
-
 	private SpriteRenderer spriteRenderer;
 	private InstructionManager iManager;
 	private PlayerInteractionManager playerInteraction = null;
@@ -24,9 +22,14 @@ public class InteractionZoneManager : MonoBehaviour {
 	void Update ()
 	{
 		if (playerInZone && Input.GetKeyUp (KeyCode.Space)) {
+
 			if (!playerInteraction.IsThoughtBubbleActive ()) {
-				
-				playerInteraction.DisplayThoughtBubble (playerInteractionText);
+
+				if (transform.parent.gameObject.tag == "RubbishPile") {
+
+					playerInteraction.DisplayThoughtBubble (Random.Range(0,2));
+				}
+
 			} else if (playerInteraction.IsThoughtBubbleActive ()) {
 				
 				playerInteraction.HideThoughtBubble ();

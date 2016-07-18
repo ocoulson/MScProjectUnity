@@ -96,7 +96,6 @@ public class SimpleDialogueController : MonoBehaviour {
 	{
 		foreach (DialogueBlock block in dialogue) {
 			if (block.id == id) {
-				Debug.Log(block);
 				currentDialogueBlock = block;
 			}
 		}

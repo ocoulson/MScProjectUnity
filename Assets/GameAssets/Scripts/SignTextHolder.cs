@@ -56,7 +56,6 @@ public class SignTextHolder : MonoBehaviour {
 			ShowReadInstruction ();
 			sMan.HideSign ();
 			signpostDisplayed = false;
-			Debug.Log(spriteRenderer.sortingOrder);
 		}
 
 

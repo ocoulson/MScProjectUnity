@@ -101,6 +101,29 @@
 				"yesNextId": 1, 
 				"noNextId": 3
 			}	
+		],
+		"playerThoughtBubbles": [
+			{
+				"id":0,
+				"name": "rubbishBlockingPath1",
+				"speaker": "player",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"This huge smelly pile of rubbish is in the way!"
+				],
+				"nextId": 0
+			},
+			{
+				"id":1,
+				"name": "rubbishBlockingPath2",
+				"speaker": "player",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"Eugh! I'm not climbing over all that rubbish!"
+				],
+				"nextId": 1
+			}
 		]
+
 	}
 }

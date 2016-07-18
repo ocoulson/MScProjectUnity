@@ -3,7 +3,7 @@ using System.Collections;
 
 
 public class PlayerMovement : MonoBehaviour {
-	public float speed;
+	
 	private Rigidbody2D rBody;
 	private Animator anim;
 
@@ -16,7 +16,17 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update ()
 	{
+		float speed;
+
 		if (movementEnabled) {
+			if (Input.GetKey (KeyCode.LeftShift)) {
+				speed = 1.25f;
+				anim.speed = 1.5f;
+			} else {
+				speed = 1f;	
+				anim.speed = 1.25f;
+			}
+
 			float xInput = 0; 
 			float yInput = 0;
 
