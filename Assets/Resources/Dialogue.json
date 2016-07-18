@@ -6,7 +6,7 @@
 				"name": "EntranceDialogueMain",
 				"speaker": "mayor",
 				"type": "linearDialogue", 
-				"script-en-GB": [
+				"script_en_GB": [
 					"Oh my God! I’m so glad you’re here!",
 					"We’ve got so many terrible problems here on Dome Island, we really need your help!",
 					"The air is full of horrible fumes, the plants and animals are sick and dying, there’s rubbish everywhere and ...",
@@ -25,7 +25,7 @@
 				"name":	"EntranceDialogueStub", 
 				"speaker": "mayor",
 				"type": "linearDialogue",
-				"scritpt-en-GB": [
+				"script_en_GB": [
 					"Head over to see Ethan at his SURF SHACK on the BEACH west of here.",
 					"I know he needs your help with something."
 				],
@@ -39,10 +39,10 @@
 				"name": "FirstMeetingMain",
 				"speaker": "surfShackOwner",
 				"type": "branchDialogue",
-				"script-en-GB": [
+				"script_en_GB": [
 					"Hi there, I’m Ethan and this is my Surf Shack.",
 					"This is where everyone on the island comes for their surfing gear, beach equipment and snacks and all that.",
-					".. Or it would be, now the beach is in such a terrible state, fewer and fewer people are coming down here.",
+					".. Or it would be, but now the beach is in such a terrible state, fewer and fewer people are coming down here.",
 					"Except me… It’s terrible for business, but worse than that, the beach is completely disgusting.",
 					"There’s rubbish everywhere, I don’t know where it all comes from, but plenty of it is from everyone just leaving old food and junk lying on the beach when they leave.",
 					"Something’s got to be done! Will you help me?"
@@ -56,7 +56,7 @@
 				"name": "FirstMeetingYes",
 				"speaker": "surfShackOwner",
 				"type": "linearDialogue", 
-				"script-en-GB": [
+				"script_en_GB": [
 					"That's fantastic! Thanks so much!!",
 					"Now, I’ve been working on a good way to collect all this rubbish, quickly and safely",
 					"I mean, you don’t want to cut your hand on some rusty can or get covered in melted ice cream do you?",
@@ -70,7 +70,7 @@
 				"name": "FirstMeetingGameStart",
 				"speaker": "surfShackOwner",
 				"type": "linearDialogue", 
-				"script-en-GB": [
+				"script_en_GB": [
 					"Now you've got what you need,",
 					"so come back when you've filled up that bag!"
 				],
@@ -83,7 +83,7 @@
 				"name": "FirstMeetingNo",
 				"speaker": "surfShackOwner",
 				"type": "linearDialogue",
-				"script-en-GB": [
+				"script_en_GB": [
 					"Oh, alright then... well speak to me again if you change your mind"
 				],
 				"nextId": 4
@@ -94,7 +94,7 @@
 				"name": "FirstMeetingStub",
 				"speaker": "surfShackOwner",
 				"type": "branchDialogue",
-				"script-en-GB": [
+				"script_en_GB": [
 					"Hi again, I'm glad you came back",
 					"Can you help me get rid of some of the rubbish all over my beach?"
 				],

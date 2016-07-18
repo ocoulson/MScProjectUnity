@@ -11,12 +11,15 @@ using DialogueBlocks;
 *	A class to read from a JSON file and return appropriate objects.
 */
 public class ReadJSON : MonoBehaviour {
+
 	private JsonData dialogueJsonData;
+	private string jsonString;
 
 	// Use this for initialization
+
 	void Start ()
 	{
-		string jsonString = File.ReadAllText (Application.dataPath + "/Resources/Dialogue.json");
+		jsonString = File.ReadAllText (Application.dataPath + "/Resources/Dialogue.json");
 
 		dialogueJsonData = JsonMapper.ToObject (jsonString);
 
@@ -25,13 +28,14 @@ public class ReadJSON : MonoBehaviour {
 	public DialogueBlock[] GetCharacterDialogue (string character)
 	{
 		JsonData actorData = dialogueJsonData ["actors"] [character];
+
 		List<DialogueBlock> dialogueList = new List<DialogueBlock> ();
 
 		for (int i = 0; i < actorData.Count; i++) {
-			if (actorData[i] ["type"].ToString () == "linearDialogue") {
-				dialogueList.Add(JsonMapper.ToObject<LinearDialogueBlock>(actorData[i].ToJson()));
-			} else if (actorData[i] ["type"].ToString () == "branchDialogue") {
-				dialogueList.Add(JsonMapper.ToObject<BranchDialogueBlock>(actorData[i].ToJson()));
+			if (actorData [i] ["type"].ToString () == "linearDialogue") {
+				dialogueList.Add (JsonMapper.ToObject<LinearDialogueBlock> (actorData [i].ToJson ()));
+			} else if (actorData [i] ["type"].ToString () == "branchDialogue") {
+				dialogueList.Add (JsonMapper.ToObject<BranchDialogueBlock> (actorData [i].ToJson ()));
 			}
 
 		}

@@ -15,9 +15,9 @@ public class SimpleDialogueController : MonoBehaviour {
 	private bool blockFinished;
 
 	private bool currentIsBranch;
+	private bool playerInZone;
 
 	private NpcController movementController;
-	private NpcInteractionZone zone;
 	private DialogueManager dManager;
 	private InstructionManager iManager;
 
@@ -25,25 +25,19 @@ public class SimpleDialogueController : MonoBehaviour {
 	//Initialise variables and find objects needed.
 	void Start ()
 	{
-		ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
-
-		dialogue = jsonReader.GetCharacterDialogue (characterName);
-		foreach (DialogueBlock d in dialogue) {
-			Debug.Log (d);
-			foreach (string s in d.script_en_GB) {
-				Debug.Log(s);
-			}
-		}
-
-		SetCurrentDialogueBlock(0);
-
 		movementController = gameObject.GetComponent<NpcController>();
 		dManager = GameObject.FindObjectOfType<DialogueManager>();
 		iManager = GameObject.FindObjectOfType<InstructionManager>();
-		zone = transform.GetComponentInChildren<NpcInteractionZone>();
+
 	}
 
+	void ReadDialogueData ()
+	{
+		ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
+		dialogue = jsonReader.GetCharacterDialogue (characterName);
 
+		SetCurrentDialogueBlock(0);
+	}
 	/** 
 	* Simple checks using the InteractionZone element to check if the player is near the npc.
 	* An array of dialogue strings is iterated through until it is finished, or until escape
@@ -54,15 +48,21 @@ public class SimpleDialogueController : MonoBehaviour {
 
 	void Update ()
 	{
-		if (zone.playerInZone) {
-			
+		if (Input.GetKey (KeyCode.LeftShift) && Input.GetKeyDown (KeyCode.Keypad0)) {
+			Debug.Log(currentDialogueBlock);
+		}
+		if (playerInZone) {
+
 			if (!dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Space)) {
+				if (dialogue == null) {
+					ReadDialogueData();
+				}
 				iManager.HideInstruction ();
-				movementController.TurnTowards (player.transform.position);
-				EnableCharacterMovement (false);
+				player.GetComponent<PlayerMovement>().movementEnabled = false;
+
 
 				dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
-				dManager.HideAllInstructions ();
+
 				IncrementDialogueCounter ();
 
 
@@ -73,13 +73,15 @@ public class SimpleDialogueController : MonoBehaviour {
 
 
 			} else if (blockFinished && currentIsBranch) {
-
 				if (Input.GetKeyDown(KeyCode.Y)) {
-					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).yesNext);
-				} if (Input.GetKeyDown(KeyCode.N)) {
-					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).noNext);
-				}
+					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).yesNextId);
 
+				} else if (Input.GetKeyDown(KeyCode.N)) {
+					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).noNextId);
+
+				}
+				dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
+				IncrementDialogueCounter();
 
 			} else if (blockFinished && !currentIsBranch && Input.GetKeyDown (KeyCode.C)) {
 				CloseDialogue(true);
@@ -88,15 +90,13 @@ public class SimpleDialogueController : MonoBehaviour {
 				CloseDialogue(false);
 			}
 		}
-		else if (dManager.DialogueActive ()) {
-			dManager.HideDialogueBox();
-		}
 	}
 
 	private void SetCurrentDialogueBlock (int id)
 	{
 		foreach (DialogueBlock block in dialogue) {
 			if (block.id == id) {
+				Debug.Log(block);
 				currentDialogueBlock = block;
 			}
 		}
@@ -112,6 +112,7 @@ public class SimpleDialogueController : MonoBehaviour {
 	}
 
 	/**
+	* For linear dialogue blocks with no branches
 	* Finishes the dialogue, either prematurely in which case the next interaction will restart
 	* the whole dialogue, or if it was previously read through, it will set the dialogue to be a condensed
 	* version held in the returnText array.
@@ -126,7 +127,7 @@ public class SimpleDialogueController : MonoBehaviour {
 		currentLine = 0;
 
 		if (finished) {
-			//TODO add code here
+			SetCurrentDialogueBlock((currentDialogueBlock as LinearDialogueBlock).nextId);
 		}
 	}
 
@@ -146,8 +147,10 @@ public class SimpleDialogueController : MonoBehaviour {
 	*/
 	private void IncrementDialogueCounter ()
 	{
+		dManager.HideAllInstructions();
 		if (currentLine < currentDialogueBlock.script_en_GB.Length - 1) {
 			currentLine++;
+
 			dManager.ShowRightInstruction ("Press Space to Continue");
 		} else {
 			blockFinished = true;
@@ -160,5 +163,18 @@ public class SimpleDialogueController : MonoBehaviour {
 
 
 		}
+	}
+
+	public void PlayerEnterInteractionZone() {
+		Debug.Log("Player entered " + gameObject.name + "'s zone");
+		playerInZone = true;
+		movementController.TurnTowards (player.transform.position);
+		movementController.movementEnabled = false;
+	}
+
+	public void PlayerExitInteractionZone() {
+		Debug.Log("Player left " + gameObject.name + "'s zone");
+		playerInZone = false;
+		movementController.movementEnabled = true;
 	}
 }
