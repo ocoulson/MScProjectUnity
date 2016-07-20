@@ -11,7 +11,7 @@ public class EquipmentRenderer : MonoBehaviour {
 	void Start () {
 		player = GetComponentInParent<Player>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
-
+		spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 
 	}
 	
@@ -19,9 +19,10 @@ public class EquipmentRenderer : MonoBehaviour {
 	void Update ()
 	{
 		if (player.hasBackpack) {
-			spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder + 1;
+
+			gameObject.SetActive(true);
 		} else {
-			spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder - 1;
+			gameObject.SetActive(false);
 		}
 	}
 }
