@@ -5,11 +5,12 @@ public class NpcInteractionZone : MonoBehaviour {
 
 	private SpriteRenderer spriteRenderer;
 	private InstructionManager iManager;
-	private SimpleDialogueController dialogueController;
+
+	public bool playerInZone { get; private set; }
 
 	void Start () {
 		iManager = GameObject.FindObjectOfType<InstructionManager>();
-		dialogueController = GetComponentInParent<SimpleDialogueController>();
+
 		spriteRenderer = GetComponentInParent<SpriteRenderer>();
 	}
 
@@ -17,7 +18,7 @@ public class NpcInteractionZone : MonoBehaviour {
 	{
 		if (!iManager.IsActive () && col.gameObject.name == "Player") {
 			iManager.ShowInstruction("Press", "Space", "to talk");
-			dialogueController.PlayerEnterInteractionZone();
+			playerInZone = true;
 		}
 	}
 
@@ -33,7 +34,7 @@ public class NpcInteractionZone : MonoBehaviour {
 		
 		if (col.gameObject.name == "Player") {
 			iManager.HideInstruction();
-			dialogueController.PlayerExitInteractionZone();
+			playerInZone = false;
 		} 
 
 	}

@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
-		childAnimators = GetComponentsInChildren<Animator>();
+	
 	}
 
 
@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour {
 		float speed;
 
 		if (Input.GetKeyDown (KeyCode.E)) {
-			ToolUse use = GetComponentInChildren<ToolUse>();
-			use.PlayClip();
+			Tool tool = GetComponentInChildren<Tool>();
+			tool.Use();
 		}
 
 		if (movementEnabled) {
@@ -63,36 +63,20 @@ public class PlayerMovement : MonoBehaviour {
 				anim.SetBool ("IsWalking", true);
 				anim.SetFloat ("Input_x", movement_vector.x);
 				anim.SetFloat ("Input_y", movement_vector.y);
-
-				SetChildWornAnimatorParameters (true, movement_vector.x, movement_vector.y);
 		
 			} else {
 
 				anim.SetBool ("IsWalking", false);
-				SetChildWornAnimatorParameters(false,0, 0);
+
 			}
 
 			rBody.MovePosition (rBody.position + movement_vector * Time.deltaTime);
 		} else {
 
 			anim.SetBool("IsWalking", false);
-			SetChildWornAnimatorParameters(false, 0, 0);
 			rBody.velocity = Vector2.zero;
 		}
 
-	}
-
-	private void SetChildWornAnimatorParameters (bool isWalking, float x, float y)
-	{
-		foreach (Animator a in childAnimators) {
-			if (a.gameObject.tag == "Worn Equipment") {
-				a.SetBool ("IsWalking", isWalking);
-				if (isWalking) {
-					a.SetFloat ("Input_x", x);
-					a.SetFloat ("Input_y", y);
-				}
-			}
-		}
 	}
 
 	public void EnableMovement() {

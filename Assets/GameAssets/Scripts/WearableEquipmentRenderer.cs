@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EquipmentRenderer : MonoBehaviour {
+public class WearableEquipmentRenderer : MonoBehaviour {
 
 	private Player player;
 	private SpriteRenderer spriteRenderer;
+	private Animator equipAnim;
+	private Animator playerAnim;
 
 
 	// Use this for initialization
@@ -13,16 +15,16 @@ public class EquipmentRenderer : MonoBehaviour {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 
+		equipAnim = GetComponent<Animator>();
+		playerAnim = player.gameObject.GetComponent<Animator>();
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (player.hasBackpack) {
-
-			gameObject.SetActive(true);
-		} else {
-			gameObject.SetActive(false);
-		}
+		equipAnim.SetBool("IsWalking", playerAnim.GetBool("IsWalking"));
+		equipAnim.SetFloat("Input_x", playerAnim.GetFloat("Input_x"));
+		equipAnim.SetFloat("Input_y", playerAnim.GetFloat("Input_y"));
 	}
 }

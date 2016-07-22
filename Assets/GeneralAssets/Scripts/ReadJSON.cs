@@ -36,7 +36,9 @@ public class ReadJSON : MonoBehaviour {
 				dialogueList.Add (JsonMapper.ToObject<LinearDialogueBlock> (actorData [i].ToJson ()));
 			} else if (actorData [i] ["type"].ToString () == "branchDialogue") {
 				dialogueList.Add (JsonMapper.ToObject<BranchDialogueBlock> (actorData [i].ToJson ()));
-			}
+			} else if (actorData [i] ["type"].ToString () == "linearEffectDialogue") {
+				dialogueList.Add (JsonMapper.ToObject<LinearEffectDialogueBlock> (actorData [i].ToJson ()));
+			} 
 
 		}
 

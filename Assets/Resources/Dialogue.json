@@ -1,11 +1,11 @@
 {
 	"actors": {
-		"mayor": [
+		"Mayor": [
 			{	
 				"id": 0,
 				"name": "EntranceDialogueMain",
-				"speaker": "mayor",
-				"type": "linearDialogue", 
+				"speaker": "Mayor",
+				"type": "linearEffectDialogue", 
 				"script_en_GB": [
 					"Oh my God! I’m so glad you’re here!",
 					"We’ve got so many terrible problems here on Dome Island, we really need your help!",
@@ -17,13 +17,14 @@
 					"Why don’t you head straight over to the BEACH west of here. You’ll find him at his SURF SHACK."
 
 				],
-				"nextId": 1
+				"nextId": 1,
+				"effectName": "SpokenToMayor"
 
 			},
 			{
 				"id": 1,
 				"name":	"EntranceDialogueStub", 
-				"speaker": "mayor",
+				"speaker": "Mayor",
 				"type": "linearDialogue",
 				"script_en_GB": [
 					"Head over to see Ethan at his SURF SHACK on the BEACH west of here.",
@@ -33,11 +34,11 @@
 			}
 		],
 
-		"surfShackOwner": [
+		"Ethan": [
 			{
 				"id": 0,
 				"name": "FirstMeetingMain",
-				"speaker": "surfShackOwner",
+				"speaker": "Ethan",
 				"type": "branchDialogue",
 				"script_en_GB": [
 					"Hi there, I’m Ethan and this is my Surf Shack.",
@@ -54,21 +55,22 @@
 			{
 				"id": 1,
 				"name": "FirstMeetingYes",
-				"speaker": "surfShackOwner",
-				"type": "linearDialogue", 
+				"speaker": "Ethan",
+				"type": "linearEffectDialogue", 
 				"script_en_GB": [
 					"That's fantastic! Thanks so much!!",
 					"Now, I’ve been working on a good way to collect all this rubbish, quickly and safely",
 					"I mean, you don’t want to cut your hand on some rusty can or get covered in melted ice cream do you?",
 					"So here, take this rubbish picker and this backpack, you can store quite a lot of rubbish in there and when it is full, bring it back and we’ll find something to do with it."
 				],
-				"nextId": 2
+				"nextId": 2,
+				"effectName": "FirstEthanMeetingPositive"
 			},
 
 			{
 				"id": 2,
 				"name": "FirstMeetingGameStart",
-				"speaker": "surfShackOwner",
+				"speaker": "Ethan",
 				"type": "linearDialogue", 
 				"script_en_GB": [
 					"Now you've got what you need,",
@@ -81,18 +83,19 @@
 			{
 				"id": 3,
 				"name": "FirstMeetingNo",
-				"speaker": "surfShackOwner",
-				"type": "linearDialogue",
+				"speaker": "Ethan",
+				"type": "linearEffectDialogue",
 				"script_en_GB": [
 					"Oh, alright then... well speak to me again if you change your mind"
 				],
-				"nextId": 4
+				"nextId": 4,
+				"effectName": "SpokenToEthan"
 			},
 
 			{
 				"id": 4,
 				"name": "FirstMeetingStub",
-				"speaker": "surfShackOwner",
+				"speaker": "Ethan",
 				"type": "branchDialogue",
 				"script_en_GB": [
 					"Hi again, I'm glad you came back",

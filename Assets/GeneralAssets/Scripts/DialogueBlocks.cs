@@ -27,6 +27,14 @@ namespace DialogueBlocks
 
 	}
 
+	public class LinearEffectDialogueBlock : LinearDialogueBlock {
+		public string effectName {get; set;}
+		public override string ToString ()
+		{
+			return base.ToString() + ", EffectName:" + effectName;
+		}
+	}
+
 	public class BranchDialogueBlock : DialogueBlock {
 		public int id{ get; set; }
 		public string name{ get; set; }

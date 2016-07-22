@@ -25,6 +25,7 @@ public class NpcController : MonoBehaviour {
 	private Vector2 currentDirection;
 
 	public bool movementEnabled;
+	public bool movementBox;
 
 	// Use this for initialization
 	void Start () {
@@ -49,11 +50,13 @@ public class NpcController : MonoBehaviour {
 
 	private bool OutOfMovementBox ()
 	{
-		Vector2 currentPos = transform.position;
-		return (currentPos.x > maxPosition.x || 
-					currentPos.y > maxPosition.y || 
-					currentPos.x < minPosition.x || 
-					currentPos.y < minPosition.y);
+		if (movementBox){
+			Vector2 currentPos = transform.position;
+			return (currentPos.x > maxPosition.x || 
+						currentPos.y > maxPosition.y || 
+						currentPos.x < minPosition.x || 
+						currentPos.y < minPosition.y);
+		} else return false;
 
 	}
 

@@ -48,9 +48,6 @@ public class SimpleDialogueController : MonoBehaviour {
 
 	void Update ()
 	{
-		if (Input.GetKey (KeyCode.LeftShift) && Input.GetKeyDown (KeyCode.Keypad0)) {
-			Debug.Log(currentDialogueBlock);
-		}
 		if (playerInZone) {
 
 			if (!dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Space)) {
@@ -75,6 +72,7 @@ public class SimpleDialogueController : MonoBehaviour {
 			} else if (blockFinished && currentIsBranch) {
 				if (Input.GetKeyDown(KeyCode.Y)) {
 					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).yesNextId);
+
 
 				} else if (Input.GetKeyDown(KeyCode.N)) {
 					SetCurrentDialogueBlock((currentDialogueBlock as BranchDialogueBlock).noNextId);

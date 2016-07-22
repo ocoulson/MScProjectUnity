@@ -9,7 +9,7 @@ public class ToolUse : MonoBehaviour {
 		anim = GetComponent<Animator>();	
 	}
 
-	public void PlayClip() {
+	public void Use() {
 		anim.SetTrigger("UseTrigger");
 	}
 }

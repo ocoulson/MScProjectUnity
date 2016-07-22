@@ -16,8 +16,6 @@ public class ToolRenderer : MonoBehaviour {
 	void Update ()
 	{
 		if (player.toolEquiped) {
-			transform.GetChild (0).gameObject.SetActive (true);
-
 			if (player.gameObject.GetComponent<SpriteRenderer> ().sprite.name.Contains ("Back") ||
 			    player.gameObject.GetComponent<SpriteRenderer> ().sprite.name.Contains ("Left")) {
 
@@ -25,11 +23,8 @@ public class ToolRenderer : MonoBehaviour {
 			} else {
 				spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 			}
-
-
-		} else {
-			transform.GetChild (0).gameObject.SetActive (false);
 		}
+
 
 	}
 
