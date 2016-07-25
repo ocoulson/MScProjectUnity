@@ -18,7 +18,7 @@
 
 				],
 				"nextId": 1,
-				"effectName": "SpokenToMayor"
+				"effectName": "SpokenToMayorFirst"
 
 			},
 			{
@@ -31,6 +31,42 @@
 					"I know he needs your help with something."
 				],
 				"nextId": 1 
+			},
+			{
+				"id": 2,
+				"name":	"PlayerSpokenToMayorBeforeEthan", 
+				"speaker": "Mayor",
+				"type": "linearEffectDialogue",
+				"script_en_GB": [
+					"Did you manage to find Ethan then?",
+					"Oh good, well I hope you can help him clean up the beach, it would be great to take an afternoon off there soon.",
+					"Well, I'm going to head off to the village, you can find me there later, I'm sure I'll find something else for you to help with."
+				],
+				"nextId": 2,
+				"effectName": "MayorLeaveBeach" 
+
+			},
+			{
+				"id": 3,
+				"name":	"PlayerSpokenToEthanBeforeMayor", 
+				"speaker": "Mayor",
+				"type": "linearEffectDialogue",
+				"script_en_GB": [
+					"Oh my God! I’m so glad you’re here!",
+					"We’ve got so many terrible problems here on Dome Island, we really need your help!",
+					"The air is full of horrible fumes, the plants and animals are sick and dying, there’s rubbish everywhere and ...",
+					"...I’m sorry, where are my manners!?",
+					"My name is Diana and I’m the Mayor of the little village just north of here.",
+					"Anyway, it’s really good to meet you, but you had really better get going! There’s a lot to do!",
+					"I know that Ethan needs you for something.",
+					"Oh, you've already met Ethan?! Great",
+					"Well I hope you can help him clean up the beach, it would be great to take an afternoon off there soon.",
+					"Now I'm going to head off to the village, you can find me there later.",
+					"I'm sure I'll find something else for you to help with."
+
+				],
+				"nextId": 3,
+				"effectName": "MayorLeaveBeach" 
 			}
 		],
 

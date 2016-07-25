@@ -40,40 +40,33 @@ public class NPCDialogue : MonoBehaviour {
 			if (dialogue == null) {
 				ReadDialogueData ();
 			}
-			if (!dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Space)) {
-				iManager.HideInstruction ();
-				player.GetComponent<PlayerMovement> ().movementEnabled = false;
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (!dManager.DialogueActive ()) {
+					iManager.HideInstruction ();
+					player.GetComponent<PlayerMovement> ().movementEnabled = false;
+				}
 
+				DisplayLine ();
 
-				dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
+			}
 
-				IncrementDialogueCounter ();
-
-
-			} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Space)) {
-				dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
-
-				IncrementDialogueCounter ();
-
-
-			} else if (blockFinished && currentIsBranch) {
+			if (blockFinished && currentIsBranch) {
 				if (Input.GetKeyDown (KeyCode.Y)) {
 					SetCurrentDialogueBlock ((currentDialogueBlock as BranchDialogueBlock).yesNextId);
-
-
 				} else if (Input.GetKeyDown (KeyCode.N)) {
 					SetCurrentDialogueBlock ((currentDialogueBlock as BranchDialogueBlock).noNextId);
-
 				}
-				dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
-				IncrementDialogueCounter ();
 
-			} else if (blockFinished && !currentIsBranch && Input.GetKeyDown (KeyCode.C)) {
+				DisplayLine();
+			} 
+
+			if (blockFinished && !currentIsBranch && Input.GetKeyDown (KeyCode.C) ) {
 				CloseDialogue (true);
 
 			} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Escape)) {
 				CloseDialogue (false);
 			}
+
 		} else {
 			npcController.movementEnabled = true;
 		}
@@ -81,6 +74,11 @@ public class NPCDialogue : MonoBehaviour {
 	
 	}
 
+	void DisplayLine ()
+	{
+		dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
+		IncrementDialogueCounter ();
+	}
 	void ReadDialogueData ()
 	{
 		ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
@@ -89,8 +87,13 @@ public class NPCDialogue : MonoBehaviour {
 		SetCurrentDialogueBlock(0);
 	}
 
-	private void SetCurrentDialogueBlock (int id)
+	public void SetCurrentDialogueBlock (int id)
 	{
+		if (dialogue == null) {
+			ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
+			dialogue = jsonReader.GetCharacterDialogue (npc.npcName);
+		}
+
 		foreach (DialogueBlock block in dialogue) {
 			if (block.id == id) {
 				currentDialogueBlock = block;
@@ -157,7 +160,10 @@ public class NPCDialogue : MonoBehaviour {
 			if (currentHasEffect) {
 				string effectName = (currentDialogueBlock as LinearEffectDialogueBlock).effectName;
 
-				FindObjectOfType<GameProgress>().checkPoints[effectName] = true;
+				if (FindObjectOfType<GameProgress> ().checkPoints [effectName] == CP_STATUS.UNTRIGGERED) {
+					FindObjectOfType<GameProgress> ().checkPoints [effectName] = CP_STATUS.TRIGGERED;
+				}
+
 			}
 
 		}
