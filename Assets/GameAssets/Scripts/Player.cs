@@ -58,6 +58,7 @@ public class Player : MonoBehaviour {
 	private void SetParentAndPosition(Transform target, Transform holder) {
 		target.parent = holder;
 		target.position = holder.position;
+		target.rotation = holder.rotation;
 	}
 
 }
