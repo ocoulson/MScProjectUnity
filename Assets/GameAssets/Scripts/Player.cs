@@ -4,12 +4,9 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
-	public bool wearingEquipment;
-
-	public bool toolEquiped;
-
 	public GameObject ToolSlot;
 	public GameObject WearableSlot;
+	public GameObject wearable {get; private set;}
 
 	public GameObject currentTool;
 	public List<GameObject> tools { get; private set; }
@@ -24,10 +21,19 @@ public class Player : MonoBehaviour {
 	{
 		if (currentTool != null) {
 			toolDisplay.ShowToolImage ();
-			toolDisplay.SetToolImage(currentTool.GetComponent<Tool>().icon);
+			toolDisplay.SetToolImage (currentTool.GetComponent<Tool> ().icon);
+		} else {
+			toolDisplay.HideToolImage();
 		}
 
 	}
+
+	public void SetWearable (GameObject newWearable)
+	{
+		wearable = newWearable;
+		SetParentAndPosition(wearable.transform, WearableSlot.transform);
+	}
+
 	public void AddTool (GameObject tool)
 	{
 		if (!tools.Contains (tool)) {
@@ -44,12 +50,14 @@ public class Player : MonoBehaviour {
 			Debug.Log ("Invalid tool choice");
 		} else {
 			currentTool = tools [index];
-			ToolSlot.transform.DetachChildren();
-			currentTool.transform.parent = ToolSlot.transform;
-			currentTool.transform.position = ToolSlot.transform.position;
+			ToolSlot.transform.DetachChildren ();
+			SetParentAndPosition (currentTool.transform, ToolSlot.transform);
 		}
 	}
 
-
+	private void SetParentAndPosition(Transform target, Transform holder) {
+		target.parent = holder;
+		target.position = holder.position;
+	}
 
 }

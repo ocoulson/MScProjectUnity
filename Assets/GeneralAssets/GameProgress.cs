@@ -21,7 +21,10 @@ public class GameProgress : MonoBehaviour {
 			checkPoints ["SpokenToEthan"] = true;
 			GameObject grabber = Instantiate(Resources.Load ("Prefabs/Tools/Grabber")) as GameObject;
 			player.AddTool(grabber);
-			player.wearingEquipment = true;
+
+			GameObject backpack = Instantiate(Resources.Load ("Prefabs/Wearables/Backpack")) as GameObject;
+			player.SetWearable(backpack);
+
 			checkPoints["FirstEthanMeetingPositive"] = false;
 
 		}

@@ -15,14 +15,12 @@ public class ToolRenderer : MonoBehaviour {
 
 	void Update ()
 	{
-		if (player.toolEquiped) {
-			if (player.gameObject.GetComponent<SpriteRenderer> ().sprite.name.Contains ("Back") ||
-			    player.gameObject.GetComponent<SpriteRenderer> ().sprite.name.Contains ("Left")) {
+		if (player.gameObject.GetComponent<SpriteRenderer> ().sprite.name.Contains ("Back") ||
+		    player.gameObject.GetComponent<SpriteRenderer> ().sprite.name.Contains ("Left")) {
 
-				spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder - 1;
-			} else {
-				spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder + 1;
-			}
+			spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder - 1;
+		} else {
+			spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 		}
 
 
