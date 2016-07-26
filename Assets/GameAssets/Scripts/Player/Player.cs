@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Player : MonoBehaviour {
 
-	public GameObject ToolSlot;
-	public GameObject WearableSlot;
+	public GameObject toolSlot;
+	public GameObject wearableSlot;
 	public GameObject wearable {get; private set;}
 
-	public GameObject currentTool;
+	public GameObject currentTool {get; private set;}
 	public List<GameObject> tools { get; private set; }
+
+	public Inventory inventory { get; private set; }
 
 	private ToolDisplayManager toolDisplay;
 
@@ -17,21 +20,38 @@ public class Player : MonoBehaviour {
 		tools = new List<GameObject>();
 		toolDisplay = FindObjectOfType<ToolDisplayManager>();
 	}
-	void Update ()
-	{
-		if (currentTool != null) {
-			toolDisplay.ShowToolImage ();
-			toolDisplay.SetToolImage (currentTool.GetComponent<Tool> ().icon);
-		} else {
-			toolDisplay.HideToolImage();
-		}
 
+	public void InitialiseInventory (int initialSize)
+	{
+		if (inventory == null) {
+			inventory = new Inventory (initialSize);
+		} else {
+			Debug.LogError("Inventory already initilalised");
+		}
+	}
+
+	public void IncreaseInventorySize (int newSize)
+	{
+		try {
+			inventory.IncreaseCapacity (newSize);
+		} catch (ArgumentException ex) {
+			Debug.LogError(ex.Message);
+		}
+	}
+
+	public void AddItem (InventoryItem item)
+	{
+		try {
+			inventory.AddItem(item); 
+		} catch(ArgumentException ex) {
+			Debug.LogError(ex.Message);
+		}
 	}
 
 	public void SetWearable (GameObject newWearable)
 	{
 		wearable = newWearable;
-		SetParentAndPosition(wearable.transform, WearableSlot.transform);
+		SetParentAndPosition(wearable.transform, wearableSlot.transform);
 	}
 
 	public void AddTool (GameObject tool)
@@ -50,8 +70,11 @@ public class Player : MonoBehaviour {
 			Debug.Log ("Invalid tool choice");
 		} else {
 			currentTool = tools [index];
-			ToolSlot.transform.DetachChildren ();
-			SetParentAndPosition (currentTool.transform, ToolSlot.transform);
+			toolSlot.transform.DetachChildren ();
+			SetParentAndPosition (currentTool.transform, toolSlot.transform);
+
+			toolDisplay.ShowToolImage ();
+			toolDisplay.SetToolImage (currentTool.GetComponent<Tool> ().icon);
 		}
 	}
 

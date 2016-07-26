@@ -13,16 +13,41 @@ using DialogueBlocks;
 public class ReadJSON : MonoBehaviour {
 
 	private JsonData dialogueJsonData;
-	private string jsonString;
+	private string dialogueJsonString;
 
-	// Use this for initialization
+	private JsonData itemsJsonData;
+	private string itemsJsonString;
+
 
 	void Start ()
 	{
-		jsonString = File.ReadAllText (Application.dataPath + "/Resources/Dialogue.json");
+		dialogueJsonString = File.ReadAllText (Application.dataPath + "/Resources/JSON/Dialogue.json");
+		dialogueJsonData = JsonMapper.ToObject (dialogueJsonString);
 
-		dialogueJsonData = JsonMapper.ToObject (jsonString);
+		itemsJsonString = File.ReadAllText(Application.dataPath + "/Resources/JSON/InventoryItems.json");
+		itemsJsonData = JsonMapper.ToObject(itemsJsonString);
+	}
 
+	public Resource[] GetResourceList ()
+	{
+		JsonData resources = itemsJsonData ["Resources"];
+		List<Resource> output = new List<Resource> ();
+
+		for (int i = 0; i < resources.Count; i++) {
+			output.Add(JsonMapper.ToObject<Resource>(resources[i].ToJson()));
+		}
+		return output.ToArray();
+	}
+
+	public Rubbish[] GetRubbishList ()
+	{
+		JsonData rubbish = itemsJsonData["Rubbish"];
+		List<Rubbish> output = new List<Rubbish>();
+
+		for (int i = 0; i < rubbish.Count; i++) {
+			output.Add(JsonMapper.ToObject<Rubbish>(rubbish[i].ToJson()));
+		}
+		return output.ToArray(); 
 	}
 
 	public DialogueBlock[] GetCharacterDialogue (string character)
@@ -45,33 +70,7 @@ public class ReadJSON : MonoBehaviour {
 		return dialogueList.ToArray();
 	} 
 
-	JsonData GetDialogueJsonData (string actor, string blockName)
-	{
-		JsonData actorData = dialogueJsonData ["actors"] [actor];
 
-		for (int i = 0; i < actorData.Count; i++) {
-			if (blockName == actorData [i] ["name"].ToString ()) {
-				Debug.Log ("found");
-				return actorData [i];
-			}
-		}
-		Debug.Log ("not found");
-		return null;
-	}
-
-	DialogueBlock GetDialogue (JsonData block)
-	{
-		DialogueBlock output = null;
-	
-		if (block ["type"].ToString () == "linearDialogue") {
-			output = JsonMapper.ToObject<LinearDialogueBlock> (block.ToJson ());
-
-		} else if (block ["type"].ToString () == "branchDialogue") {
-			output = JsonMapper.ToObject<BranchDialogueBlock>(block.ToJson());
-		}
-			
-		return output; 
-	}
 
 
 

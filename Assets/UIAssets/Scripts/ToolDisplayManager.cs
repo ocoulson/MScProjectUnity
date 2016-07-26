@@ -10,7 +10,7 @@ public class ToolDisplayManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		toolBox.SetActive(true);
+		toolBox.SetActive(false);
 		toolImage.gameObject.SetActive(false);
 	}
 

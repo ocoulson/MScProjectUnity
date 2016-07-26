@@ -32,8 +32,8 @@ public class GameProgress : MonoBehaviour {
 		}
 
 		if (checkPoints ["SpokenToEthan"] == CP_STATUS.TRIGGERED) {
-			NPC[] npcs = GameObject.FindObjectsOfType<NPC> ();
-			NPC mayor = Array.Find (npcs, npc => npc.npcName == "Mayor");
+			NPC mayor = FindNPC("Mayor");
+			
 			if (checkPoints ["SpokenToMayorFirst"] == CP_STATUS.TRIGGERED) {
 				mayor.gameObject.GetComponent<NPCDialogue> ().SetCurrentDialogueBlock (2);
 			} else {
@@ -43,8 +43,13 @@ public class GameProgress : MonoBehaviour {
 		}
 
 		if (checkPoints ["MayorLeaveBeach"] == CP_STATUS.TRIGGERED) {
-			Debug.Log("MayorLeaveBeach checkpoint - unimplemented");
+			Debug.Log("MayorLeaveBeach - not implemented");
 		}
+	}
+	private NPC FindNPC (string name)
+	{
+		NPC[] npcs = GameObject.FindObjectsOfType<NPC> ();
+		return Array.Find (npcs, npc => npc.npcName == name);
 	}
 }
 
