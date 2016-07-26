@@ -21,16 +21,19 @@ public class ReadJSON : MonoBehaviour {
 
 	void Start ()
 	{
+		DontDestroyOnLoad(gameObject);
 		dialogueJsonString = File.ReadAllText (Application.dataPath + "/Resources/JSON/Dialogue.json");
 		dialogueJsonData = JsonMapper.ToObject (dialogueJsonString);
 
 		itemsJsonString = File.ReadAllText(Application.dataPath + "/Resources/JSON/InventoryItems.json");
-		itemsJsonData = JsonMapper.ToObject(itemsJsonString);
+
+		itemsJsonData = JsonMapper.ToObject (itemsJsonString);
+
 	}
 
 	public Resource[] GetResourceList ()
 	{
-		JsonData resources = itemsJsonData ["Resources"];
+		JsonData resources =  itemsJsonData["Resources"];
 		List<Resource> output = new List<Resource> ();
 
 		for (int i = 0; i < resources.Count; i++) {
