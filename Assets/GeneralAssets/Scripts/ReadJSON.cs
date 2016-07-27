@@ -31,24 +31,28 @@ public class ReadJSON : MonoBehaviour {
 
 	}
 
-	public Resource[] GetResourceList ()
+	public InventoryItem[] GetResourceList ()
 	{
 		JsonData resources =  itemsJsonData["Resources"];
-		List<Resource> output = new List<Resource> ();
+		List<InventoryItem> output = new List<InventoryItem> ();
 
 		for (int i = 0; i < resources.Count; i++) {
-			output.Add(JsonMapper.ToObject<Resource>(resources[i].ToJson()));
+			InventoryItem resource = JsonMapper.ToObject<InventoryItem>(resources[i].ToJson());
+			resource.InitialiseItem();
+			output.Add(resource);
 		}
 		return output.ToArray();
 	}
 
-	public Rubbish[] GetRubbishList ()
+	public InventoryItem[] GetRubbishList ()
 	{
 		JsonData rubbish = itemsJsonData["Rubbish"];
-		List<Rubbish> output = new List<Rubbish>();
+		List<InventoryItem> output = new List<InventoryItem>();
 
 		for (int i = 0; i < rubbish.Count; i++) {
-			output.Add(JsonMapper.ToObject<Rubbish>(rubbish[i].ToJson()));
+			InventoryItem rubbishItem = JsonMapper.ToObject<InventoryItem>(rubbish[i].ToJson());
+			rubbishItem.InitialiseItem();
+			output.Add(rubbishItem);
 		}
 		return output.ToArray(); 
 	}

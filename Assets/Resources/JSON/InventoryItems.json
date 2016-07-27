@@ -1,438 +1,233 @@
 {
 	"Resources": [
 		{
-			"resourceId": 1,
-			"resourceName": "Glass",
-			"resourceDescription": "A transparent material mostly used for food containers (jars, glasses, bottles) and also as a construction material (windows, doors)",
-			"iconPath": "InventoryItems/GlassIcon",
-			"spritePath": "InventoryItems/GlassSprite" 
+			"itemId": 1,
+			"itemName": "Glass",
+			"itemDescription": "A transparent material mostly used for food containers (jars, glasses, bottles) and also as a construction material (windows, doors)",
+			"itemType": 0
 		},
 		{
-			"resourceId": 2,
-			"resourceName": "Metal",
-			"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-			"iconPath": "InventoryItems/MetalIcon",
-			"spritePath": "InventoryItems/MetalSprite" 
+			"itemId": 2,
+			"itemName": "Metal",
+			"itemDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
+			"itemType": 0
 		},
 		{
-			"resourceId": 3,
-			"resourceName": "GreenWaste",
-			"resourceDescription": "Biodegradable waste. Leftover food and drink, cut grass, animal waste. Not really recycleable like other materials, but it has many uses, from fertilising fields and gardens, to producing gas for fuel",
-			"iconPath": "InventoryItems/GreenWasteIcon",
-			"spritePath": "InventoryItems/GreenWasteSprite" 
+			"itemId": 3,
+			"itemName": "GreenWaste",
+			"itemDescription": "Biodegradable waste. Leftover food and drink, cut grass, animal waste. Not really recycleable like other materials, but it has many uses, from fertilising fields and gardens, to producing gas for fuel",
+			"itemType": 0
 		},
 		{
-			"resourceId": 4,
-			"resourceName": "Paper",
-			"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-			"iconPath": "InventoryItems/PaperIcon",
-			"spritePath": "InventoryItems/PaperSprite" 
+			"itemId": 4,
+			"itemName": "Paper",
+			"itemDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
+			"itemType": 0
 		},
 		{
-			"resourceId": 5,
-			"resourceName": "Plastic",
-			"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-			"iconPath": "InventoryItems/PlasticIcon",
-			"spritePath": "InventoryItems/PlasticSprite" 
+			"itemId": 5,
+			"itemName": "Plastic",
+			"itemDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
+			"itemType": 0
 		}
 	],
 	"Rubbish": [
 		{
-			"rubbishId": 1,
-			"rubbishName": "CrumpledPaper1",
-			"rubbishDescription": "A crumpled up sheet of paper",
+			"itemId": 1,
+			"itemName": "CrumpledPaper1",
+			"itemDescription": "A crumpled up sheet of paper",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/CrumpledPaper1Icon",
-			"spritePath": "InventoryItems/CrumpledPaper1Sprite"
+				"Paper"
+			]
 		},
 		{
-			"rubbishId": 2,
-			"rubbishName": "LargeCardboardBox",
-			"rubbishDescription": "A large cardboard box from a popular delivery company, with some plastic bubble wrap inside",
+			"itemId": 2,
+			"itemName": "LargeCardboardBox",
+			"itemDescription": "A large cardboard box from a popular delivery company, with some plastic bubble wrap inside",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				}
+				"Paper",
+				"Paper",
+				"Paper",
+				"Paper",
+				"Paper",
+				"Plastic",
+				"Plastic"
+			]
+		},
+		{
+			"itemId": 3,
+			"itemName": "LargeCarrierBag",
+			"itemDescription": "A large carrier bag from a popular supermarket",
+			"itemType": 1,
+			"containedResources": [
+				"Plastic",
+				"Plastic"
+			]
+		},
+		{
+			"itemId": 4,
+			"itemName": "PolytheneCup",
+			"itemDescription": "A small polythene drinks cup",
+			"itemType": 1,
+			"containedResources": [
+				"Plastic"
+			]
+		},
+		{
+			"itemId": 5,
+			"itemName": "LargePlasticBottle",
+			"itemDescription": "A large plastic juice bottle, with a little juice still inside",
+			"itemType": 1,
+			"containedResources": [
+				"Plastic",
+				"Plastic",
+				"Plastic",
+				"Plastic",
+				"Paper",
+				"GreenWaste"
+			]
+		},
+		{
+			"itemId": 6,
+			"itemName": "Newspaper",
+			"itemDescription": "An old newspaper from several days ago",
+			"itemType": 1,
+			"containedResources": [
+				"Paper",
+				"Paper",
+				"Paper",
+				"Paper"
+			]
+		},
+		{
+			"itemId": 7,
+			"itemName": "PizzaBox",
+			"itemDescription": "A old pizza box, bits of cheese, toppings and pizza base are still inside",
+			"itemType": 1,
+			"containedResources": [
+				"Paper",
+				"Paper",
+				"Paper",
+				"GreenWaste"
+				
+			]
+		},
+		{
+			"itemId": 8,
+			"itemName": "SmallCarrierBag",
+			"itemDescription": "A small carrier bag from a popular supermarket",
+			"itemType": 1,
+			"containedResources": [
+				"Plastic"
+			]
+		},
+		{
+			"itemId": 9,
+			"itemName": "DrinksCan",
+			"itemDescription": "A small metal empty can of a popular fizzy soft drink",
+			"itemType": 1,
+			"containedResources": [
+				"Metal",
+				"Metal"
+			]
+		},
+		{
+			"itemId": 10,
+			"itemName": "SmallPlasticBottle",
+			"itemDescription": "A small, empty clear plastic drinks bottle",
+			"itemType": 1,
+			"containedResources": [
+				"Plastic",
+				"Plastic",
+				"Paper"
+			]
+		},
+		{
+			"itemId": 11,
+			"itemName": "SmallTinCan",
+			"itemDescription": "An empty food can, with a bit of old food at the bottom",
+			"itemType": 1,
+			"containedResources": [
+				"Metal",
+				"Metal",
+				"GreenWaste"
 
-			],
-			"iconPath": "InventoryItems/LargeCardboardBoxIcon",
-			"spritePath": "InventoryItems/LargeCardboardBoxSprite"
+			]
 		},
 		{
-			"rubbishId": 3,
-			"rubbishName": "LargeCarrierBag",
-			"rubbishDescription": "A large carrier bag from a popular supermarket",
+			"itemId": 12,
+			"itemName": "GlassBottle1",
+			"itemDescription": "An empty brown glass bottle with a metal screw cap",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/LargeCarrierBagIcon",
-			"spritePath": "InventoryItems/LargeCarrierBagSprite"
+				"Glass",
+				"Glass",
+				"Glass",
+				"Metal",
+				"Paper"
+			]
 		},
 		{
-			"rubbishId": 4,
-			"rubbishName": "LargeDrinksCan",
-			"rubbishDescription": "A large, empty metal can of a popular fizzy soft drink",
+			"itemId": 13,
+			"itemName": "GlassBottle2",
+			"itemDescription": "A empty green glass bottle with a metal screw cap",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				},
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				},
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/LargeDrinksCanIcon",
-			"spritePath": "InventoryItems/LargeDrinksCanSprite"
+				"Glass",
+				"Glass",
+				"Glass",
+				"Metal",
+				"Paper"
+			]
 		},
 		{
-			"rubbishId": 5,
-			"rubbishName": "LargePlasticBottle",
-			"rubbishDescription": "A large, empty clear plastic drinks bottle",
+			"itemId": 14,
+			"itemName": "MediumPlasticBottle",
+			"itemDescription": "An empty plastic bottle, from a popular cleaning product brand",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/LargePlasticBottleIcon",
-			"spritePath": "InventoryItems/LargePlasticBottleSprite"
+				"Plastic",
+				"Plastic",
+				"Plastic",
+				"Paper"
+			]
 		},
 		{
-			"rubbishId": 6,
-			"rubbishName": "Newspaper1",
-			"rubbishDescription": "An old newspaper from several days ago",
+			"itemId": 15,
+			"itemName": "LargeTinCan",
+			"itemDescription": "A large empty food can, with a bit of old food at the bottom",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/Newspaper1Icon",
-			"spritePath": "InventoryItems/Newspaper1Sprite"
+				"Metal",
+				"Metal",
+				"Metal",
+				"Metal",
+				"GreenWaste",
+				"GreenWaste"
+			]
 		},
 		{
-			"rubbishId": 7,
-			"rubbishName": "SmallCardboardBox",
-			"rubbishDescription": "A small cardboard box from a popular delivery company, with some plastic bubble wrap inside",
+			"itemId": 16,
+			"itemName": "JamJar",
+			"itemDescription": "A empty clear glass jar",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/SmallCardboardBoxIcon",
-			"spritePath": "InventoryItems/SmallCardboardBoxSprite"
+				"Glass",
+				"Glass",
+				"Glass"
+			]
 		},
 		{
-			"rubbishId": 8,
-			"rubbishName": "SmallCarrierBag",
-			"rubbishDescription": "A small carrier bag from a popular supermarket",
+			"itemId": 17,
+			"itemName": "BrownPaperBag",
+			"itemDescription": "A paper bag for carrying groceries",
+			"itemType": 1,
 			"containedResources": [
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/SmallCarrierBagIcon",
-			"spritePath": "InventoryItems/SmallCarrierBagSprite"
-		},
-		{
-			"rubbishId": 9,
-			"rubbishName": "SmallDrinksCan",
-			"rubbishDescription": "A small metal empty can of a popular fizzy soft drink",
-			"containedResources": [
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				},
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/SmallDrinksCanIcon",
-			"spritePath": "InventoryItems/SmallDrinksCanSprite"
-		},
-		{
-			"rubbishId": 10,
-			"rubbishName": "SmallPlasticBottle",
-			"rubbishDescription": "A small, empty clear plastic drinks bottle",
-			"containedResources": [
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 5,
-					"resourceName": "Plastic",
-					"resourceDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-					"iconPath": "InventoryItems/PlasticIcon",
-					"spritePath": "InventoryItems/PlasticSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/SmallPlasticBottleIcon",
-			"spritePath": "InventoryItems/SmallPlasticBottleSprite"
-		},
-		{
-			"rubbishId": 11,
-			"rubbishName": "TinCan1",
-			"rubbishDescription": "An empty food can, with a bit of old food at the bottom",
-			"containedResources": [
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				},
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				},
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				},
-				{
-					"resourceId": 3,
-					"resourceName": "GreenWaste",
-					"resourceDescription": "Biodegradable waste. Leftover food and drink, cut grass, animal waste. Not really recycleable like other materials, but it has many uses, from fertilising fields and gardens, to producing gas for fuel",
-					"iconPath": "InventoryItems/GreenWasteIcon",
-					"spritePath": "InventoryItems/GreenWasteSprite" 
-				}
-
-			],
-			"iconPath": "InventoryItems/TinCan1Icon",
-			"spritePath": "InventoryItems/TinCan1Sprite"
-		},
-		{
-			"rubbishId": 12,
-			"rubbishName": "GlassBottle1",
-			"rubbishDescription": "An empty glass bottle with a metal screw cap",
-			"containedResources": [
-				{
-					"resourceId": 1,
-					"resourceName": "Glass",
-					"resourceDescription": "A transparent material mostly used for food containers (jars, glasses, bottles) and also as a construction material (windows, doors)",
-					"iconPath": "InventoryItems/GlassIcon",
-					"spritePath": "InventoryItems/GlassSprite" 
-				},
-				{
-					"resourceId": 1,
-					"resourceName": "Glass",
-					"resourceDescription": "A transparent material mostly used for food containers (jars, glasses, bottles) and also as a construction material (windows, doors)",
-					"iconPath": "InventoryItems/GlassIcon",
-					"spritePath": "InventoryItems/GlassSprite" 
-				},
-				{
-					"resourceId": 1,
-					"resourceName": "Glass",
-					"resourceDescription": "A transparent material mostly used for food containers (jars, glasses, bottles) and also as a construction material (windows, doors)",
-					"iconPath": "InventoryItems/GlassIcon",
-					"spritePath": "InventoryItems/GlassSprite" 
-				},
-				{
-					"resourceId": 2,
-					"resourceName": "Metal",
-					"resourceDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-					"iconPath": "InventoryItems/MetalIcon",
-					"spritePath": "InventoryItems/MetalSprite" 
-				},
-				{
-					"resourceId": 4,
-					"resourceName": "Paper",
-					"resourceDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-					"iconPath": "InventoryItems/PaperIcon",
-					"spritePath": "InventoryItems/PaperSprite" 
-				}
-			],
-			"iconPath": "InventoryItems/GlassBottle1Icon",
-			"spritePath": "InventoryItems/GlassBottle1Sprite"
+				"Paper",
+				"Paper"
+			]
 		}
 	]
 }
