@@ -22,15 +22,22 @@ public class ItemDatabase : MonoBehaviour {
 	{
 		int random = Random.Range(0, rubbish.Length);
 		GameObject output = new GameObject ();
-		output.AddComponent<Collectable> ();
-		output.AddComponent<SpriteRenderer> ();
+
+		Collectable collectable = output.AddComponent<Collectable> ();
+		SpriteRenderer spriteRenderer = output.AddComponent<SpriteRenderer> ();
 		InventoryItem item = rubbish[random].GetCopy();
-		output.GetComponent<Collectable> ().item = item;
-		output.GetComponent<SpriteRenderer>().sprite = item.sprite;
+		CircleCollider2D col = output.AddComponent<CircleCollider2D>();
+
+
+		collectable.item = item;
+		spriteRenderer.sprite = item.sprite;
+		spriteRenderer.sortingLayerName = "Rubbish";
 		output.name = item.itemName;
 		output.tag = "Rubbish";
 		output.layer = 17;
-		output.GetComponent<SpriteRenderer>().sortingLayerName = "Rubbish";
+
+		col.radius = 0.07f;
+
 		return output;
 	}
 

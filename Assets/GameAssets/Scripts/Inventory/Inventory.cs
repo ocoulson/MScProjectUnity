@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class Inventory
@@ -16,7 +17,7 @@ public class Inventory
 	public void IncreaseCapacity (int newSize)
 	{
 		if (newSize <= size) {
-			throw new ArgumentException ("New inventory size is less than or equal to current size");
+			throw new UnityException ("New inventory size is less than or equal to current size");
 		} else {
 			size = newSize;
 		}
@@ -27,14 +28,14 @@ public class Inventory
 		if (items.Count < size) {
 			items.Add (item);
 		} else {
-			throw new ArgumentException("Inventory Full");
+			throw new UnityException("Inventory Full");
 		} 
 	}
 
 	public InventoryItem RemoveItem (InventoryItem item)
 	{	
 		if (items.Count == 0 || !items.Contains (item)) {
-			throw new ArgumentException("Item not in inventory");
+			throw new UnityException("Item not in inventory");
 		} else {
 			int index = items.IndexOf (item);
 			InventoryItem output = items [index];

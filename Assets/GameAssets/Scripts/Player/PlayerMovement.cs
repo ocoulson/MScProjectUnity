@@ -21,10 +21,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		float speed;
 
-		if (Input.GetKeyDown (KeyCode.E)) {
-			Tool tool = GetComponentInChildren<Tool>();
-			tool.Use();
-		}
+
 
 		if (movementEnabled) {
 			if (Input.GetKey (KeyCode.LeftShift)) {

@@ -21,6 +21,30 @@ public class Player : MonoBehaviour {
 		toolDisplay = FindObjectOfType<ToolDisplayManager>();
 	}
 
+	void Update ()
+	{
+		if (Input.GetKeyDown (KeyCode.E)) {
+			Tool tool = GetComponentInChildren<Tool> ();
+			InventoryItem pickedUp = null;
+			try {
+				pickedUp = tool.Use ();
+			} catch (UnityException ex) {
+				Debug.Log (ex.Message);
+			}
+
+			if (pickedUp != null) {
+				Debug.Log("Picked Up a " + pickedUp.itemName);
+				try {
+					inventory.AddItem (pickedUp);
+				} catch(UnityException ex) {
+					Debug.LogError(ex.Message + "Notification not implemented");
+				}
+
+			}
+
+		}
+	}
+
 	public void InitialiseInventory (int initialSize)
 	{
 		if (inventory == null) {

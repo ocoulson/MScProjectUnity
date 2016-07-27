@@ -3,19 +3,25 @@ using System.Collections;
 
 public class SpriteManager : MonoBehaviour {
 
+	private RubbishSpawner rubbishSpawner;
+
 	private Spawner[] spawners = null;
 
 	void Awake () {
 		spawners = transform.parent.GetComponentsInChildren<Spawner>();
-
+		rubbishSpawner = transform.parent.GetComponentInChildren<RubbishSpawner>();
 	}
 	
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		if (spawners != null) {
 			foreach (Spawner s in spawners) {
-				s.Spawn();
+				s.Spawn ();
 			}
+		}
+		if (!rubbishSpawner.rubbishSpawned) {
+			rubbishSpawner.SpawnRubbish();
+			rubbishSpawner.rubbishSpawned = true;
 		}
 
 	}
@@ -26,6 +32,10 @@ public class SpriteManager : MonoBehaviour {
 				s.Despawn ();
 
 			}
+		}
+		if (rubbishSpawner.rubbishSpawned) {
+			rubbishSpawner.DespawnRubbish();
+			rubbishSpawner.rubbishSpawned = false;
 		}
 	}
 }
