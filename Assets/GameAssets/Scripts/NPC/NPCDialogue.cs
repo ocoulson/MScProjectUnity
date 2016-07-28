@@ -33,43 +33,45 @@ public class NPCDialogue : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (zone.playerInZone) {
-			npcController.TurnTowards (player.transform.position);
-			npcController.movementEnabled = false;
-
-			if (dialogue == null) {
-				ReadDialogueData ();
-			}
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (!dManager.DialogueActive ()) {
-					iManager.HideInstruction ();
-					player.GetComponent<PlayerMovement> ().movementEnabled = false;
-				}
-
-				DisplayLine ();
-
-			}
-
-			if (blockFinished && currentIsBranch) {
-				if (Input.GetKeyDown (KeyCode.Y)) {
-					SetCurrentDialogueBlock ((currentDialogueBlock as BranchDialogueBlock).yesNextId);
-				} else if (Input.GetKeyDown (KeyCode.N)) {
-					SetCurrentDialogueBlock ((currentDialogueBlock as BranchDialogueBlock).noNextId);
-				}
-
-				DisplayLine();
-			} 
-
-			if (blockFinished && !currentIsBranch && Input.GetKeyDown (KeyCode.C) ) {
-				CloseDialogue (true);
-
-			} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Escape)) {
-				CloseDialogue (false);
-			}
-
-		} else {
+		if (!zone.playerInZone) {
 			npcController.movementEnabled = true;
+			return;
 		}
+
+		npcController.TurnTowards (player.transform.position);
+		npcController.movementEnabled = false;
+
+		if (dialogue == null) {
+			ReadDialogueData ();
+		}
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			if (!dManager.DialogueActive ()) {
+				iManager.HideInstruction ();
+				player.GetComponent<PlayerMovement> ().movementEnabled = false;
+			}
+
+			DisplayLine ();
+
+		}
+
+		if (blockFinished && currentIsBranch) {
+			if (Input.GetKeyDown (KeyCode.Y)) {
+				SetCurrentDialogueBlock ((currentDialogueBlock as BranchDialogueBlock).yesNextId);
+			} else if (Input.GetKeyDown (KeyCode.N)) {
+				SetCurrentDialogueBlock ((currentDialogueBlock as BranchDialogueBlock).noNextId);
+			}
+
+			DisplayLine();
+		} 
+
+		if (blockFinished && !currentIsBranch && Input.GetKeyDown (KeyCode.C) ) {
+			CloseDialogue (true);
+
+		} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Escape)) {
+			CloseDialogue (false);
+		}
+
+		
 
 	
 	}

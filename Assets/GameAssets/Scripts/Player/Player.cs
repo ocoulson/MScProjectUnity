@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 
 	public GameObject toolSlot;
 	public GameObject wearableSlot;
+
 	public GameObject wearable {get; private set;}
 
 	public GameObject currentTool {get; private set;}
@@ -15,10 +16,12 @@ public class Player : MonoBehaviour {
 	public Inventory inventory { get; private set; }
 
 	private ToolDisplayManager toolDisplay;
+	private InventoryUIManager inventoryUiManager;
 
 	void Start() {
 		tools = new List<GameObject>();
 		toolDisplay = FindObjectOfType<ToolDisplayManager>();
+		inventoryUiManager = FindObjectOfType<InventoryUIManager>();
 	}
 
 	void Update ()
@@ -34,6 +37,7 @@ public class Player : MonoBehaviour {
 
 			if (pickedUp != null) {
 				Debug.Log("Picked Up a " + pickedUp.itemName);
+
 				try {
 					inventory.AddItem (pickedUp);
 				} catch(UnityException ex) {
@@ -42,6 +46,9 @@ public class Player : MonoBehaviour {
 
 			}
 
+		}
+		if (Input.GetKeyDown(KeyCode.I)){
+			inventoryUiManager.Toggle();
 		}
 	}
 

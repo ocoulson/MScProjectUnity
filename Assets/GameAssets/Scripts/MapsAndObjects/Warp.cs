@@ -14,7 +14,6 @@ public class Warp : MonoBehaviour {
 			StartCoroutine(WarpTime(col));
 
 
-
 		}
 
 	}

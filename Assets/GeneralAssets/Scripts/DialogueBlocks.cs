@@ -10,6 +10,7 @@ namespace DialogueBlocks
 		string speaker{ get; set; }
 		string[] script_en_GB{ get; set; }
 
+
 	}
 
 	public class LinearDialogueBlock : DialogueBlock {
@@ -24,6 +25,7 @@ namespace DialogueBlocks
 		{
 			return speaker + " "+ name + " " + id + ". Next Block = " + nextId;
 		}
+
 
 	}
 
@@ -48,6 +50,8 @@ namespace DialogueBlocks
 		{
 			return speaker + " "+ name + " " + id + ". YesNext: " + yesNextId + " NoNext: " + noNextId;
 		}
+
+
 	}
 }
 
