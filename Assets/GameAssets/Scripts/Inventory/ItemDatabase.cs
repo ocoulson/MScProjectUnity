@@ -21,11 +21,16 @@ public class ItemDatabase : MonoBehaviour {
 	public GameObject CreateRandomRubbishItem ()
 	{
 		int random = Random.Range(0, rubbish.Length);
+		InventoryItem item = rubbish[random].GetCopy();
+		return CreateRubbishItem(item);
+	}
+
+	public GameObject CreateRubbishItem(InventoryItem item) {
+
 		GameObject output = new GameObject ();
 
 		Collectable collectable = output.AddComponent<Collectable> ();
 		SpriteRenderer spriteRenderer = output.AddComponent<SpriteRenderer> ();
-		InventoryItem item = rubbish[random].GetCopy();
 		CircleCollider2D col = output.AddComponent<CircleCollider2D>();
 
 
@@ -40,6 +45,4 @@ public class ItemDatabase : MonoBehaviour {
 
 		return output;
 	}
-
-
 }

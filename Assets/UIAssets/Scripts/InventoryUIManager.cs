@@ -10,30 +10,44 @@ public class InventoryUIManager : MonoBehaviour {
 	public GameObject inventoryBlock;
 	public GameObject slotHolder;
 	public Text titleText;
-	public int numberOfSlots;
+
+	private int numberOfSlots;
 	public int numberOfRows;
 
 	public float paddingLeft, paddingTop; 
 
 	public float slotSize;
 	public GameObject slotPrefab;
-
-
 	private List<GameObject> slots;
 
-	// Use this for initialization
-	void Start () {
-		SetupLayout();
+	public Inventory playerInventory;
 
+	public void UpdateInventoryUi ()
+	{
+		for (int i = 0; i < playerInventory.size; i++) {
+			InventorySlot currentSlot = slots [i].GetComponent<InventorySlot> ();
+			if (i < playerInventory.items.Count){
+				currentSlot.PutItemInSlot (playerInventory.items [i]);
+			} else {
+				if (!currentSlot.IsEmpty) {
+					currentSlot.RemoveItemFromSlot();
+				}
+			}
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void LinkInventoryToUI (Inventory inventory)
+	{
+		playerInventory = inventory;
+
+		numberOfSlots = playerInventory.size;
+
+		SetupLayout();
 	}
 
 	private void SetupLayout ()
 	{
+		
 		RectTransform inventoryRect = inventoryBlock.GetComponent<RectTransform>();
 		slots = new List<GameObject> ();
 		int numberOfColumns = numberOfSlots / numberOfRows;
@@ -48,7 +62,7 @@ public class InventoryUIManager : MonoBehaviour {
 		for (int y = 1; y < numberOfRows+1; y++) {
 			for (int x = 0; x < numberOfColumns; x++) {
 				 GameObject newSlot = Instantiate(slotPrefab) as GameObject;
-				 newSlot.GetComponent<InventoryBlockSize>().SetSize(slotSize, slotSize);
+				 newSlot.GetComponent<InventorySlot>().SetSize(slotSize, slotSize);
 				 newSlot.name = "Slot";
 				 newSlot.transform.SetParent(slotHolder.transform);
 

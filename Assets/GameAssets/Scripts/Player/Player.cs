@@ -7,7 +7,6 @@ public class Player : MonoBehaviour {
 
 	public GameObject toolSlot;
 	public GameObject wearableSlot;
-
 	public GameObject wearable {get; private set;}
 
 	public GameObject currentTool {get; private set;}
@@ -17,18 +16,25 @@ public class Player : MonoBehaviour {
 
 	private ToolDisplayManager toolDisplay;
 	private InventoryUIManager inventoryUiManager;
+	private ThoughtBubbleManager thoughtBubbleManager;
+
+	private bool inventoryInitialised = false;
+	private bool toolEquipped { get { return currentTool != null; } }
+	public  GameObject currentArea {get; set;}
 
 	void Start() {
 		tools = new List<GameObject>();
 		toolDisplay = FindObjectOfType<ToolDisplayManager>();
 		inventoryUiManager = FindObjectOfType<InventoryUIManager>();
+		thoughtBubbleManager = FindObjectOfType<ThoughtBubbleManager>();
 	}
 
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.E)) {
+		if (toolEquipped && Input.GetKeyDown (KeyCode.E)) {
 			Tool tool = GetComponentInChildren<Tool> ();
 			InventoryItem pickedUp = null;
+
 			try {
 				pickedUp = tool.Use ();
 			} catch (UnityException ex) {
@@ -36,26 +42,46 @@ public class Player : MonoBehaviour {
 			}
 
 			if (pickedUp != null) {
-				Debug.Log("Picked Up a " + pickedUp.itemName);
 
 				try {
-					inventory.AddItem (pickedUp);
+					AddItem (pickedUp);
 				} catch(UnityException ex) {
-					Debug.LogError(ex.Message + "Notification not implemented");
+					Debug.Log(ex.Message);
+					StartCoroutine(InventoryFullEvent(pickedUp));
 				}
 
 			}
 
 		}
-		if (Input.GetKeyDown(KeyCode.I)){
+		if (inventoryInitialised && Input.GetKeyDown(KeyCode.I)){
 			inventoryUiManager.Toggle();
 		}
+	}
+
+	IEnumerator InventoryFullEvent(InventoryItem item) {
+		GetComponent<PlayerMovement>().DisableMovement();
+		thoughtBubbleManager.ShowThoughtBubble("My backpack is full, I can't carry this");
+		yield return new WaitForSeconds(1f);
+
+		thoughtBubbleManager.HideThoughtBubble();
+		DropItem(item);
+		GetComponent<PlayerMovement>().EnableMovement();
+	}
+
+	public void DropItem(InventoryItem item) {
+		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateRubbishItem(item);
+		rubbishItem.transform.parent = currentArea.GetComponentInChildren<RubbishSpawner>().transform;
+		float dropRadius = 0.2f;
+		rubbishItem.transform.position = gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-dropRadius,dropRadius),
+										 UnityEngine.Random.Range(-dropRadius,dropRadius));
 	}
 
 	public void InitialiseInventory (int initialSize)
 	{
 		if (inventory == null) {
 			inventory = new Inventory (initialSize);
+			inventoryUiManager.LinkInventoryToUI(inventory);
+			inventoryInitialised = true;
 		} else {
 			Debug.LogError("Inventory already initilalised");
 		}
@@ -73,10 +99,12 @@ public class Player : MonoBehaviour {
 	public void AddItem (InventoryItem item)
 	{
 		try {
-			inventory.AddItem(item); 
+			inventory.AddItem(item);
 		} catch(ArgumentException ex) {
 			Debug.LogError(ex.Message);
 		}
+		Debug.Log(inventory);
+		inventoryUiManager.UpdateInventoryUi();
 	}
 
 	public void SetWearable (GameObject newWearable)

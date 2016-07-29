@@ -44,4 +44,13 @@ public class Inventory
 		}
 	}
 
+
+	public override string ToString ()
+	{
+		string output = "";
+		foreach (InventoryItem item in items) {
+			output += item.itemName + ", ";
+		}
+		return output.Substring(0, output.Length-2);
+	}
 }
