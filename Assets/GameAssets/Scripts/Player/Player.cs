@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
 
 	void Update ()
 	{
-		if (toolEquipped && Input.GetKeyDown (KeyCode.E)) {
+		if (toolEquipped && Input.GetMouseButtonDown(0)) {
 			Tool tool = GetComponentInChildren<Tool> ();
 			InventoryItem pickedUp = null;
 
@@ -94,6 +94,14 @@ public class Player : MonoBehaviour {
 		}
 		inventoryUiManager.UpdateInventoryUi();
 	}
+
+	public List<InventoryItem> DepositRubbish ()
+	{
+		List<InventoryItem> output = inventory.items;
+		inventory.items = new List<InventoryItem>();
+		inventoryUiManager.UpdateInventoryUi();
+		return output;
+	} 
 
 	public void InitialiseInventory (int initialSize)
 	{

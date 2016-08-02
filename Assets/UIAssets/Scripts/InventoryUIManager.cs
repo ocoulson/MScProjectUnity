@@ -121,5 +121,12 @@ public class InventoryUIManager : MonoBehaviour {
 		inventoryBlock.SetActive(!inventoryBlock.activeInHierarchy);
 		slotHolder.SetActive(!slotHolder.activeInHierarchy);
 	}
-
+	public void ShowUI() {
+		inventoryBlock.SetActive(true);
+		slotHolder.SetActive(true);
+	}
+	public void HideUI() {
+		inventoryBlock.SetActive(false);
+		slotHolder.SetActive(false);
+	}
 }

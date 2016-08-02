@@ -20,6 +20,14 @@ public class ItemDatabase : MonoBehaviour {
 
 	}
 
+	public Stack<InventoryItem> GetAllRubbishItems ()
+	{
+		Stack<InventoryItem> output = new Stack<InventoryItem> ();
+		foreach (InventoryItem item in rubbish) {
+			output.Push(item.GetCopy());
+		}
+		return output;
+	}
 
 	public GameObject CreateRandomRubbishItem ()
 	{

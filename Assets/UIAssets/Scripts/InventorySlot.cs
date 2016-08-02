@@ -13,7 +13,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 	public Image slotImage;
 	public Image border;
 
-	private Sprite emptySlotImage;
+	public Sprite emptySlotImage {get; set;}
 
 
 	public bool IsEmpty { get { return slotItem == null;}}
@@ -22,14 +22,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 		emptySlotImage = Resources.Load<Sprite>("InventoryItems/EmptyIcon");
 	}
 
-	public void PutItemInSlot (InventoryItem item)
+	public virtual void PutItemInSlot (InventoryItem item)
 	{
 		slotItem = item;
 
 		ChangeSprite(slotItem.sprite);
 	}
 
-	public InventoryItem RemoveItemFromSlot() {
+	public virtual InventoryItem RemoveItemFromSlot() {
 		InventoryItem output = slotItem;
 
 		slotItem = null;
@@ -37,7 +37,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 		ChangeSprite(emptySlotImage);
 		return output;
 	}
-	private void ChangeSprite (Sprite newSprite)
+	public virtual void ChangeSprite (Sprite newSprite)
 	{
 		slotImage.sprite = newSprite;
 	}
@@ -46,6 +46,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 		RectTransform borderTransform = border.GetComponent<RectTransform>();
 		RectTransform slotImageTransform = slotImage.GetComponent<RectTransform>();
 		RectTransform backgroundTransform = background.GetComponent<RectTransform>();
+		RectTransform thisTransfrom = GetComponent<RectTransform>();
+
+		thisTransfrom.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+		thisTransfrom.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
 
 		borderTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
 		borderTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
@@ -60,7 +64,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 		backgroundTransform.localPosition = slotImageTransform.localPosition;
 	}
 
-	public void OnPointerClick (PointerEventData eventData)
+	public virtual void OnPointerClick (PointerEventData eventData)
 	{
 		if (eventData.button == PointerEventData.InputButton.Right) {
 			if (!IsEmpty) {
