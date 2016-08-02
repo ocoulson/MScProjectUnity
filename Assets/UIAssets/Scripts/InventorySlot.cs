@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 	private InventoryItem slotItem;
+	public InventoryItem SlotItem {
+		get {return slotItem;}
+	}
 
 	public Image background;
 	public Image slotImage;

@@ -23,6 +23,47 @@ public class InventoryUIManager : MonoBehaviour {
 
 	public Inventory playerInventory;
 
+	public GameObject tooltipObject;
+	private static GameObject tooltip;
+
+	public Text sizeTextObject;
+	private static Text sizeText;
+
+	public Text visualTextObject;
+	private static Text visualText;
+
+	void Start ()
+	{
+		tooltip = tooltipObject;
+		sizeText = sizeTextObject;
+		visualText = visualTextObject;
+	}
+
+	public void ShowTooltip (GameObject inventorySlot)
+	{
+		InventorySlot slot = inventorySlot.GetComponent<InventorySlot> ();
+
+		if (!slot.IsEmpty) {
+			tooltip.SetActive(true);
+			float xPosition = inventorySlot.transform.position.x + paddingLeft;
+			float yPosition = inventorySlot.transform.position.y - slotSize - paddingTop;
+			tooltip.transform.position = new Vector2(xPosition,yPosition);
+
+			string tooltipText = slot.SlotItem.GetTooltipInfo("lime", 6);
+
+			sizeText.text = tooltipText;
+			visualText.text = tooltipText;
+
+
+		}
+		
+
+	}
+	public void HideTooltip ()
+	{
+		tooltip.SetActive(false);
+	}
+
 	public void UpdateInventoryUi ()
 	{
 		for (int i = 0; i < playerInventory.size; i++) {
