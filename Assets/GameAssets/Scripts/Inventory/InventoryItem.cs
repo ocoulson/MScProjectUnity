@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class InventoryItem 
 {
@@ -37,13 +38,24 @@ public class InventoryItem
 
 	public InventoryItem GetCopy() {
 		InventoryItem copy = new InventoryItem();
-		copy.itemId = this.itemId;
+		copy.itemId = 0;
 		copy.itemName = this.itemName;
 		copy.itemDescription = this.itemDescription;
 		copy.itemType = this.itemType;
 		copy.containedResources = this.containedResources;
 		copy.InitialiseItem();
 		return copy;
+	}
+
+	//Returns the name formated into Title case with spaces, and any numbers removed
+	public string GetNameFormatted ()
+	{
+		//add spaces
+		string spaces = Regex.Replace (itemName, "([a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))", "$1 ");
+
+		//remove any numbers;
+		string digitsRemoved = Regex.Replace(spaces, @"[\d-]", string.Empty);
+		return digitsRemoved;
 	}
 }
 

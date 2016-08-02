@@ -51,7 +51,7 @@ public class GameProgress : MonoBehaviour {
 
 		GameObject backpack = Instantiate (Resources.Load ("Prefabs/Wearables/Backpack")) as GameObject;
 		player.SetWearable (backpack);
-		player.InitialiseInventory(30);
+		player.InitialiseInventory(20);
 	}
 
 	private void SpokenToEthan() {

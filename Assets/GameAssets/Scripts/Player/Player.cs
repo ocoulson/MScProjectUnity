@@ -45,17 +45,24 @@ public class Player : MonoBehaviour {
 
 				try {
 					AddItem (pickedUp);
-				} catch(UnityException ex) {
-					Debug.Log(ex.Message);
-					StartCoroutine(InventoryFullEvent(pickedUp));
+				} catch (UnityException ex) {
+					Debug.Log (ex.Message);
+					StartCoroutine (InventoryFullEvent (pickedUp));
 				}
 
 			}
 
 		}
-		if (inventoryInitialised && Input.GetKeyDown(KeyCode.I)){
-			inventoryUiManager.Toggle();
+		if (inventoryInitialised && Input.GetKeyDown (KeyCode.I)) {
+			inventoryUiManager.Toggle ();
 		}
+		if (inventoryInitialised && Input.GetKeyDown (KeyCode.P)) {
+			Debug.Log(inventory); 
+		}
+		if (inventoryInitialised && Input.GetKey(KeyCode.RightShift) && Input.GetKeyUp(KeyCode.O)) {
+			DropAllItems();
+		}
+
 	}
 
 	IEnumerator InventoryFullEvent(InventoryItem item) {
@@ -69,11 +76,23 @@ public class Player : MonoBehaviour {
 	}
 
 	public void DropItem(InventoryItem item) {
-		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateRubbishItem(item);
+		if (inventory.items.Contains(item)) {
+			inventory.RemoveItem(item);
+		}
+		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateItemGameObject(item);
 		rubbishItem.transform.parent = currentArea.GetComponentInChildren<RubbishSpawner>().transform;
 		float dropRadius = 0.2f;
 		rubbishItem.transform.position = gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-dropRadius,dropRadius),
 										 UnityEngine.Random.Range(-dropRadius,dropRadius));
+	}
+
+	public void DropAllItems ()
+	{
+		InventoryItem[] items = inventory.items.ToArray();
+		foreach (InventoryItem item in items) {
+			DropItem(item);
+		}
+		inventoryUiManager.UpdateInventoryUi();
 	}
 
 	public void InitialiseInventory (int initialSize)
@@ -103,7 +122,6 @@ public class Player : MonoBehaviour {
 		} catch(ArgumentException ex) {
 			Debug.LogError(ex.Message);
 		}
-		Debug.Log(inventory);
 		inventoryUiManager.UpdateInventoryUi();
 	}
 

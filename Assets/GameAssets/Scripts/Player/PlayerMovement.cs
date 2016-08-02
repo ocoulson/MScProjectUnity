@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour {
 	private Animator anim;
 	private Animator[] childAnimators;
 
+	public bool IsMoving { get; private set; }
+
 	public  bool movementEnabled;
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();

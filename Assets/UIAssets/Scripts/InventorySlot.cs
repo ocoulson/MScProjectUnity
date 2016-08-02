@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour {
+public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 	private InventoryItem slotItem;
 
 	public Image background;
@@ -20,7 +21,6 @@ public class InventorySlot : MonoBehaviour {
 
 	public void PutItemInSlot (InventoryItem item)
 	{
-
 		slotItem = item;
 
 		ChangeSprite(slotItem.sprite);
@@ -55,5 +55,16 @@ public class InventorySlot : MonoBehaviour {
 
 		slotImageTransform.localPosition = borderTransform.localPosition + new Vector3(2f,-2f);
 		backgroundTransform.localPosition = slotImageTransform.localPosition;
+	}
+
+	public void OnPointerClick (PointerEventData eventData)
+	{
+		if (eventData.button == PointerEventData.InputButton.Right) {
+			if (!IsEmpty) {
+				InventoryItem item = RemoveItemFromSlot ();
+				Player player = FindObjectOfType<Player> ();
+				player.DropItem (item);
+			}
+		}
 	}
 }

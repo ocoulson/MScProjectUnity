@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InventoryUIManager : MonoBehaviour {
 
@@ -38,8 +39,8 @@ public class InventoryUIManager : MonoBehaviour {
 
 	public void LinkInventoryToUI (Inventory inventory)
 	{
-		playerInventory = inventory;
 
+		playerInventory = inventory;
 		numberOfSlots = playerInventory.size;
 
 		SetupLayout();
@@ -79,4 +80,5 @@ public class InventoryUIManager : MonoBehaviour {
 		inventoryBlock.SetActive(!inventoryBlock.activeInHierarchy);
 		slotHolder.SetActive(!slotHolder.activeInHierarchy);
 	}
+
 }

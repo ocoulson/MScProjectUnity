@@ -49,7 +49,7 @@ public class Inventory
 	{
 		string output = "";
 		foreach (InventoryItem item in items) {
-			output += item.itemName + ", ";
+			output += item.GetNameFormatted() + ", ";
 		}
 		return output.Substring(0, output.Length-2);
 	}

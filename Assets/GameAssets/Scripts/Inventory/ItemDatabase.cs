@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class ItemDatabase : MonoBehaviour {
 	private ReadJSON reader;
@@ -8,8 +9,10 @@ public class ItemDatabase : MonoBehaviour {
 	public InventoryItem[] resources;
 	public InventoryItem[] rubbish;
 
+	private Int32 lastId;
 	// Use this for initialization
 	void Start () {
+		lastId = 1;
 		reader = FindObjectOfType<ReadJSON>();
 
 		resources = reader.GetResourceList();
@@ -20,12 +23,14 @@ public class ItemDatabase : MonoBehaviour {
 
 	public GameObject CreateRandomRubbishItem ()
 	{
-		int random = Random.Range(0, rubbish.Length);
+		int random = UnityEngine.Random.Range(0, rubbish.Length);
 		InventoryItem item = rubbish[random].GetCopy();
-		return CreateRubbishItem(item);
+		item.itemId = lastId;
+		lastId++;
+		return CreateItemGameObject(item);
 	}
 
-	public GameObject CreateRubbishItem(InventoryItem item) {
+	public GameObject CreateItemGameObject(InventoryItem item) {
 
 		GameObject output = new GameObject ();
 
