@@ -10,7 +10,9 @@ public class DropOffPointSlot : InventorySlot {
 	public InventoryItem slotItem;
 	public Text quantityText;
 
-
+	public int slotQuantity {
+		get { return containedItems.Count;} 
+	}
 	// Use this for initialization
 	void Start () {
 		containedItems = new Stack<InventoryItem>();
@@ -40,4 +42,5 @@ public class DropOffPointSlot : InventorySlot {
 	public void SetSlotImage() {
 		slotImage.sprite = slotItem.sprite;
 	}
+
 }

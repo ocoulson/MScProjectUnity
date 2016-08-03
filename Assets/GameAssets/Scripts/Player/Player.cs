@@ -18,11 +18,12 @@ public class Player : MonoBehaviour {
 	private InventoryUIManager inventoryUiManager;
 	private ThoughtBubbleManager thoughtBubbleManager;
 
-	private bool inventoryInitialised = false;
+	public bool inventoryInitialised { get; private set; }
 	private bool toolEquipped { get { return currentTool != null; } }
 	public  GameObject currentArea {get; set;}
 
 	void Start() {
+		inventoryInitialised = false;
 		tools = new List<GameObject>();
 		toolDisplay = FindObjectOfType<ToolDisplayManager>();
 		inventoryUiManager = FindObjectOfType<InventoryUIManager>();
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour {
 
 	void Update ()
 	{
-		if (toolEquipped && Input.GetMouseButtonDown(0)) {
+		if (toolEquipped && Input.GetKeyDown(KeyCode.E)) {
 			Tool tool = GetComponentInChildren<Tool> ();
 			InventoryItem pickedUp = null;
 
@@ -75,6 +76,13 @@ public class Player : MonoBehaviour {
 		GetComponent<PlayerMovement>().EnableMovement();
 	}
 
+	public List<InventoryItem> DepositEntireInventory ()
+	{
+		List<InventoryItem> output = inventory.RemoveAll();
+		inventoryUiManager.UpdateInventoryUi();
+		return output;
+	}
+
 	public void DropItem(InventoryItem item) {
 		if (inventory.items.Contains(item)) {
 			inventory.RemoveItem(item);
@@ -94,14 +102,6 @@ public class Player : MonoBehaviour {
 		}
 		inventoryUiManager.UpdateInventoryUi();
 	}
-
-	public List<InventoryItem> DepositRubbish ()
-	{
-		List<InventoryItem> output = inventory.items;
-		inventory.items = new List<InventoryItem>();
-		inventoryUiManager.UpdateInventoryUi();
-		return output;
-	} 
 
 	public void InitialiseInventory (int initialSize)
 	{

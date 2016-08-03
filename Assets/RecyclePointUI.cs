@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,23 +16,31 @@ public class RecyclePointUI : MonoBehaviour {
 	public GameObject slotHolder;
 	public GameObject mainBlock;
 
-	public List<GameObject> slots {get; private set;}
+	public List<GameObject> slotsObjects {get; private set;}
+	public List<DropOffPointSlot> slots {get; private set;}
 
 	// Use this for initialization
 	void Start () {
 		itemDatabase = FindObjectOfType<ItemDatabase>();
-		slots = new List<GameObject>();
+		slotsObjects = new List<GameObject>();
+		slots = new List<DropOffPointSlot>();
 		SetupRecyclePointUI();
 	}
 
 	public void AddRubbishItem (InventoryItem rubbishItem)
 	{
-		foreach (GameObject slot in slots) {
-			DropOffPointSlot dropOffSlot = slot.GetComponent<DropOffPointSlot> ();
-			if (dropOffSlot.slotItem.itemName == rubbishItem.itemName) {
-				dropOffSlot.PutItemInSlot(rubbishItem);
-			}
-		}
+		DropOffPointSlot[] slotArray = slots.ToArray();
+
+		DropOffPointSlot destinationSlot = Array.Find<DropOffPointSlot>(slotArray, slot => slot.slotItem.itemName == rubbishItem.itemName);
+
+		destinationSlot.PutItemInSlot(rubbishItem);
+//		Debug.Log("Adding " + rubbishItem.GetNameFormatted());
+//		foreach (GameObject slot in slots) {
+//			DropOffPointSlot dropOffSlot = slot.GetComponent<DropOffPointSlot> ();
+//			if (dropOffSlot.slotItem.itemName == rubbishItem.itemName) {
+//				dropOffSlot.PutItemInSlot(rubbishItem);
+//			}
+//		}
 	}
 
 	//TODO: Edit if more rubbish items are added to the DB
@@ -49,21 +58,22 @@ public class RecyclePointUI : MonoBehaviour {
 		for (int y = 0; y < numberOfRows; y++) {
 			for (int x = 0; x < numberOfColumns; x++) {
 				if (count > 0) {
-					GameObject newSlot = Instantiate (slotPrefab) as GameObject;
-					newSlot.name = "Slot";
-					newSlot.transform.SetParent (slotHolder.transform);
+					GameObject newSlotObject = Instantiate (slotPrefab) as GameObject;
+					newSlotObject.name = "Slot";
+					newSlotObject.transform.SetParent (slotHolder.transform);
 
-					DropOffPointSlot slot = newSlot.GetComponent<DropOffPointSlot> ();
-					slot.SetSize (slotSize, slotSize);
-					slot.slotItem = allRubbishItems.Pop ();
-					slot.SetSlotImage ();
+					DropOffPointSlot dropOffSlot = newSlotObject.GetComponent<DropOffPointSlot> ();
+					dropOffSlot.SetSize (slotSize, slotSize);
+					dropOffSlot.slotItem = allRubbishItems.Pop ();
+					dropOffSlot.SetSlotImage ();
 
-					RectTransform slotRect = newSlot.GetComponent<RectTransform> ();
+					RectTransform slotRect = newSlotObject.GetComponent<RectTransform> ();
 					RectTransform holderRect = slotHolder.GetComponent<RectTransform> ();
 					float xDivision = (holderRect.sizeDelta.x / numberOfColumns);
 					slotRect.localPosition = new Vector3 ((xDivision * x), -(slotSize * y)); 
 
-					slots.Add (newSlot);
+					slotsObjects.Add (newSlotObject);
+					slots.Add(dropOffSlot);
 					count --;
 				}
 			}
@@ -77,5 +87,14 @@ public class RecyclePointUI : MonoBehaviour {
 	public void HideUI() {
 		mainBlock.SetActive(false);
 		slotHolder.SetActive(false);
+	}
+
+	public int TotalContentsQuantity ()
+	{
+		int total = 0;
+		foreach (DropOffPointSlot slot in slots) {
+			total += slot.slotQuantity;
+		}
+		return total;
 	}
 }

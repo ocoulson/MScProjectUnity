@@ -6,7 +6,7 @@ public class Inventory
 {
 	public Int32 size {get; set;}
 
-	public List<InventoryItem> items { get; set; }
+	public List<InventoryItem> items { get; private set; }
 
 	public Inventory (int initialSize)
 	{
@@ -42,6 +42,13 @@ public class Inventory
 			items.Remove (item);
 			return output;
 		}
+	}
+
+	public List<InventoryItem> RemoveAll ()
+	{
+		List<InventoryItem> output = items;
+		items = new List<InventoryItem>();
+		return output;
 	}
 
 

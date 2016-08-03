@@ -42,10 +42,10 @@ public class PlayerMovement : MonoBehaviour {
 		float xInput = 0;
 		float yInput = 0;
 
-		bool left = Input.GetKey (KeyCode.A);
-		bool right = Input.GetKey (KeyCode.D);
-		bool up = Input.GetKey (KeyCode.W);
-		bool down = Input.GetKey (KeyCode.S);
+		bool left = Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow);
+		bool right = Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow);
+		bool up = Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow);
+		bool down = Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.DownArrow);
 
 		//Choose the movement, diagonal movement is disabled.
 		if (left) {
