@@ -83,6 +83,18 @@ public class Player : MonoBehaviour {
 		return output;
 	}
 
+	public void AddMultipleItems (List<InventoryItem> input)
+	{
+		foreach (InventoryItem item in input) {
+			try {
+				inventory.AddItem (item);
+			} catch (UnityException ex) {
+				Debug.Log (ex.Message);
+				StartCoroutine (InventoryFullEvent (item));
+			}
+		}
+	}
+
 	public void DropItem(InventoryItem item) {
 		if (inventory.items.Contains(item)) {
 			inventory.RemoveItem(item);

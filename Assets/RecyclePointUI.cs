@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,12 +10,17 @@ public class RecyclePointUI : MonoBehaviour {
 	public int numberOfSlots;
 	public int numberOfRows;
 
+	public int capacity;
+
 	public float paddingLeft, paddingTop; 
 
 	public float slotSize;
 	public GameObject slotPrefab;
 	public GameObject slotHolder;
 	public GameObject mainBlock;
+
+	public Text capacityText;
+	public Text currentQuantityText;
 
 	public List<GameObject> slotsObjects {get; private set;}
 	public List<DropOffPointSlot> slots {get; private set;}
@@ -25,22 +31,23 @@ public class RecyclePointUI : MonoBehaviour {
 		slotsObjects = new List<GameObject>();
 		slots = new List<DropOffPointSlot>();
 		SetupRecyclePointUI();
+		capacityText.text = capacity.ToString();
+		currentQuantityText.text = "0";
 	}
 
-	public void AddRubbishItem (InventoryItem rubbishItem)
+
+	public InventoryItem AddRubbishItem (InventoryItem rubbishItem)
 	{
+		if (GetCurrentQuantity () >= capacity) {
+			return rubbishItem;
+		}
 		DropOffPointSlot[] slotArray = slots.ToArray();
 
 		DropOffPointSlot destinationSlot = Array.Find<DropOffPointSlot>(slotArray, slot => slot.slotItem.itemName == rubbishItem.itemName);
 
 		destinationSlot.PutItemInSlot(rubbishItem);
-//		Debug.Log("Adding " + rubbishItem.GetNameFormatted());
-//		foreach (GameObject slot in slots) {
-//			DropOffPointSlot dropOffSlot = slot.GetComponent<DropOffPointSlot> ();
-//			if (dropOffSlot.slotItem.itemName == rubbishItem.itemName) {
-//				dropOffSlot.PutItemInSlot(rubbishItem);
-//			}
-//		}
+		currentQuantityText.text = GetCurrentQuantity().ToString();
+		return null;
 	}
 
 	//TODO: Edit if more rubbish items are added to the DB
@@ -89,7 +96,7 @@ public class RecyclePointUI : MonoBehaviour {
 		slotHolder.SetActive(false);
 	}
 
-	public int TotalContentsQuantity ()
+	public int GetCurrentQuantity ()
 	{
 		int total = 0;
 		foreach (DropOffPointSlot slot in slots) {

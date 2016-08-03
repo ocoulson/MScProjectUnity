@@ -17,15 +17,18 @@ public class RecyclePoint : MonoBehaviour {
 
 	public void DropOff (List<InventoryItem> input)
 	{
-		input.ForEach(item => Debug.Log(item.itemName));
+		input.ForEach (item => Debug.Log (item.itemName));
 
-		Debug.Log("Ui contents quantity before: " + ui.TotalContentsQuantity());
+		Debug.Log ("Ui contents quantity before: " + ui.GetCurrentQuantity ());
 		for (int i = 0; i < input.Count; i++) {
-			InventoryItem item = input[i];
+			InventoryItem item = input [i];
 
-			ui.AddRubbishItem(item);		
+			InventoryItem returned = ui.AddRubbishItem (item);	
+			if (returned != null) {
+				player.AddItem(returned);
+			}	
 		} 
-		Debug.Log("Ui contents quantity after: " + ui.TotalContentsQuantity());
+		Debug.Log("Ui contents quantity after: " + ui.GetCurrentQuantity());
 	
 	}
 
