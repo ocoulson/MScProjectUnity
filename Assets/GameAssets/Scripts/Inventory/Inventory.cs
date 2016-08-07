@@ -56,7 +56,7 @@ public class Inventory
 	{
 		string output = "";
 		foreach (InventoryItem item in items) {
-			output += item.itemName + ", ";
+			output += item.ItemName + ", ";
 		}
 		return output.Substring(0, output.Length-2);
 	}

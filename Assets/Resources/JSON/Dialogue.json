@@ -97,7 +97,9 @@
 					"That's fantastic! Thanks so much!!",
 					"Now, I’ve been working on a good way to collect all this rubbish, quickly and safely",
 					"I mean, you don’t want to cut your hand on some rusty can or get covered in melted ice cream do you?",
-					"So here, take this rubbish picker and this backpack, you can store quite a lot of rubbish in there and when it is full, bring it back and we’ll find something to do with it."
+					"So here, take this rubbish picker and this backpack, you can store quite a lot of rubbish in there.",
+					"When you've filled it up, you can deposit the rubbish at the Recycling Point next to the Shack",
+					"Come back and see me if you manage to fill up the Recycling Point, then we'll have to sort out all that rubbish!"
 				],
 				"nextId": 2,
 				"effectName": "FirstEthanMeetingPositive"
@@ -109,8 +111,8 @@
 				"speaker": "Ethan",
 				"type": "linearDialogue", 
 				"script_en_GB": [
-					"Now you've got what you need,",
-					"so come back when you've filled up that bag!"
+					"Is the recycling point full yet?",
+					"No? Well, keep on collecting rubbish and putting it in that Recycling Point!"
 				],
 				"nextId": 2
 				
@@ -139,7 +141,55 @@
 				],
 				"yesNextId": 1, 
 				"noNextId": 3
-			}	
+			},
+			{
+				"id": 5,
+				"name": "RecyclingPointFull",
+				"speaker": "Ethan",
+				"type": "branchDialogue",
+				"script_en_GB": [
+					"Is the recycling point full yet?",
+					"It is? Oh great!",
+					"The problem at the moment is that the Recycling Plant is not operational.",
+					"So no one is coming to collect this rubbish, we're going to have to sort it out ourselves.",
+					"Are you ready to help me sort out all the rubbish?"
+				],
+				"yesNextId": 6, 
+				"noNextId": 7
+			},
+			{
+				"id": 6,
+				"name": "StartSortingMiniGame",
+				"speaker": "Ethan",
+				"type": "linearEffectDialogue",
+				"script_en_GB": [
+					"Excellent! Let's do it!"
+				],
+				"nextId": 2,
+				"effectName": "StartSortingMiniGame"
+			},
+			{
+				"id": 7,
+				"name": "RefuseSortingMinigame",
+				"speaker": "Ethan",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"Alright, come back when you're ready"
+				],
+				"nextId": 8
+			},	
+			{
+				"id": 8,
+				"name": "RecyclingPointFullStub",
+				"speaker": "Ethan",
+				"type": "branchDialogue",
+				"script_en_GB": [
+					"Are you ready to help me sort out all the rubbish?"
+				],
+				"yesNextId": 6, 
+				"noNextId": 7
+			}
+
 		],
 		"playerThoughtBubbles": [
 			{

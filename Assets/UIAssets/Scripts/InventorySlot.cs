@@ -26,7 +26,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 	{
 		slotItem = item;
 
-		ChangeSprite(slotItem.sprite);
+		ChangeSprite(slotItem.Sprite);
 	}
 
 	public virtual InventoryItem RemoveItemFromSlot() {

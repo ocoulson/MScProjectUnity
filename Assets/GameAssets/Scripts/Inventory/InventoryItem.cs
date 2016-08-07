@@ -5,44 +5,62 @@ using System.Text.RegularExpressions;
 
 public class InventoryItem 
 {
-	public int itemId;
-	public string itemName;
-	public string itemDescription;
-	public ItemType itemType;
+	private int itemId;
+	private string itemName;
+	private string itemDescription;
+	private ItemType itemType;
+	private List<String> containedResources;
 
-	public List<String> containedResources;
-	public List<InventoryItem> containedResourceItems;
+	private Sprite sprite;
 
-	public Sprite sprite;
+	public int ItemId {
+		get { return itemId; }  
+		set { itemId = value; }
+	}
+
+	public string ItemName {
+		get { return itemName; }
+		set { itemName = value; }
+	}	
+
+	public string ItemDescription {
+		get { return itemDescription; }
+		set { itemDescription = value; }
+	}
+
+	public ItemType ItemType {
+		get { return itemType; }
+		set { itemType = value; }
+	}
+
+	public List<String> ContainedResources {
+		get { return containedResources; }
+		set { containedResources = value; }
+	}
+
+	public Sprite Sprite {
+		get { return sprite; }
+		set { sprite = value; }
+	}
 
 	public InventoryItem ()
 	{
-		containedResources = new List<string>();
-		containedResourceItems = new List<InventoryItem>();
-
+		ContainedResources = new List<string>();
 	}
 
 	//Initialises the icon and list of contained resources after the object has been made from the json.
 	public void InitialiseItem ()
 	{
-		sprite = Resources.Load<Sprite> ("InventoryItems/" + itemName + "Icon");
-
-
-		ItemDatabase itemDatabase = GameObject.FindObjectOfType<ItemDatabase> ();
-
-		foreach (string resourceName in containedResources) {
-			InventoryItem resource = Array.Find<InventoryItem>(itemDatabase.resources, item => item.itemName == resourceName).GetCopy();
-			containedResourceItems.Add(resource);
-		}
+		Sprite = Resources.Load<Sprite> ("InventoryItems/" + ItemName + "Icon");
 	}
 
 	public InventoryItem GetCopy() {
 		InventoryItem copy = new InventoryItem();
-		copy.itemId = 0;
-		copy.itemName = this.itemName;
-		copy.itemDescription = this.itemDescription;
-		copy.itemType = this.itemType;
-		copy.containedResources = this.containedResources;
+		copy.ItemId = 0;
+		copy.ItemName = this.ItemName;
+		copy.ItemDescription = this.ItemDescription;
+		copy.ItemType = this.ItemType;
+		copy.ContainedResources = this.ContainedResources;
 		copy.InitialiseItem();
 		return copy;
 	}
@@ -50,7 +68,7 @@ public class InventoryItem
 	//Returns the name formated into Title case with spaces, and any numbers removed
 	public string GetNameFormatted ()
 	{
-		return ToTitleCase(itemName);
+		return ToTitleCase(ItemName);
 	}
 
 	private string ToTitleCase (string input)
@@ -66,12 +84,12 @@ public class InventoryItem
 	public string GetTooltipInfo (string nameColor, int descriptionMaxWordsPerLine)
 	{
 
-		string formattedDescription = LineOverflow(itemDescription,descriptionMaxWordsPerLine);
+		string formattedDescription = LineOverflow(ItemDescription,descriptionMaxWordsPerLine);
 
 
 		string resourcesString = string.Empty;
-		if (containedResources != null && containedResources.Count > 0) {
-			var temp = new HashSet<string> (containedResources);
+		if (ContainedResources != null && ContainedResources.Count > 0) {
+			var temp = new HashSet<string> (ContainedResources);
 			foreach (string s in temp) {
 				resourcesString += ToTitleCase(s) + "\n";
 			}

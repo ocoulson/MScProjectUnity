@@ -33,7 +33,7 @@ public class ItemDatabase : MonoBehaviour {
 	{
 		int random = UnityEngine.Random.Range(0, rubbish.Length);
 		InventoryItem item = rubbish[random].GetCopy();
-		item.itemId = lastId;
+		item.ItemId = lastId;
 		lastId++;
 		return CreateItemGameObject(item);
 	}
@@ -48,9 +48,9 @@ public class ItemDatabase : MonoBehaviour {
 
 
 		collectable.item = item;
-		spriteRenderer.sprite = item.sprite;
+		spriteRenderer.sprite = item.Sprite;
 		spriteRenderer.sortingLayerName = "Rubbish";
-		output.name = item.itemName;
+		output.name = item.ItemName;
 		output.tag = "Rubbish";
 		output.layer = 17;
 

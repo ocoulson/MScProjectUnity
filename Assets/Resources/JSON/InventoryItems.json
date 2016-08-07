@@ -1,45 +1,45 @@
 {
 	"Resources": [
 		{
-			"itemName": "Glass",
-			"itemDescription": "A transparent material mostly used for food containers (jars, glasses, bottles) and also as a construction material (windows, doors)",
-			"itemType": 0
+			"ItemName": "Glass",
+			"ItemDescription": "A transparent material mostly used for food containers (jars, glasses, bottles) and also as a construction material (windows, doors)",
+			"ItemType": 0
 		},
 		{
-			"itemName": "Metal",
-			"itemDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
-			"itemType": 0
+			"ItemName": "Metal",
+			"ItemDescription": "A strong material used for everything from equipment and tools (hammer, saw), furniture and vehicles to wires and electrical components used in computers, cars, lightbulbs and many more.",
+			"ItemType": 0
 		},
 		{
-			"itemName": "GreenWaste",
-			"itemDescription": "Biodegradable waste. Leftover food and drink, cut grass, animal waste. Not really recycleable like other materials, but it has many uses, from fertilising fields and gardens, to producing gas for fuel",
-			"itemType": 0
+			"ItemName": "GreenWaste",
+			"ItemDescription": "Biodegradable waste. Leftover food and drink, cut grass, animal waste. Not really recycleable like other materials, but it has many uses, from fertilising fields and gardens, to producing gas for fuel",
+			"ItemType": 0
 		},
 		{
-			"itemName": "Paper",
-			"itemDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
-			"itemType": 0
+			"ItemName": "Paper",
+			"ItemDescription": "Used worldwide mostly for written media, books, newspapers, letters etc. Easily recyclable",
+			"ItemType": 0
 		},
 		{
-			"itemName": "Plastic",
-			"itemDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
-			"itemType": 0
+			"ItemName": "Plastic",
+			"ItemDescription": "A lightweight non-biodegradable material used for many products from carrier bags to car parts",
+			"ItemType": 0
 		}
 	],
 	"Rubbish": [
 		{
-			"itemName": "CrumpledPaper1",
-			"itemDescription": "A crumpled up sheet of paper",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "CrumpledPaper1",
+			"ItemDescription": "A crumpled up sheet of paper",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Paper"
 			]
 		},
 		{
-			"itemName": "LargeCardboardBox",
-			"itemDescription": "A large cardboard box from a popular delivery company, with some plastic bubble wrap inside",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "LargeCardboardBox",
+			"ItemDescription": "A large cardboard box from a popular delivery company, with some plastic bubble wrap inside",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Paper",
 				"Paper",
 				"Paper",
@@ -50,27 +50,27 @@
 			]
 		},
 		{
-			"itemName": "LargeCarrierBag",
-			"itemDescription": "A large carrier bag from a popular supermarket",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "LargeCarrierBag",
+			"ItemDescription": "A large carrier bag from a popular supermarket",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Plastic",
 				"Plastic"
 			]
 		},
 		{
-			"itemName": "PolytheneCup",
-			"itemDescription": "A small polythene drinks cup",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "PolytheneCup",
+			"ItemDescription": "A small polythene drinks cup",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Plastic"
 			]
 		},
 		{
-			"itemName": "LargePlasticBottle",
-			"itemDescription": "A large plastic juice bottle, with a little juice still inside",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "LargePlasticBottle",
+			"ItemDescription": "A large plastic juice bottle, with a little juice still inside",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Plastic",
 				"Plastic",
 				"Plastic",
@@ -80,10 +80,10 @@
 			]
 		},
 		{
-			"itemName": "Newspaper",
-			"itemDescription": "An old newspaper from several days ago",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "Newspaper",
+			"ItemDescription": "An old newspaper from several days ago",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Paper",
 				"Paper",
 				"Paper",
@@ -91,10 +91,10 @@
 			]
 		},
 		{
-			"itemName": "PizzaBox",
-			"itemDescription": "A old pizza box, bits of cheese, toppings and pizza base are still inside",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "PizzaBox",
+			"ItemDescription": "A old pizza box, bits of cheese, toppings and pizza base are still inside",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Paper",
 				"Paper",
 				"Paper",
@@ -103,37 +103,37 @@
 			]
 		},
 		{
-			"itemName": "SmallCarrierBag",
-			"itemDescription": "A small carrier bag from a popular supermarket",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "SmallCarrierBag",
+			"ItemDescription": "A small carrier bag from a popular supermarket",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Plastic"
 			]
 		},
 		{
-			"itemName": "DrinksCan",
-			"itemDescription": "A small metal empty can of a popular fizzy soft drink",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "DrinksCan",
+			"ItemDescription": "A small metal empty can of a popular fizzy soft drink",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Metal",
 				"Metal"
 			]
 		},
 		{
-			"itemName": "SmallPlasticBottle",
-			"itemDescription": "A small, empty clear plastic drinks bottle",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "SmallPlasticBottle",
+			"ItemDescription": "A small, empty clear plastic drinks bottle",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Plastic",
 				"Plastic",
 				"Paper"
 			]
 		},
 		{
-			"itemName": "SmallTinCan",
-			"itemDescription": "An empty food can, with a bit of old food at the bottom",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "SmallTinCan",
+			"ItemDescription": "An empty food can, with a bit of old food at the bottom",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Metal",
 				"Metal",
 				"GreenWaste"
@@ -141,10 +141,10 @@
 			]
 		},
 		{
-			"itemName": "GlassBottle1",
-			"itemDescription": "An empty brown glass bottle with a metal screw cap",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "GlassBottle1",
+			"ItemDescription": "An empty brown glass bottle with a metal screw cap",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Glass",
 				"Glass",
 				"Glass",
@@ -153,10 +153,10 @@
 			]
 		},
 		{
-			"itemName": "GlassBottle2",
-			"itemDescription": "A empty green glass bottle with a metal screw cap",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "GlassBottle2",
+			"ItemDescription": "A empty green glass bottle with a metal screw cap",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Glass",
 				"Glass",
 				"Glass",
@@ -165,10 +165,10 @@
 			]
 		},
 		{
-			"itemName": "MediumPlasticBottle",
-			"itemDescription": "An empty plastic bottle, from a popular cleaning product brand",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "MediumPlasticBottle",
+			"ItemDescription": "An empty plastic bottle, from a popular cleaning product brand",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Plastic",
 				"Plastic",
 				"Plastic",
@@ -176,10 +176,10 @@
 			]
 		},
 		{
-			"itemName": "LargeTinCan",
-			"itemDescription": "A large empty food can, with a bit of old food at the bottom",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "LargeTinCan",
+			"ItemDescription": "A large empty food can, with a bit of old food at the bottom",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Metal",
 				"Metal",
 				"Metal",
@@ -189,20 +189,20 @@
 			]
 		},
 		{
-			"itemName": "JamJar",
-			"itemDescription": "A empty clear glass jar",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "JamJar",
+			"ItemDescription": "A empty clear glass jar",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Glass",
 				"Glass",
 				"Glass"
 			]
 		},
 		{
-			"itemName": "BrownPaperBag",
-			"itemDescription": "A paper bag for carrying groceries",
-			"itemType": 1,
-			"containedResources": [
+			"ItemName": "BrownPaperBag",
+			"ItemDescription": "A paper bag for carrying groceries",
+			"ItemType": 1,
+			"ContainedResources": [
 				"Paper",
 				"Paper"
 			]

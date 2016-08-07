@@ -17,22 +17,28 @@ public class GameProgress : MonoBehaviour {
 		checkPoints.Add("SpokenToEthan", CP_STATUS.UNTRIGGERED);
 		checkPoints.Add("FirstEthanMeetingPositive", CP_STATUS.UNTRIGGERED);
 		checkPoints.Add("MayorLeaveBeach", CP_STATUS.UNTRIGGERED);
+		checkPoints.Add("BeachRecyclePointFull1", CP_STATUS.UNTRIGGERED);
 	}	
 	// Update is called once per frame
 	void Update ()
 	{
 		if (checkPoints ["FirstEthanMeetingPositive"] == CP_STATUS.TRIGGERED) {
-			FirstEthanMeetingPositive();
+			FirstEthanMeetingPositive ();
 			checkPoints ["FirstEthanMeetingPositive"] = CP_STATUS.FINISHED;
 		}
 
 		if (checkPoints ["SpokenToEthan"] == CP_STATUS.TRIGGERED) {
-			SpokenToEthan();
-			checkPoints["SpokenToEthan"] = CP_STATUS.FINISHED;
+			SpokenToEthan ();
+			checkPoints ["SpokenToEthan"] = CP_STATUS.FINISHED;
 		}
 
 		if (checkPoints ["MayorLeaveBeach"] == CP_STATUS.TRIGGERED) {
-			Debug.Log("MayorLeaveBeach - not implemented");
+			Debug.Log ("MayorLeaveBeach - not implemented");
+		}
+		if (checkPoints ["BeachRecyclePointFull1"] == CP_STATUS.TRIGGERED) {
+			NPC ethan = FindNPC("Ethan");
+			ethan.GetComponent<NPCDialogue>().SetCurrentDialogueBlock(5);
+			checkPoints["BeachRecyclePointFull1"] = CP_STATUS.FINISHED;
 		}
 	}
 
