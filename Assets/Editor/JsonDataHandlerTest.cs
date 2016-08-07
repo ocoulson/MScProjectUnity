@@ -8,7 +8,7 @@ using DialogueBlocks;
 namespace tests {
 
 	[TestFixture]
-	public class ReadJsonTest {
+	public class JsonDataHandlerTest {
 
 		private JsonDataHandler handler;
 

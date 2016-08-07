@@ -7,6 +7,8 @@ public class RecyclePoint : MonoBehaviour {
 	private RecyclePointUI ui;
 	private InventoryUIManager inventoryUI;
 	private Player player;
+	public Sprite empty;
+	public Sprite full;
 	// Use this for initialization
 	void Start ()
 	{
@@ -14,6 +16,14 @@ public class RecyclePoint : MonoBehaviour {
 		inventoryUI = FindObjectOfType<InventoryUIManager>();
 	}
 
+	void Update ()
+	{
+		if (ui.IsFull) {
+			gameObject.GetComponent<SpriteRenderer> ().sprite = full;
+		} else {
+			gameObject.GetComponent<SpriteRenderer>().sprite = empty;
+		}
+	}
 
 	//Method to add a list of items (ie from the player inventory) into the recycle point
 	//The RecyclePoint UI object actually contains the items.

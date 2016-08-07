@@ -12,7 +12,7 @@ public class JsonDataHandler  {
 	private JsonData dialogueJsonData;
 	private JsonData itemsJsonData;
 
-	//Fields to encapsulate the JsonData objects for testing
+	//Properties to encapsulate the JsonData objects for testing
 	public JsonData DialogueJsonData {
 		get { return dialogueJsonData; }
 	}
