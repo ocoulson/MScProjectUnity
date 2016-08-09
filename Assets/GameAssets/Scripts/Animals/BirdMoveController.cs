@@ -14,8 +14,9 @@ public class BirdMoveController : MonoBehaviour {
 	private int idleState = 0;
 	private bool moving = false;
 	private Animator anim;
-	// Use this for initialization
-	void Awake () {
+
+
+	void Start () {
 		body = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 	}

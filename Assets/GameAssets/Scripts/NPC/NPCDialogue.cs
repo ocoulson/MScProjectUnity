@@ -5,7 +5,8 @@ using DialogueBlocks;
 public class NPCDialogue : MonoBehaviour {
 
 	private NPC npc;
-	private NpcController npcController;
+	//private NpcController npcController;
+	private NPC_BoxMovementController npcController;
 	private NpcInteractionZone zone;
 	private GameObject player;
 
@@ -16,14 +17,15 @@ public class NPCDialogue : MonoBehaviour {
 	private bool currentIsBranch;
 	private bool currentHasEffect;
 
-	private DialogueManager dManager;
+	private DialogueUIManager dManager;
 	private InstructionManager iManager;
 	// Use this for initialization
 	void Start () {
 		npc = GetComponent<NPC>();
-		npcController = GetComponent<NpcController>();
+		//npcController = GetComponent<NpcController>();
+		npcController = GetComponent<NPC_BoxMovementController>();
 		zone = GetComponentInChildren<NpcInteractionZone>();
-		dManager = FindObjectOfType<DialogueManager>();
+		dManager = FindObjectOfType<DialogueUIManager>();
 		iManager = FindObjectOfType<InstructionManager>();
 		player = FindObjectOfType<Player>().gameObject;
 	}
@@ -70,17 +72,15 @@ public class NPCDialogue : MonoBehaviour {
 		} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Escape)) {
 			CloseDialogue (false);
 		}
-
-		
-
-	
 	}
+
 
 	void DisplayLine ()
 	{
 		dManager.ShowDialogueBox (currentDialogueBlock.script_en_GB [currentLine]);
 		IncrementDialogueCounter ();
 	}
+
 	void ReadDialogueData ()
 	{
 		ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
@@ -135,7 +135,7 @@ public class NPCDialogue : MonoBehaviour {
 	private void EnableCharacterMovement ()
 	{
 		player.GetComponent<PlayerMovement>().movementEnabled = true;
-		gameObject.GetComponent<NpcController>().movementEnabled = true;
+		gameObject.GetComponent<NPC_BoxMovementController>().movementEnabled = true;
 
 	}
 

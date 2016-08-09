@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System;
+using System.Text;
 using System.Collections.Generic;
 
 public class Inventory
 {
-	public Int32 Size {get; private set;}
+	public int Size {get; private set;}
 
 	private List<InventoryItem> items;
 	public List<InventoryItem> Items { 
 		get { return items; } 
 		private set { items = value; }
+	}
+
+	public int Count {
+		get { return Items.Count;}
 	}
 
 	public bool IsEmpty {
@@ -19,12 +24,13 @@ public class Inventory
 		get { return Count >= Size;}
 	}
 
-	public int Count {
-		get { return Items.Count;}
-	}
+
 
 	public Inventory (int initialSize)
 	{
+		if (initialSize <= 0) {
+			throw new UnityException("Initial inventory size must be greater than 0");
+		}
 		Size = initialSize;
 		Items = new List<InventoryItem>();
 
@@ -32,7 +38,7 @@ public class Inventory
 	public void IncreaseCapacity (int newSize)
 	{
 		if (newSize <= Size) {
-			throw new UnityException ("New inventory size is less than or equal to current size");
+			throw new UnityException ("New inventory size must be greater than current size: " + Size);
 		} else {
 			Size = newSize;
 		}
@@ -47,9 +53,13 @@ public class Inventory
 		} 
 	}
 
+	public bool Contains (InventoryItem item)
+	{
+		return Items.Contains(item);
+	}
 	public InventoryItem RemoveItem (InventoryItem item)
 	{	
-		if (IsEmpty || !Items.Contains (item)) {
+		if (IsEmpty || !Contains (item)) {
 			throw new UnityException("Item not in inventory");
 		} else {
 			int index = Items.IndexOf (item);
@@ -72,10 +82,16 @@ public class Inventory
 
 	public override string ToString ()
 	{
-		string output = "";
-		foreach (InventoryItem item in Items) {
-			output += item.ItemName + ", ";
+		StringBuilder builder = new StringBuilder ();
+
+		for (int i = 0; i < Items.Count; i++) {
+			if (i == Items.Count - 1) {
+				builder.Append (items [i].ItemName);
+			} else {
+				builder.Append(items[i].ItemName + ", ");
+			}
 		}
-		return output.Substring(0, output.Length-2);
+	
+		return builder.ToString();
 	}
 }

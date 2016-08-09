@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour {
+public class DialogueUIManager : MonoBehaviour {
 
 	public GameObject dialogueBox;
 	public Text mainText;

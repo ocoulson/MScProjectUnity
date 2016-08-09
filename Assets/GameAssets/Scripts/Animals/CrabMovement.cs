@@ -1,21 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CrabMovement : MonoBehaviour {
-	public float moveSpeed;
+public class CrabMovement : NPC_MovementController {
+
 	public float runSpeed;
-	public float dieTime;
 
-	public float moveTime;
-	public float waitTime;
-
-	private bool IsMoving = false;
-	private float waitCounter;
-	private float moveCounter;
-
-	private Rigidbody2D body;
-	private Animator anim;
-	private Vector2 currentDirection;
 	private Vector2 previousDirection = Vector2.zero;
 
 	// Use this for initialization
@@ -32,28 +21,21 @@ public class CrabMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (IsMoving) {
-			moveCounter -= Time.deltaTime;
-			if (moveCounter < 0) {
-				body.velocity = Vector2.zero;
-				IsMoving = false;
-				anim.SetBool ("IsMoving", false);
-				waitCounter = waitTime + Random.Range(0, 10f);
-				previousDirection = currentDirection;
-			} else {
-				body.velocity = (currentDirection * moveSpeed);
-
-			}
-
-		} else {
-			waitCounter -= Time.deltaTime;
-			if (waitCounter < 0) {
-				ChooseDirection();
-			}
-		}
+		UpdateLoop();
 	}
 
-	void ChooseDirection ()
+	public override void FinishMoving ()
+	{
+		base.FinishMoving();
+		waitCounter = waitTime + Random.Range(0, 10f);
+		previousDirection = currentDirection;
+	}
+	public override void ContinueMoving ()
+	{
+		body.velocity = (currentDirection * speed);
+	}
+
+	public override void ChooseDirection ()
 	{
 		if (previousDirection != Vector2.left && previousDirection != Vector2.right) {
 			if (Random.Range (0, 1f) > 0.5f) {
@@ -68,7 +50,7 @@ public class CrabMovement : MonoBehaviour {
 			currentDirection = Vector2.left;
 		}
 		anim.SetBool("IsMoving", true);
-		IsMoving = true;
+		isMoving = true;
 		moveCounter = moveTime + Random.Range(0, 1f);
 	}
 
@@ -76,7 +58,7 @@ public class CrabMovement : MonoBehaviour {
 	{
 		if (col.tag == "Player") {
 			
-			IsMoving = true;
+			isMoving = true;
 			anim.SetBool ("IsMoving", true);
 			moveCounter = moveTime * 2; 
 			body.velocity = Vector2.zero;
@@ -84,7 +66,7 @@ public class CrabMovement : MonoBehaviour {
 			//Move away from the player but not directly
 			ChooseOppositeDirection(col.transform.position.x, transform.position.x);
 		} else {
-			IsMoving = false;
+			isMoving = false;
 			anim.SetBool("IsMoving", false);
 			waitCounter = waitTime;
 			body.velocity = Vector2.zero;

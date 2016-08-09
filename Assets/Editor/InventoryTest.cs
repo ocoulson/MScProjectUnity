@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace tests {
 
@@ -40,7 +41,7 @@ namespace tests {
 		}
 
 		[Test]
-		public void TestEmptyInventoryIncreaseCapacityToHigherCapacity() {
+		public void TestInventoryIncreaseCapacityToHigherCapacity() {
 			int beforeSize = emptyInventory.Size;
 			emptyInventory.IncreaseCapacity(beforeSize + 10);
 
@@ -49,7 +50,7 @@ namespace tests {
 
 		[Test]
 		[ExpectedException(typeof (UnityException))]
-		public void TestEmptyInventoryIncreaseCapacityToLowerCapacity() {
+		public void TestInventoryIncreaseCapacityToLowerCapacity() {
 			emptyInventory.IncreaseCapacity(emptyInventory.Size - 5);
 		}
 
@@ -81,6 +82,52 @@ namespace tests {
 
 			Assert.That (toBeRemoved == removed);
 			Assert.That (!fullInventory.IsFull);
+			Assert.That (fullInventory.Count == (fullInventory.Size -1));
+			Assert.That (!fullInventory.Contains(removed));
+		}
+
+		[Test]
+		public void TestRemoveAllItemsFromFullInventory() {
+			fullInventory.RemoveAll();
+			Assert.That(fullInventory.IsEmpty);
+
+		}
+
+		[Test]
+		[ExpectedException (typeof (UnityException))]
+		public void TestRemoveAllItemsFromEmptyInventory() {
+			emptyInventory.RemoveAll();
+		}
+
+		[Test]
+		[ExpectedException (typeof (UnityException))]
+		public void TestCreateInventoryWithInitialSizeLessThanZero() {
+			Inventory inventory = new Inventory(-5);
+		}
+
+		[Test]
+		public void TestToString() {
+			InventoryItem item1 = new InventoryItem();
+			InventoryItem item2 = new InventoryItem();
+			InventoryItem item3 = new InventoryItem();
+
+			item1.ItemName = "Item1";
+			item2.ItemName = "Item2";
+			item3.ItemName = "Item3";
+
+			emptyInventory.AddItem(item1);
+			emptyInventory.AddItem(item2);
+			emptyInventory.AddItem(item3);
+
+			string expected = "Item1, Item2, Item3";
+			Assert.That(emptyInventory.ToString() == expected);
+
+			InventoryItem item4 = new InventoryItem();
+			item4.ItemName = "Item4";
+
+			emptyInventory.AddItem(item4);
+			expected = "Item1, Item2, Item3, Item4";
+			Assert.That(emptyInventory.ToString() == expected);
 		}
 	}
 	

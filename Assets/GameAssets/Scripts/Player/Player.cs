@@ -171,7 +171,7 @@ public class Player : MonoBehaviour {
 			SetParentAndPosition (currentTool.transform, toolSlot.transform);
 
 			toolDisplay.ShowToolImage ();
-			toolDisplay.SetToolImage (currentTool.GetComponent<Tool> ().icon);
+			toolDisplay.SetToolImage (currentTool.GetComponent<Grabber> ().icon);
 		}
 	}
 
