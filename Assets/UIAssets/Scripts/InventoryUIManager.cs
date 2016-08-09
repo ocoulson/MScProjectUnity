@@ -66,10 +66,10 @@ public class InventoryUIManager : MonoBehaviour {
 
 	public void UpdateInventoryUi ()
 	{
-		for (int i = 0; i < playerInventory.size; i++) {
+		for (int i = 0; i < playerInventory.Size; i++) {
 			InventorySlot currentSlot = slots [i].GetComponent<InventorySlot> ();
-			if (i < playerInventory.items.Count){
-				currentSlot.PutItemInSlot (playerInventory.items [i]);
+			if (i < playerInventory.Items.Count){
+				currentSlot.PutItemInSlot (playerInventory.Items [i]);
 			} else {
 				if (!currentSlot.IsEmpty) {
 					currentSlot.RemoveItemFromSlot();
@@ -82,7 +82,7 @@ public class InventoryUIManager : MonoBehaviour {
 	{
 
 		playerInventory = inventory;
-		numberOfSlots = playerInventory.size;
+		numberOfSlots = playerInventory.Size;
 
 		SetupLayout();
 	}

@@ -4,29 +4,44 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-	public Int32 size {get; set;}
+	public Int32 Size {get; private set;}
 
-	public List<InventoryItem> items { get; private set; }
+	private List<InventoryItem> items;
+	public List<InventoryItem> Items { 
+		get { return items; } 
+		private set { items = value; }
+	}
+
+	public bool IsEmpty {
+		get { return Count <= 0;}
+	}
+	public bool IsFull {
+		get { return Count >= Size;}
+	}
+
+	public int Count {
+		get { return Items.Count;}
+	}
 
 	public Inventory (int initialSize)
 	{
-		size = initialSize;
-		items = new List<InventoryItem>();
+		Size = initialSize;
+		Items = new List<InventoryItem>();
 
 	}
 	public void IncreaseCapacity (int newSize)
 	{
-		if (newSize <= size) {
+		if (newSize <= Size) {
 			throw new UnityException ("New inventory size is less than or equal to current size");
 		} else {
-			size = newSize;
+			Size = newSize;
 		}
 	}
 
 	public void AddItem (InventoryItem item)
 	{
-		if (items.Count < size) {
-			items.Add (item);
+		if (!IsFull) {
+			Items.Add (item);
 		} else {
 			throw new UnityException("Inventory Full");
 		} 
@@ -34,20 +49,23 @@ public class Inventory
 
 	public InventoryItem RemoveItem (InventoryItem item)
 	{	
-		if (items.Count == 0 || !items.Contains (item)) {
+		if (IsEmpty || !Items.Contains (item)) {
 			throw new UnityException("Item not in inventory");
 		} else {
-			int index = items.IndexOf (item);
-			InventoryItem output = items [index];
-			items.Remove (item);
+			int index = Items.IndexOf (item);
+			InventoryItem output = Items [index];
+			Items.Remove (item);
 			return output;
 		}
 	}
 
 	public List<InventoryItem> RemoveAll ()
 	{
-		List<InventoryItem> output = items;
-		items = new List<InventoryItem>();
+		if (IsEmpty) {
+			throw new UnityException("Can't remove from empty inventory");
+		}
+		List<InventoryItem> output = Items;
+		Items = new List<InventoryItem>();
 		return output;
 	}
 
@@ -55,7 +73,7 @@ public class Inventory
 	public override string ToString ()
 	{
 		string output = "";
-		foreach (InventoryItem item in items) {
+		foreach (InventoryItem item in Items) {
 			output += item.ItemName + ", ";
 		}
 		return output.Substring(0, output.Length-2);

@@ -96,7 +96,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void DropItem(InventoryItem item) {
-		if (inventory.items.Contains(item)) {
+		if (inventory.Items.Contains(item)) {
 			inventory.RemoveItem(item);
 		}
 		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateItemGameObject(item);
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour {
 
 	public void DropAllItems ()
 	{
-		InventoryItem[] items = inventory.items.ToArray();
+		InventoryItem[] items = inventory.Items.ToArray();
 		foreach (InventoryItem item in items) {
 			DropItem(item);
 		}
