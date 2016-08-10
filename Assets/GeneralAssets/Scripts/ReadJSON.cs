@@ -9,7 +9,12 @@ using DialogueBlocks;
 public class ReadJSON : MonoBehaviour {
 
 	private JsonDataHandler handler;
-
+	public JsonData DialogueJsonData {
+		get { return handler.DialogueJsonData;}
+	}
+	public JsonData ItemsJsonData {
+		get { return handler.ItemsJsonData; }
+	}
 	void Start ()
 	{
 		DontDestroyOnLoad (gameObject);

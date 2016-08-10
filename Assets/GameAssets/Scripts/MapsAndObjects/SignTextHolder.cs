@@ -35,7 +35,7 @@ public class SignTextHolder : MonoBehaviour {
 	void OnTriggerStay2D (Collider2D col)
 	{
 		ChangeSortingOrder (col);
-		if (!iMan.IsActive () && col.gameObject.name == "Player") {
+		if (!iMan.IsActive () && col.gameObject.tag == "Player") {
 			ShowReadInstruction ();
 		}
 	}
@@ -65,7 +65,7 @@ public class SignTextHolder : MonoBehaviour {
 
 	void OnTriggerExit2D (Collider2D col)
 	{
-		if (iMan.IsActive() && col.gameObject.name == "Player") {
+		if (iMan.IsActive() && col.gameObject.tag == "Player") {
 			iMan.HideInstruction ();
 			if (signpostDisplayed) {
 				sMan.HideSign();

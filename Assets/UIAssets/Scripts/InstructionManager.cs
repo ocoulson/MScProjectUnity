@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class InstructionManager : MonoBehaviour {
 
 	public GameObject instruction;
-
+	public bool isActive { get { return instruction.activeInHierarchy;}}
 	public Image key;
 
 	public Sprite blankKey;
