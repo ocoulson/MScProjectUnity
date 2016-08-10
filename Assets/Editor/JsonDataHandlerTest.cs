@@ -34,6 +34,7 @@ namespace tests {
 		[ExpectedException(typeof (KeyNotFoundException))]
 		public void TestGetUnknownCharacterDialogue() {
 			DialogueBlock[] noCharacterDialogue = handler.GetCharacterDialogue("boo");
+			noCharacterDialogue.ToString();
 		}
 
 		[Test]

@@ -102,7 +102,7 @@ namespace tests {
 		[Test]
 		[ExpectedException (typeof (UnityException))]
 		public void TestCreateInventoryWithInitialSizeLessThanZero() {
-			Inventory inventory = new Inventory(-5);
+			new Inventory(-5);
 		}
 
 		[Test]
