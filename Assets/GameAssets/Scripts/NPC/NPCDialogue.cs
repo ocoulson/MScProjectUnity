@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DialogueBlocks;
+
 
 public class NPCDialogue : MonoBehaviour {
 
@@ -95,12 +95,14 @@ public class NPCDialogue : MonoBehaviour {
 			ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
 			dialogue = jsonReader.GetCharacterDialogue (npc.npcName);
 		}
-
+		DialogueBlock newBlock = null;
 		foreach (DialogueBlock block in dialogue) {
 			if (block.id == id) {
-				currentDialogueBlock = block;
+				newBlock = block;
 			}
 		}
+		currentDialogueBlock = newBlock;
+		GetComponent<NPC>().CurrentDialogueBlock = newBlock;
 
 		if (currentDialogueBlock is BranchDialogueBlock) {
 			currentIsBranch = true;
@@ -162,8 +164,8 @@ public class NPCDialogue : MonoBehaviour {
 			if (currentHasEffect) {
 				string effectName = (currentDialogueBlock as LinearEffectDialogueBlock).effectName;
 
-				if (FindObjectOfType<GameProgress> ().checkPoints [effectName] == CP_STATUS.UNTRIGGERED) {
-					FindObjectOfType<GameProgress> ().checkPoints [effectName] = CP_STATUS.TRIGGERED;
+				if (FindObjectOfType<GameProgress> ().CheckPoints [effectName] == CP_STATUS.UNTRIGGERED) {
+					FindObjectOfType<GameProgress> ().CheckPoints [effectName] = CP_STATUS.TRIGGERED;
 				}
 
 			}

@@ -47,8 +47,8 @@ public class RecyclePointUI : MonoBehaviour {
 	{
 		if (IsFull) {
 			DisableDepositButton ();
-			if (gameProgress.checkPoints ["BeachRecyclePointFull1"] == CP_STATUS.UNTRIGGERED) {
-				gameProgress.checkPoints ["BeachRecyclePointFull1"] = CP_STATUS.TRIGGERED;
+			if (gameProgress.CheckPoints ["BeachRecyclePointFull1"] == CP_STATUS.UNTRIGGERED) {
+				gameProgress.CheckPoints ["BeachRecyclePointFull1"] = CP_STATUS.TRIGGERED;
 			}
 
 		} else {

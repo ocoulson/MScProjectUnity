@@ -22,8 +22,7 @@ public class NPC_BoxMovementController : NPC_MovementController {
 
 		startPos = transform.position;
 
-		maxPosition = new Vector2(startPos.x + movementBoxWidth, startPos.y + movementBoxHeight);
-		minPosition = new Vector2(startPos.x - movementBoxWidth, startPos.y - movementBoxHeight);
+		SetMovementBox(movementBoxWidth, movementBoxHeight);
 	}
 
 	// Update is called once per frame
@@ -56,5 +55,14 @@ public class NPC_BoxMovementController : NPC_MovementController {
 		if (!(col.collider.gameObject.name == "Player")) {
 			currentDirection = Vector2.zero - currentDirection;
 		}
+	}
+
+	public void SetMovementBox (float width, float height)
+	{
+		movementBoxWidth = width;
+		movementBoxHeight = height;
+
+		maxPosition = new Vector2(startPos.x + movementBoxWidth, startPos.y + movementBoxHeight);
+		minPosition = new Vector2(startPos.x - movementBoxWidth, startPos.y - movementBoxHeight);
 	}
 }

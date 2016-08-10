@@ -4,27 +4,52 @@ using System.Collections.Generic;
 using System;
 
 public class Player : MonoBehaviour {
+	private Vector2 currentPosition;
 
 	public GameObject toolSlot;
 	public GameObject wearableSlot;
-	public GameObject wearable {get; private set;}
 
-	public GameObject currentTool {get; private set;}
-	public List<GameObject> tools { get; private set; }
+	private GameObject wearable;
 
-	public Inventory inventory { get; private set; }
+	public GameObject Wearable {
+		get {return wearable;}
+		private set {wearable = value;}
+	}
+
+	public GameObject currentTool;
+
+	public GameObject CurrentTool {
+		get {return currentTool;}
+		private set {currentTool = value;}
+	}
+
+	private List<GameObject> tools;
+
+	public List<GameObject> Tools {
+		get {return tools;}
+		set {tools = value;}
+	}
+
+	public Inventory inventory;
+
+	public Inventory Inventory {
+		get {return inventory;}
+		private set {inventory = value;}
+	}
 
 	private ToolDisplayManager toolDisplay;
 	private InventoryUIManager inventoryUiManager;
 	private ThoughtBubbleManager thoughtBubbleManager;
 
-	public bool inventoryInitialised { get; private set; }
+	public bool inventoryInitialised { get { return inventory != null;} }
 	private bool toolEquipped { get { return currentTool != null; } }
 	public  GameObject currentArea {get; set;}
 
-	void Start() {
-		inventoryInitialised = false;
-		tools = new List<GameObject>();
+	void Start ()
+	{
+		if (tools == null) {
+			tools = new List<GameObject> ();
+		}
 		toolDisplay = FindObjectOfType<ToolDisplayManager>();
 		inventoryUiManager = FindObjectOfType<InventoryUIManager>();
 		thoughtBubbleManager = FindObjectOfType<ThoughtBubbleManager>();
@@ -32,6 +57,7 @@ public class Player : MonoBehaviour {
 
 	void Update ()
 	{
+		currentPosition = transform.position;
 		if (toolEquipped && Input.GetKeyDown(KeyCode.E)) {
 			Tool tool = GetComponentInChildren<Tool> ();
 			InventoryItem pickedUp = null;
@@ -120,7 +146,6 @@ public class Player : MonoBehaviour {
 		if (inventory == null) {
 			inventory = new Inventory (initialSize);
 			inventoryUiManager.LinkInventoryToUI(inventory);
-			inventoryInitialised = true;
 		} else {
 			Debug.LogError("Inventory already initilalised");
 		}
@@ -164,7 +189,7 @@ public class Player : MonoBehaviour {
 	public void SetCurrentTool (int index)
 	{
 		if (index > tools.Count - 1) {
-			Debug.Log ("Invalid tool choice");
+			Debug.LogError ("Invalid tool choice");
 		} else {
 			currentTool = tools [index];
 			toolSlot.transform.DetachChildren ();
