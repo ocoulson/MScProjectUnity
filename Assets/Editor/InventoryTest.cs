@@ -2,11 +2,15 @@
 using UnityEditor;
 using NUnit.Framework;
 using System.Collections.Generic;
+using ObserverPattern;
 
 namespace tests {
 
 	[TestFixture]
 	public class InventoryTest {
+
+		private ObserverImpl emptyObserver;
+		private ObserverImpl fullObserver;
 
 		private InventoryItem[] rubbishItems;
 		private Inventory emptyInventory;
@@ -22,9 +26,16 @@ namespace tests {
 
 			fullInventory = new Inventory (rubbishItems.Length);
 
+			emptyObserver = new ObserverImpl(emptyInventory);
+			fullObserver = new ObserverImpl(fullInventory);
+
+			((Subject) emptyInventory).AddObserver(emptyObserver);
+			((Subject) fullInventory).AddObserver(fullObserver);
+
 			foreach (InventoryItem item in rubbishItems) {
 				fullInventory.AddItem(item);
 			}
+
 
 		}
 
@@ -129,6 +140,75 @@ namespace tests {
 			expected = "Item1, Item2, Item3, Item4";
 			Assert.That(emptyInventory.ToString() == expected);
 		}
+
+		[Test]
+		public void TestObserversAfterConstruction() {
+			Assert.That(emptyObserver.observerItems.Count == 0);
+			Assert.That(fullObserver.observerItems.Count == fullInventory.Count);
+			Assert.That(fullObserver.Size == fullInventory.Size);
+			Assert.That(emptyObserver.Size == emptyInventory.Size);
+		}
+
+		[Test]
+		public void TestEmptyObserverAfterAdd() {
+			InventoryItem item1 = new InventoryItem();
+			item1.ItemName = "Item1";
+			emptyInventory.AddItem(item1);
+			Assert.That(emptyObserver.observerItems.Count == 1);
+			Assert.That(emptyObserver.observerItems[0] == item1);
+		}
+
+		[Test]
+		public void TestFullObserverAfterRemove() {
+			InventoryItem item = fullInventory.RemoveItem(fullInventory.Items[0]);
+			Assert.That(fullObserver.observerItems.Count == fullInventory.Count);
+			Assert.That(!fullObserver.observerItems.Contains(item));
+		}
+
+		[Test]
+		public void TestFullObserverAfterRemoveAll() {
+			fullInventory.RemoveAll();
+			Assert.That(fullObserver.observerItems.Count == 0);
+		}
+
+		[Test]
+		public void TestObserverAfterIncreaseCapacity() {
+			int newSize = emptyInventory.Size + 10;
+			emptyInventory.IncreaseCapacity(newSize);
+
+			Assert.That(emptyObserver.Size == newSize);
+		}
+
+	}
+
+	class ObserverImpl : Observer {
+		
+		public List<InventoryItem> observerItems = new List<InventoryItem>();
+		private Inventory inventory;
+		private int size;
+
+		public int Size {
+			get {
+				return size;
+			}
+			private set {
+				size = value;
+			}
+		}
+
+		public ObserverImpl (Inventory inventory)
+		{
+			this.inventory = inventory;
+			Size = inventory.Size;
+		}
+		public void OnNotify ()
+		{
+			observerItems = new List<InventoryItem> ();
+			foreach (InventoryItem item in inventory.Items) {
+				observerItems.Add(item);
+			}
+			Size = inventory.Size;
+		} 
 	}
 	
 
