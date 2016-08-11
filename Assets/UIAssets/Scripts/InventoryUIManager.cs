@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using ObserverPattern;
 
-public class InventoryUIManager : MonoBehaviour {
+public class InventoryUIManager : MonoBehaviour, Observer {
 
 	private float iWidth;
 	private float iHeight;
@@ -32,11 +33,21 @@ public class InventoryUIManager : MonoBehaviour {
 	public Text visualTextObject;
 	private static Text visualText;
 
+	#region Observer implementation
+
+	public void OnNotify ()
+	{
+		UpdateInventoryUi();
+	}
+
+	#endregion
+
 	void Start ()
 	{
 		tooltip = tooltipObject;
 		sizeText = sizeTextObject;
 		visualText = visualTextObject;
+
 	}
 
 	public void ShowTooltip (GameObject inventorySlot)
@@ -64,7 +75,7 @@ public class InventoryUIManager : MonoBehaviour {
 		tooltip.SetActive(false);
 	}
 
-	public void UpdateInventoryUi ()
+	private void UpdateInventoryUi ()
 	{
 		for (int i = 0; i < playerInventory.Size; i++) {
 			InventorySlot currentSlot = slots [i].GetComponent<InventorySlot> ();
@@ -82,6 +93,8 @@ public class InventoryUIManager : MonoBehaviour {
 	{
 
 		playerInventory = inventory;
+		inventory.AddObserver(this);
+
 		numberOfSlots = playerInventory.Size;
 
 		SetupLayout();

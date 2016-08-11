@@ -4,7 +4,7 @@ using System.Collections;
 
 public class NPCDialogue : MonoBehaviour {
 
-	private NPC npc;
+	private NonPlayerCharacter npc;
 	//private NpcController npcController;
 	private NPC_BoxMovementController npcController;
 	private NpcInteractionZone zone;
@@ -21,13 +21,13 @@ public class NPCDialogue : MonoBehaviour {
 	private InstructionManager iManager;
 	// Use this for initialization
 	void Start () {
-		npc = GetComponent<NPC>();
+		npc = GetComponent<NonPlayerCharacter>();
 		//npcController = GetComponent<NpcController>();
 		npcController = GetComponent<NPC_BoxMovementController>();
 		zone = GetComponentInChildren<NpcInteractionZone>();
 		dManager = FindObjectOfType<DialogueUIManager>();
 		iManager = FindObjectOfType<InstructionManager>();
-		player = FindObjectOfType<Player>().gameObject;
+		player = FindObjectOfType<PlayerGameObject>().gameObject;
 	}
 
 
@@ -102,7 +102,7 @@ public class NPCDialogue : MonoBehaviour {
 			}
 		}
 		currentDialogueBlock = newBlock;
-		GetComponent<NPC>().CurrentDialogueBlock = newBlock;
+		GetComponent<NonPlayerCharacter>().CurrentDialogueBlock = newBlock;
 
 		if (currentDialogueBlock is BranchDialogueBlock) {
 			currentIsBranch = true;

@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Player : MonoBehaviour {
-	private Vector2 currentPosition;
+public class PlayerGameObject : MonoBehaviour {
 
 	public GameObject toolSlot;
 	public GameObject wearableSlot;
@@ -30,7 +29,7 @@ public class Player : MonoBehaviour {
 		set {tools = value;}
 	}
 
-	public Inventory inventory;
+	private Inventory inventory;
 
 	public Inventory Inventory {
 		get {return inventory;}
@@ -57,7 +56,6 @@ public class Player : MonoBehaviour {
 
 	void Update ()
 	{
-		currentPosition = transform.position;
 		if (toolEquipped && Input.GetKeyDown(KeyCode.E)) {
 			Tool tool = GetComponentInChildren<Tool> ();
 			InventoryItem pickedUp = null;
@@ -105,7 +103,7 @@ public class Player : MonoBehaviour {
 	public List<InventoryItem> DepositEntireInventory ()
 	{
 		List<InventoryItem> output = inventory.RemoveAll();
-		inventoryUiManager.UpdateInventoryUi();
+		//inventoryUiManager.UpdateInventoryUi();
 		return output;
 	}
 
@@ -138,7 +136,7 @@ public class Player : MonoBehaviour {
 		foreach (InventoryItem item in items) {
 			DropItem(item);
 		}
-		inventoryUiManager.UpdateInventoryUi();
+		//inventoryUiManager.UpdateInventoryUi();
 	}
 
 	public void InitialiseInventory (int initialSize)
@@ -167,7 +165,7 @@ public class Player : MonoBehaviour {
 		} catch(ArgumentException ex) {
 			Debug.LogError(ex.Message);
 		}
-		inventoryUiManager.UpdateInventoryUi();
+		//inventoryUiManager.UpdateInventoryUi();
 	}
 
 	public void SetWearable (GameObject newWearable)

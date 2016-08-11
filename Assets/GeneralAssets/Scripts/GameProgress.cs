@@ -21,20 +21,20 @@ public class GameProgress : MonoBehaviour {
 		}
 	}
 
-	private Player player;
+	private PlayerGameObject player;
 
-	private List<NPC> NPCs;
+	private List<NonPlayerCharacter> NPCs;
 
 	// Use this for initialization
 	void Start ()
 	{
 		DontDestroyOnLoad (gameObject);
-		player = FindObjectOfType<Player> ();
+		player = FindObjectOfType<PlayerGameObject> ();
 
 		if (NPCs == null) {
-			NPCs = new List<NPC> ();
+			NPCs = new List<NonPlayerCharacter> ();
 		}
-		foreach (NPC npc in FindObjectsOfType<NPC>()) {
+		foreach (NonPlayerCharacter npc in FindObjectsOfType<NonPlayerCharacter>()) {
 			if (!NPCs.Contains (npc)) {
 				AddNPC (npc);
 			}
@@ -70,20 +70,20 @@ public class GameProgress : MonoBehaviour {
 			Debug.Log ("MayorLeaveBeach - not implemented");
 		}
 		if (checkPoints ["BeachRecyclePointFull1"] == CP_STATUS.TRIGGERED) {
-			NPC ethan = FindNPC("Ethan");
+			NonPlayerCharacter ethan = FindNPC("Ethan");
 			ethan.GetComponent<NPCDialogue>().SetCurrentDialogueBlock(5);
 			checkPoints["BeachRecyclePointFull1"] = CP_STATUS.FINISHED;
 		}
 	}
 
-	public void AddNPC (NPC npc)
+	public void AddNPC (NonPlayerCharacter npc)
 	{
 		NPCs.Add(npc);
 	}
 
-	private NPC FindNPC (string name)
+	private NonPlayerCharacter FindNPC (string name)
 	{
-		NPC target = Array.Find (NPCs.ToArray (), npc => npc.npcName == name);
+		NonPlayerCharacter target = Array.Find (NPCs.ToArray (), npc => npc.npcName == name);
 		if (target == null) {
 			throw new UnityException ("NPC not found in list of NPCs");
 		} else {
@@ -103,7 +103,7 @@ public class GameProgress : MonoBehaviour {
 	}
 
 	private void SpokenToEthan() {
-		NPC mayor = FindNPC("Mayor");
+		NonPlayerCharacter mayor = FindNPC("Mayor");
 		
 		if (checkPoints ["SpokenToMayorFirst"] == CP_STATUS.TRIGGERED) {
 			mayor.gameObject.GetComponent<NPCDialogue> ().SetCurrentDialogueBlock (2);

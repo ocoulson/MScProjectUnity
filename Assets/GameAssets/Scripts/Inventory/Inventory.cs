@@ -2,8 +2,9 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using ObserverPattern;
 
-public class Inventory
+public class Inventory : Subject
 {
 	public int Size {get; private set;}
 
@@ -42,6 +43,7 @@ public class Inventory
 		} else {
 			Size = newSize;
 		}
+		Notify();
 	}
 
 	public void AddItem (InventoryItem item)
@@ -51,12 +53,14 @@ public class Inventory
 		} else {
 			throw new UnityException("Inventory Full");
 		} 
+		Notify();
 	}
 
 	public bool Contains (InventoryItem item)
 	{
 		return Items.Contains(item);
 	}
+
 	public InventoryItem RemoveItem (InventoryItem item)
 	{	
 		if (IsEmpty || !Contains (item)) {
@@ -65,8 +69,10 @@ public class Inventory
 			int index = Items.IndexOf (item);
 			InventoryItem output = Items [index];
 			Items.Remove (item);
+			Notify();
 			return output;
 		}
+
 	}
 
 	public List<InventoryItem> RemoveAll ()
@@ -76,6 +82,7 @@ public class Inventory
 		}
 		List<InventoryItem> output = Items;
 		Items = new List<InventoryItem>();
+		Notify();
 		return output;
 	}
 

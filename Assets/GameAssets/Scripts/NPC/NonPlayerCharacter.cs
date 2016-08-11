@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 
-public class NPC : MonoBehaviour {
+public class NonPlayerCharacter : MonoBehaviour {
 
 	public string npcName;
 	public Sprite[] sprites { get; private set; }
