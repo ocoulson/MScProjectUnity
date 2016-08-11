@@ -21,15 +21,32 @@ public class GameProgress : MonoBehaviour {
 		}
 	}
 
-	private PlayerGameObject player;
+	private PlayerGameObject playerGameObject;
 
 	private List<NonPlayerCharacter> NPCs;
+
+	private Game currentGame;
+
+	private Game NewGame() {
+
+		Game game = new Game(new PlayerModel("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
+
+		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), game.Player.CurrentPosition, Quaternion.identity) as GameObject;
+		player.name = "Player";
+		playerGameObject = player.GetComponent<PlayerGameObject>();
+
+		playerGameObject.Player = game.Player;
+	
+		return game;
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
 		DontDestroyOnLoad (gameObject);
-		player = FindObjectOfType<PlayerGameObject> ();
+		if (currentGame == null) {
+			currentGame = NewGame();
+		}
 
 		if (NPCs == null) {
 			NPCs = new List<NonPlayerCharacter> ();
@@ -95,11 +112,11 @@ public class GameProgress : MonoBehaviour {
 	{
 		checkPoints ["SpokenToEthan"] = CP_STATUS.TRIGGERED;
 		GameObject grabber = Instantiate (Resources.Load ("Prefabs/Tools/Grabber")) as GameObject;
-		player.AddTool (grabber);
+		playerGameObject.AddTool (grabber);
 
 		GameObject backpack = Instantiate (Resources.Load ("Prefabs/Wearables/Backpack")) as GameObject;
-		player.SetWearable (backpack);
-		player.InitialiseInventory(20);
+		playerGameObject.SetWearable (backpack);
+		playerGameObject.InitialiseInventory(20);
 	}
 
 	private void SpokenToEthan() {

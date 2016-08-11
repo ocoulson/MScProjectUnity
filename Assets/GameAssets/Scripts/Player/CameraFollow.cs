@@ -2,12 +2,13 @@
 using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
-	public Transform target;
+	private Transform target;
 	public float followSpeed = 1f;
 	Camera myCam;
 	// Use this for initialization
 	void Start () {
-		myCam = GetComponent<Camera>();
+		myCam = GameObject.FindObjectOfType<Camera>();
+		target = transform;
 	}
 	
 	// Update is called once per frame
@@ -16,7 +17,7 @@ public class CameraFollow : MonoBehaviour {
 		myCam.orthographicSize = (Screen.height / 100f) / 4f;
 
 		if (target) {
-			transform.position = Vector3.Lerp(transform.position, target.position, followSpeed) + new Vector3(0,0,-10f);
+			myCam.transform.position = Vector3.Lerp(transform.position, target.position, followSpeed) + new Vector3(0,0,-10f);
 		}
 	}
 }

@@ -5,22 +5,41 @@ using System.Collections.Generic;
 using ObserverPattern;
 
 
-public class Player : Subject {
+public class PlayerModel : Subject {
 
 	private Vector2 currentPosition;
 
+	public Vector2 CurrentPosition {
+		get {return currentPosition;}
+		set {currentPosition = value;}
+	}
+
 	private string name;
 
-	private Gender gender;
+	public string Name {
+		get {return name;}
+	}
 
+	private Gender gender;
 	private string spriteName;
 
+	public string SpriteName {
+		get {
+			return spriteName;
+		}
+		set {
+			spriteName = value;
+		}
+	}
+
 	private Inventory inventory;
+	public Inventory Inventory {get {return inventory;}}
+	public bool InventoryInitialised { get { return inventory != null; } }
 
 	private List<Tool> tools;
 	private Tool currentTool;
 
-	public Player(string name, Gender gender, string spriteName, Vector2 startPosition) {
+	public PlayerModel(string name, Gender gender, string spriteName, Vector2 startPosition) {
 		this.name = name;
 		this.gender = gender;
 		this.spriteName = spriteName;
@@ -33,7 +52,11 @@ public class Player : Subject {
 		if (inventory != null) {
 			return false;
 		}
-		inventory = new Inventory(size);
+		try {
+			inventory = new Inventory (size);
+		} catch (UnityException ex) {
+			Debug.LogError(ex.Message);
+		}
 		return true;
 	}
 
@@ -41,7 +64,7 @@ public class Player : Subject {
 	{
 		try {
 			inventory.IncreaseCapacity (newSize);
-		} catch (ArgumentException ex) {
+		} catch (UnityException ex) {
 			Debug.LogError(ex.Message);
 		}
 	}
@@ -50,10 +73,21 @@ public class Player : Subject {
 	{
 		try {
 			inventory.AddItem(item);
-		} catch(ArgumentException ex) {
+		} catch(UnityException ex) {
 			Debug.LogError(ex.Message);
 		}
 	}
+
+	public void RemoveItem (InventoryItem item)
+	{
+		try {
+			inventory.RemoveItem (item);
+		} catch (UnityException ex) {
+			Debug.LogError(ex.Message);
+		}
+	}
+
+
 
 	public bool AddTool (Tool newTool)
 	{

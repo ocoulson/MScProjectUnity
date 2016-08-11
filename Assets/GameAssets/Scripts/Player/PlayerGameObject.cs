@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using System;
 
 public class PlayerGameObject : MonoBehaviour {
+	private PlayerModel player;
+	private Sprite[] sprites;
+
+	public PlayerModel Player {
+		get {return player;}
+		set {player = value;}
+	}
 
 	public GameObject toolSlot;
 	public GameObject wearableSlot;
@@ -29,19 +36,13 @@ public class PlayerGameObject : MonoBehaviour {
 		set {tools = value;}
 	}
 
-	private Inventory inventory;
-
-	public Inventory Inventory {
-		get {return inventory;}
-		private set {inventory = value;}
-	}
-
+	private SpriteRenderer spriteRenderer;
 	private ToolDisplayManager toolDisplay;
 	private InventoryUIManager inventoryUiManager;
 	private ThoughtBubbleManager thoughtBubbleManager;
 
-	public bool inventoryInitialised { get { return inventory != null;} }
-	private bool toolEquipped { get { return currentTool != null; } }
+	public bool InventoryInitialised { get { return player.InventoryInitialised;} }
+	private bool ToolEquipped { get { return currentTool != null; } }
 	public  GameObject currentArea {get; set;}
 
 	void Start ()
@@ -52,24 +53,28 @@ public class PlayerGameObject : MonoBehaviour {
 		toolDisplay = FindObjectOfType<ToolDisplayManager>();
 		inventoryUiManager = FindObjectOfType<InventoryUIManager>();
 		thoughtBubbleManager = FindObjectOfType<ThoughtBubbleManager>();
+
+		sprites = Resources.LoadAll<Sprite> ("Player/" + player.SpriteName);
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		spriteRenderer.sprite = sprites[4];
 	}
 
 	void Update ()
 	{
-		if (toolEquipped && Input.GetKeyDown(KeyCode.E)) {
-			Tool tool = GetComponentInChildren<Tool> ();
+		if (ToolEquipped && Input.GetKeyDown(KeyCode.E)) {
+			Tool tool = CurrentTool.GetComponent<Tool> ();
 			InventoryItem pickedUp = null;
 
 			try {
 				pickedUp = tool.Use ();
 			} catch (UnityException ex) {
-				Debug.Log (ex.Message);
+//				Debug.Log (ex.Message);
 			}
 
 			if (pickedUp != null) {
 
 				try {
-					AddItem (pickedUp);
+					PutItemInInventory (pickedUp);
 				} catch (UnityException ex) {
 					Debug.Log (ex.Message);
 					StartCoroutine (InventoryFullEvent (pickedUp));
@@ -78,16 +83,23 @@ public class PlayerGameObject : MonoBehaviour {
 			}
 
 		}
-		if (inventoryInitialised && Input.GetKeyDown (KeyCode.I)) {
+		if (InventoryInitialised && Input.GetKeyDown (KeyCode.I)) {
 			inventoryUiManager.Toggle ();
 		}
-		if (inventoryInitialised && Input.GetKeyDown (KeyCode.P)) {
-			Debug.Log(inventory); 
-		}
-		if (inventoryInitialised && Input.GetKey(KeyCode.RightShift) && Input.GetKeyUp(KeyCode.O)) {
+		if (InventoryInitialised && Input.GetKey(KeyCode.RightShift) && Input.GetKeyUp(KeyCode.O)) {
 			DropAllItems();
 		}
 
+	}
+
+	//Player Sprite depends on the spriteName field of the PlayerModel
+	void LateUpdate() {
+		string spriteName = spriteRenderer.sprite.name;
+		Sprite newSprite = Array.Find(sprites, sprite => sprite.name == spriteName);
+
+		if (newSprite) {
+			spriteRenderer.sprite = newSprite;
+		} 
 	}
 
 	IEnumerator InventoryFullEvent(InventoryItem item) {
@@ -102,27 +114,26 @@ public class PlayerGameObject : MonoBehaviour {
 
 	public List<InventoryItem> DepositEntireInventory ()
 	{
-		List<InventoryItem> output = inventory.RemoveAll();
-		//inventoryUiManager.UpdateInventoryUi();
+		List<InventoryItem> output = player.Inventory.RemoveAll();
 		return output;
 	}
 
-	public void AddMultipleItems (List<InventoryItem> input)
-	{
-		foreach (InventoryItem item in input) {
-			try {
-				inventory.AddItem (item);
-			} catch (UnityException ex) {
-				Debug.Log (ex.Message);
-				StartCoroutine (InventoryFullEvent (item));
-			}
-		}
-	}
+	//TODO: Rewrite - use new MVC pattern.
+//	public void AddMultipleItems (List<InventoryItem> input)
+//	{
+//		foreach (InventoryItem item in input) {
+//			try {
+//				inventory.AddItem (item);
+//			} catch (UnityException ex) {
+//				Debug.Log (ex.Message);
+//				StartCoroutine (InventoryFullEvent (item));
+//			}
+//		}
+//	}
 
 	public void DropItem(InventoryItem item) {
-		if (inventory.Items.Contains(item)) {
-			inventory.RemoveItem(item);
-		}
+		player.Inventory.RemoveItem(item);
+
 		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateItemGameObject(item);
 		rubbishItem.transform.parent = currentArea.GetComponentInChildren<RubbishSpawner>().transform;
 		float dropRadius = 0.2f;
@@ -132,48 +143,38 @@ public class PlayerGameObject : MonoBehaviour {
 
 	public void DropAllItems ()
 	{
-		InventoryItem[] items = inventory.Items.ToArray();
+		InventoryItem[] items = Player.Inventory.Items.ToArray();
 		foreach (InventoryItem item in items) {
 			DropItem(item);
 		}
-		//inventoryUiManager.UpdateInventoryUi();
 	}
 
 	public void InitialiseInventory (int initialSize)
 	{
-		if (inventory == null) {
-			inventory = new Inventory (initialSize);
-			inventoryUiManager.LinkInventoryToUI(inventory);
-		} else {
-			Debug.LogError("Inventory already initilalised");
-		}
+		player.InitialiseInventory(initialSize);
+
+		inventoryUiManager.LinkInventoryToUI(player.Inventory);
 	}
 
 	public void IncreaseInventorySize (int newSize)
 	{
-		try {
-			inventory.IncreaseCapacity (newSize);
-		} catch (ArgumentException ex) {
-			Debug.LogError(ex.Message);
-		}
+		player.IncreaseInventorySize(newSize);
 	}
 
-	public void AddItem (InventoryItem item)
+	public void PutItemInInventory (InventoryItem item)
 	{
-		try {
-			inventory.AddItem(item);
-		} catch(ArgumentException ex) {
-			Debug.LogError(ex.Message);
-		}
-		//inventoryUiManager.UpdateInventoryUi();
+		player.AddItem(item);
 	}
 
+
+	//TODO: Implement in PlayerModel
 	public void SetWearable (GameObject newWearable)
 	{
 		wearable = newWearable;
 		SetParentAndPosition(wearable.transform, wearableSlot.transform);
 	}
 
+	//TODO: Fix to work in PlayerModel
 	public void AddTool (GameObject tool)
 	{
 		if (!tools.Contains (tool)) {
@@ -184,6 +185,7 @@ public class PlayerGameObject : MonoBehaviour {
 		}
 	}
 
+	//TODO: Fix to work in PlayerModel
 	public void SetCurrentTool (int index)
 	{
 		if (index > tools.Count - 1) {
@@ -203,5 +205,7 @@ public class PlayerGameObject : MonoBehaviour {
 		target.position = holder.position;
 		target.rotation = holder.rotation;
 	}
+
+
 
 }

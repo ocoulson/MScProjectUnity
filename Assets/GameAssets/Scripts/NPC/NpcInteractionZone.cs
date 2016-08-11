@@ -16,7 +16,7 @@ public class NpcInteractionZone : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if (!iManager.IsActive () && col.gameObject.name == "Player") {
+		if (!iManager.IsActive () && col.gameObject.tag == "Player") {
 			iManager.ShowInstruction("Press", "Space", "to talk");
 			playerInZone = true;
 		}
@@ -24,7 +24,7 @@ public class NpcInteractionZone : MonoBehaviour {
 
 	void OnTriggerStay2D (Collider2D col)
 	{
-		if (col.gameObject.name == "Player") {
+		if (col.gameObject.tag == "Player") {
 			ChangeSortingOrder(col);
 		}
 	}
@@ -32,7 +32,7 @@ public class NpcInteractionZone : MonoBehaviour {
 	void OnTriggerExit2D (Collider2D col)
 	{	
 		
-		if (col.gameObject.name == "Player") {
+		if (col.gameObject.tag == "Player") {
 			iManager.HideInstruction();
 			playerInZone = false;
 		} 

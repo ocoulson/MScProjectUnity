@@ -37,7 +37,7 @@ public class RecyclePoint : MonoBehaviour {
 
 			InventoryItem returned = ui.AddRubbishItem (item);	
 			if (returned != null) {
-				player.AddItem(returned);
+				player.PutItemInInventory(returned);
 			}	
 		} 
 	
@@ -55,7 +55,7 @@ public class RecyclePoint : MonoBehaviour {
 		ui.ShowUI ();
 		if (col.gameObject.tag == "Player") {
 			player = col.GetComponent<PlayerGameObject> ();
-			if (player.inventoryInitialised) {
+			if (player.InventoryInitialised) {
 				inventoryUI.ShowUI();
 			}
 
