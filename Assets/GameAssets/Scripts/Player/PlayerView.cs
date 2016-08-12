@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using ObserverPattern;
 
-public class PlayerView : MonoBehaviour {
+public class PlayerView : MonoBehaviour, Observer  {
 
 	private PlayerModel player;
 	public PlayerModel Player { get {return player;} set {player = value; } }
@@ -14,7 +15,7 @@ public class PlayerView : MonoBehaviour {
 	private GameObject wearable;
 	public GameObject Wearable { get {return wearable;} private set {wearable = value; } }
 
-	public GameObject currentToolObject;
+	private GameObject currentToolObject;
 	public GameObject CurrentToolObject { get {return currentToolObject;} private set {currentToolObject = value; } }
 
 	private SpriteRenderer spriteRenderer;
@@ -88,6 +89,18 @@ public class PlayerView : MonoBehaviour {
 		} 
 	}
 
+	#region Observer implementation
+
+	public void OnNotify ()
+	{
+		
+		if (CurrentToolObject == null || CurrentToolObject.GetComponent<ToolAdapter> ().Tool != Player.CurrentTool) {
+			UpdateCurrentTool();
+		}
+	}
+
+	#endregion
+
 	IEnumerator InventoryFullEvent (InventoryItem item)
 	{
 		GetComponent<PlayerMovement> ().DisableMovement ();
@@ -155,13 +168,11 @@ public class PlayerView : MonoBehaviour {
 	public void AddTool(Tool tool) {
 		player.AddTool(tool);
 		Debug.Assert(player.CurrentTool == tool);
-		UpdateCurrentTool();
 	}
 
 	public void SetCurrentTool (int index)
 	{
 		Player.SetCurrentTool(index);
-		UpdateCurrentTool();
 	}
 
 	//Creates a new gameObject to hold the Tool currentTool in the playerModel and attaches it to the 

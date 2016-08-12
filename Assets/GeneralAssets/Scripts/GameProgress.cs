@@ -44,6 +44,7 @@ public class GameProgress : MonoBehaviour {
 		playerGameObject = player.GetComponent<PlayerView>();
 
 		playerGameObject.Player = currentGame.Player;
+		currentGame.Player.AddObserver(playerGameObject);
 	}
 
 	// Use this for initialization

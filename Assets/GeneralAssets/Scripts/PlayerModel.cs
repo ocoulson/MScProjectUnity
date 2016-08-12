@@ -12,12 +12,11 @@ public class PlayerModel : Subject {
 	public Vector2 CurrentPosition { get {return currentPosition;} set {currentPosition = value;} }
 
 	private string name;
-
 	public string Name { get {return name;} }
 
 	private Gender gender;
-	private string spriteName;
 
+	private string spriteName;
 	public string SpriteName { get { return spriteName; } set { spriteName = value; } }
 
 	private Inventory inventory;
@@ -25,13 +24,11 @@ public class PlayerModel : Subject {
 	public bool InventoryInitialised { get { return inventory != null; } }
 
 	private List<Tool> tools;
-
 	public List<Tool> Tools {
 		get {return tools;}
 	}
 
 	private Tool currentTool;
-
 	public Tool CurrentTool {
 		get {return currentTool;}
 		set {currentTool = value;}
@@ -85,16 +82,16 @@ public class PlayerModel : Subject {
 		}
 	}
 
-
-
 	public bool AddTool (Tool newTool)
 	{
 		if (tools.Contains (newTool)) {
 			return false;
 		}
-		tools.Add(newTool);
-		if (currentTool == null)
+		tools.Add (newTool);
+		if (currentTool == null) {
 			currentTool = newTool;
+			Notify();
+		}
 		return true;
 	}
 
@@ -112,6 +109,7 @@ public class PlayerModel : Subject {
 			Debug.LogError ("Invalid tool choice");
 		} else {
 			CurrentTool = Tools[index];
+			Notify();
 		}
 	}
 
