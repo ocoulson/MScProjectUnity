@@ -9,28 +9,16 @@ public class PlayerModel : Subject {
 
 	private Vector2 currentPosition;
 
-	public Vector2 CurrentPosition {
-		get {return currentPosition;}
-		set {currentPosition = value;}
-	}
+	public Vector2 CurrentPosition { get {return currentPosition;} set {currentPosition = value;} }
 
 	private string name;
 
-	public string Name {
-		get {return name;}
-	}
+	public string Name { get {return name;} }
 
 	private Gender gender;
 	private string spriteName;
 
-	public string SpriteName {
-		get {
-			return spriteName;
-		}
-		set {
-			spriteName = value;
-		}
-	}
+	public string SpriteName { get { return spriteName; } set { spriteName = value; } }
 
 	private Inventory inventory;
 	public Inventory Inventory {get {return inventory;}}
@@ -38,6 +26,9 @@ public class PlayerModel : Subject {
 
 	private List<Tool> tools;
 	private Tool currentTool;
+
+	private DialogueBlock[] thoughts;
+	public DialogueBlock[] Thoughts { get {return thoughts;} set {thoughts = value; } }
 
 	public PlayerModel(string name, Gender gender, string spriteName, Vector2 startPosition) {
 		this.name = name;

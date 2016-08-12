@@ -25,7 +25,6 @@ public class PlayerView : MonoBehaviour {
 	private InventoryUIManager inventoryUiManager;
 	private ThoughtBubbleManager thoughtBubbleManager;
 
-	private DialogueBlock[] thoughts;
 	private Sprite[] sprites;
 
 	public bool InventoryInitialised { get { return player.InventoryInitialised;} }
@@ -197,14 +196,14 @@ public class PlayerView : MonoBehaviour {
 	public void DisplayThoughtBubble (int thoughtDialogueId)
 	{
 
-		if (thoughts == null) {
+		if (player.Thoughts == null) {
 			ReadJSON reader = FindObjectOfType<ReadJSON> ();
-			thoughts = reader.GetCharacterDialogue ("playerThoughtBubbles");
+			player.Thoughts = reader.GetCharacterDialogue ("playerThoughtBubbles");
 		}
 
 		string text = "";
 
-		foreach (DialogueBlock dBlock in thoughts) {
+		foreach (DialogueBlock dBlock in player.Thoughts) {
 			if (dBlock.id == thoughtDialogueId) {
 				text = dBlock.script_en_GB[0];
 			}

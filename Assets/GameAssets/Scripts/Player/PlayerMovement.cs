@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour {
-	
+	private PlayerModel player;
 	private Rigidbody2D rBody;
 	private Animator anim;
 	private Animator[] childAnimators;
@@ -73,8 +73,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
-		rBody.MovePosition (rBody.position + movement_vector * Time.deltaTime);
-	
+		Vector2 newPosition = rBody.position + movement_vector * Time.deltaTime;
+		rBody.MovePosition (newPosition);
+		player.CurrentPosition = newPosition;
 
 	}
 
