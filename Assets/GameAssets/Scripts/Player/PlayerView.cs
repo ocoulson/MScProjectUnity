@@ -3,46 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class PlayerGameObject : MonoBehaviour {
-	private PlayerModel player;
-	private Sprite[] sprites;
+public class PlayerView : MonoBehaviour {
 
-	public PlayerModel Player {
-		get {return player;}
-		set {player = value;}
-	}
+	private PlayerModel player;
+	public PlayerModel Player { get {return player;} set {player = value; } }
 
 	public GameObject toolSlot;
 	public GameObject wearableSlot;
 
 	private GameObject wearable;
-
-	public GameObject Wearable {
-		get {return wearable;}
-		private set {wearable = value;}
-	}
+	public GameObject Wearable { get {return wearable;} private set {wearable = value; } }
 
 	public GameObject currentTool;
-
-	public GameObject CurrentTool {
-		get {return currentTool;}
-		private set {currentTool = value;}
-	}
+	public GameObject CurrentTool { get {return currentTool;} private set {currentTool = value; } }
 
 	private List<GameObject> tools;
-
-	public List<GameObject> Tools {
-		get {return tools;}
-		set {tools = value;}
-	}
+	public List<GameObject> Tools { get {return tools;} set {tools = value;} }
 
 	private SpriteRenderer spriteRenderer;
 	private ToolDisplayManager toolDisplay;
 	private InventoryUIManager inventoryUiManager;
 	private ThoughtBubbleManager thoughtBubbleManager;
 
+	private DialogueBlock[] thoughts;
+	private Sprite[] sprites;
+
 	public bool InventoryInitialised { get { return player.InventoryInitialised;} }
 	private bool ToolEquipped { get { return currentTool != null; } }
+	public bool IsThoughtBubbleActive {get { return thoughtBubbleManager.IsThoughtBubbleActive (); }}
 	public  GameObject currentArea {get; set;}
 
 	void Start ()
@@ -205,6 +193,31 @@ public class PlayerGameObject : MonoBehaviour {
 		target.position = holder.position;
 		target.rotation = holder.rotation;
 	}
+
+	public void DisplayThoughtBubble (int thoughtDialogueId)
+	{
+
+		if (thoughts == null) {
+			ReadJSON reader = FindObjectOfType<ReadJSON> ();
+			thoughts = reader.GetCharacterDialogue ("playerThoughtBubbles");
+		}
+
+		string text = "";
+
+		foreach (DialogueBlock dBlock in thoughts) {
+			if (dBlock.id == thoughtDialogueId) {
+				text = dBlock.script_en_GB[0];
+			}
+		}
+		thoughtBubbleManager.ShowThoughtBubble(text);
+	}
+
+	public void HideThoughtBubble() {
+		Debug.Log("Hide Thought Bubble called");
+		thoughtBubbleManager.HideThoughtBubble();
+	}
+
+
 
 
 

@@ -13,7 +13,7 @@ public class Warp : MonoBehaviour {
 
 			StartCoroutine(WarpTime(col));
 
-			col.GetComponent<PlayerGameObject>().currentArea = target.parent.parent.gameObject;
+			col.GetComponent<PlayerView>().currentArea = target.parent.parent.gameObject;
 		}
 
 	}

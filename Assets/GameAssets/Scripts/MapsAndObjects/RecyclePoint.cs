@@ -6,7 +6,7 @@ public class RecyclePoint : MonoBehaviour {
 
 	private RecyclePointUI ui;
 	private InventoryUIManager inventoryUI;
-	private PlayerGameObject player;
+	private PlayerView player;
 	public Sprite empty;
 	public Sprite full;
 	// Use this for initialization
@@ -54,7 +54,7 @@ public class RecyclePoint : MonoBehaviour {
 	{
 		ui.ShowUI ();
 		if (col.gameObject.tag == "Player") {
-			player = col.GetComponent<PlayerGameObject> ();
+			player = col.GetComponent<PlayerView> ();
 			if (player.InventoryInitialised) {
 				inventoryUI.ShowUI();
 			}

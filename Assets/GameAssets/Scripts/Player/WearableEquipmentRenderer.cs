@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WearableEquipmentRenderer : MonoBehaviour {
 
-	private PlayerGameObject player;
+	private PlayerView player;
 	private SpriteRenderer spriteRenderer;
 	private Animator equipAnim;
 	private Animator playerAnim;
@@ -11,7 +11,7 @@ public class WearableEquipmentRenderer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GetComponentInParent<PlayerGameObject>();
+		player = GetComponentInParent<PlayerView>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		spriteRenderer.sortingOrder = player.gameObject.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 

@@ -21,23 +21,29 @@ public class GameProgress : MonoBehaviour {
 		}
 	}
 
-	private PlayerGameObject playerGameObject;
+	private PlayerView playerGameObject;
 
 	private List<NonPlayerCharacter> NPCs;
 
 	private Game currentGame;
 
+
+	//Method to be re written when serialisation/deserialisation implemented.
 	private Game NewGame() {
 
 		Game game = new Game(new PlayerModel("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
 
-		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), game.Player.CurrentPosition, Quaternion.identity) as GameObject;
-		player.name = "Player";
-		playerGameObject = player.GetComponent<PlayerGameObject>();
-
-		playerGameObject.Player = game.Player;
-	
 		return game;
+	}
+
+	//Method to be re written when serialisation/deserialisation implemented.
+	private void InstantiatePlayer ()
+	{
+		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), currentGame.Player.CurrentPosition, Quaternion.identity) as GameObject;
+		player.name = "Player";
+		playerGameObject = player.GetComponent<PlayerView>();
+
+		playerGameObject.Player = currentGame.Player;
 	}
 
 	// Use this for initialization
@@ -47,6 +53,7 @@ public class GameProgress : MonoBehaviour {
 		if (currentGame == null) {
 			currentGame = NewGame();
 		}
+		InstantiatePlayer();
 
 		if (NPCs == null) {
 			NPCs = new List<NonPlayerCharacter> ();
@@ -56,6 +63,8 @@ public class GameProgress : MonoBehaviour {
 				AddNPC (npc);
 			}
 		}
+
+		//Refactor this to be part of the Game object.
 		checkPoints = new CheckPointList();
 		checkPoints.Add("SpokenToMayorFirst");
 		checkPoints.Add("SpokenToEthan");

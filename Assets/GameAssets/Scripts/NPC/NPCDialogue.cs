@@ -27,7 +27,7 @@ public class NPCDialogue : MonoBehaviour {
 		zone = GetComponentInChildren<NpcInteractionZone>();
 		dManager = FindObjectOfType<DialogueUIManager>();
 		iManager = FindObjectOfType<InstructionManager>();
-		player = FindObjectOfType<PlayerGameObject>().gameObject;
+		player = FindObjectOfType<PlayerView>().gameObject;
 	}
 
 

@@ -9,7 +9,7 @@ public class InteractionZoneManager : MonoBehaviour {
 
 	private SpriteRenderer spriteRenderer;
 	private InstructionManager iManager;
-	private PlayerInteractionManager playerInteraction = null;
+	private PlayerView player = null;
 	private bool playerInZone;
 
 	// Use this for initialization
@@ -23,16 +23,16 @@ public class InteractionZoneManager : MonoBehaviour {
 	{
 		if (playerInZone && Input.GetKeyUp (KeyCode.Space)) {
 
-			if (!playerInteraction.IsThoughtBubbleActive ()) {
+			if (!player.IsThoughtBubbleActive) {
 
 				if (transform.parent.gameObject.tag == "RubbishPile") {
 
-					playerInteraction.DisplayThoughtBubble (Random.Range(0,2));
+					player.DisplayThoughtBubble (Random.Range(0,2));
 				}
 
-			} else if (playerInteraction.IsThoughtBubbleActive ()) {
+			} else if (player.IsThoughtBubbleActive) {
 				
-				playerInteraction.HideThoughtBubble ();
+				player.HideThoughtBubble ();
 			}
 		}
 	}
@@ -44,7 +44,7 @@ public class InteractionZoneManager : MonoBehaviour {
 				iManager.ShowInstruction (instruction1, instructionKey, instruction2);
 			}
 			playerInZone = true;
-			playerInteraction = col.gameObject.GetComponent<PlayerInteractionManager> ();
+			player = col.gameObject.GetComponent<PlayerView> ();
 		}
 	}
 
@@ -63,8 +63,8 @@ public class InteractionZoneManager : MonoBehaviour {
 				iManager.HideInstruction ();
 			}
 
-			if (playerInteraction.IsThoughtBubbleActive ()) {
-				playerInteraction.HideThoughtBubble();
+			if (player.IsThoughtBubbleActive) {
+				player.HideThoughtBubble();
 			}
 			playerInZone = false;
 		}
