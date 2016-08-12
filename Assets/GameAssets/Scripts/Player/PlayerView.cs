@@ -216,8 +216,7 @@ public class PlayerView : MonoBehaviour {
 		thoughtBubbleManager.HideThoughtBubble();
 	}
 
-
-
-
-
+	public void UpdatePlayerPosition(Vector2 newPosition) {
+		player.CurrentPosition = newPosition;
+	}
 }

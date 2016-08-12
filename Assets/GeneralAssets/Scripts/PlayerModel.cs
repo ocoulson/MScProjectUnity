@@ -99,6 +99,7 @@ public class PlayerModel : Subject {
 		tools.Remove(toBeRemoved);
 		return true;
 	}
+
 }
 
 public enum Gender {MALE,FEMALE}

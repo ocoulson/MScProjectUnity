@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour {
-	private PlayerModel player;
+	private PlayerView player;
 	private Rigidbody2D rBody;
 	private Animator anim;
-	private Animator[] childAnimators;
 
 	public bool IsMoving { get; private set; }
 
@@ -14,7 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
-	
+		player = GetComponent<PlayerView>();
 	}
 
 
@@ -59,7 +58,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		Vector2 movement_vector = new Vector2 (xInput, yInput) * speed;
-
 		//move between the idle and moving blend trees in the animation controller
 		if (movement_vector != Vector2.zero) {
 
@@ -72,10 +70,10 @@ public class PlayerMovement : MonoBehaviour {
 			anim.SetBool ("IsWalking", false);
 
 		}
-
 		Vector2 newPosition = rBody.position + movement_vector * Time.deltaTime;
+
 		rBody.MovePosition (newPosition);
-		player.CurrentPosition = newPosition;
+		player.UpdatePlayerPosition(newPosition);
 
 	}
 
