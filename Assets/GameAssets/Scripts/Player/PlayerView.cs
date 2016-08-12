@@ -14,11 +14,8 @@ public class PlayerView : MonoBehaviour {
 	private GameObject wearable;
 	public GameObject Wearable { get {return wearable;} private set {wearable = value; } }
 
-	public GameObject currentTool;
-	public GameObject CurrentTool { get {return currentTool;} private set {currentTool = value; } }
-
-	private List<GameObject> tools;
-	public List<GameObject> Tools { get {return tools;} set {tools = value;} }
+	public GameObject currentToolObject;
+	public GameObject CurrentToolObject { get {return currentToolObject;} private set {currentToolObject = value; } }
 
 	private SpriteRenderer spriteRenderer;
 	private ToolDisplayManager toolDisplay;
@@ -28,34 +25,36 @@ public class PlayerView : MonoBehaviour {
 	private Sprite[] sprites;
 
 	public bool InventoryInitialised { get { return player.InventoryInitialised;} }
-	private bool ToolEquipped { get { return currentTool != null; } }
+	private bool ToolEquipped { get { return player.CurrentTool != null; } }
 	public bool IsThoughtBubbleActive {get { return thoughtBubbleManager.IsThoughtBubbleActive (); }}
 	public  GameObject currentArea {get; set;}
 
 	void Start ()
 	{
-		if (tools == null) {
-			tools = new List<GameObject> ();
-		}
-		toolDisplay = FindObjectOfType<ToolDisplayManager>();
-		inventoryUiManager = FindObjectOfType<InventoryUIManager>();
-		thoughtBubbleManager = FindObjectOfType<ThoughtBubbleManager>();
+
+		toolDisplay = FindObjectOfType<ToolDisplayManager> ();
+		inventoryUiManager = FindObjectOfType<InventoryUIManager> ();
+		thoughtBubbleManager = FindObjectOfType<ThoughtBubbleManager> ();
 
 		sprites = Resources.LoadAll<Sprite> ("Player/" + player.SpriteName);
-		spriteRenderer = GetComponent<SpriteRenderer>();
-		spriteRenderer.sprite = sprites[4];
+		spriteRenderer = GetComponent<SpriteRenderer> ();
+		spriteRenderer.sprite = sprites [4];
+
+		if (player.CurrentTool != null) {
+			UpdateCurrentTool();
+		}
 	}
 
 	void Update ()
 	{
 		if (ToolEquipped && Input.GetKeyDown(KeyCode.E)) {
-			Tool tool = CurrentTool.GetComponent<Tool> ();
+			ToolAdapter tool = CurrentToolObject.GetComponent<ToolAdapter> ();
 			InventoryItem pickedUp = null;
 
 			try {
 				pickedUp = tool.Use ();
 			} catch (UnityException ex) {
-//				Debug.Log (ex.Message);
+				Debug.Log (ex.Message);
 			}
 
 			if (pickedUp != null) {
@@ -89,9 +88,13 @@ public class PlayerView : MonoBehaviour {
 		} 
 	}
 
-	IEnumerator InventoryFullEvent(InventoryItem item) {
-		GetComponent<PlayerMovement>().DisableMovement();
-		thoughtBubbleManager.ShowThoughtBubble("My backpack is full, I can't carry this");
+	IEnumerator InventoryFullEvent (InventoryItem item)
+	{
+		GetComponent<PlayerMovement> ().DisableMovement ();
+
+		string thoughtText = "My backpack is full, I can't carry this";
+		thoughtBubbleManager.ShowThoughtBubble(thoughtText);
+
 		yield return new WaitForSeconds(1f);
 
 		thoughtBubbleManager.HideThoughtBubble();
@@ -105,20 +108,8 @@ public class PlayerView : MonoBehaviour {
 		return output;
 	}
 
-	//TODO: Rewrite - use new MVC pattern.
-//	public void AddMultipleItems (List<InventoryItem> input)
-//	{
-//		foreach (InventoryItem item in input) {
-//			try {
-//				inventory.AddItem (item);
-//			} catch (UnityException ex) {
-//				Debug.Log (ex.Message);
-//				StartCoroutine (InventoryFullEvent (item));
-//			}
-//		}
-//	}
-
 	public void DropItem(InventoryItem item) {
+
 		player.Inventory.RemoveItem(item);
 
 		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateItemGameObject(item);
@@ -161,30 +152,34 @@ public class PlayerView : MonoBehaviour {
 		SetParentAndPosition(wearable.transform, wearableSlot.transform);
 	}
 
-	//TODO: Fix to work in PlayerModel
-	public void AddTool (GameObject tool)
-	{
-		if (!tools.Contains (tool)) {
-			tools.Add (tool);
-			if (currentTool == null) {
-				SetCurrentTool (tools.IndexOf (tool));
-			}
-		}
+	public void AddTool(Tool tool) {
+		player.AddTool(tool);
+		Debug.Assert(player.CurrentTool == tool);
+		UpdateCurrentTool();
 	}
 
-	//TODO: Fix to work in PlayerModel
 	public void SetCurrentTool (int index)
 	{
-		if (index > tools.Count - 1) {
-			Debug.LogError ("Invalid tool choice");
-		} else {
-			currentTool = tools [index];
-			toolSlot.transform.DetachChildren ();
-			SetParentAndPosition (currentTool.transform, toolSlot.transform);
+		Player.SetCurrentTool(index);
+		UpdateCurrentTool();
+	}
 
-			toolDisplay.ShowToolImage ();
-			toolDisplay.SetToolImage (currentTool.GetComponent<Grabber> ().icon);
-		}
+	//Creates a new gameObject to hold the Tool currentTool in the playerModel and attaches it to the 
+	//Player game object.
+	private void UpdateCurrentTool ()
+	{
+		GameObject newToolObject = GameObject.Instantiate(Resources.Load("Prefabs/Tools/Tool")) as GameObject;
+		ToolAdapter toolAdapter = newToolObject.GetComponent<ToolAdapter>();
+		toolAdapter.Tool = Player.CurrentTool;
+		toolAdapter.InitialiseSprite();
+
+		CurrentToolObject = newToolObject;
+
+		toolSlot.transform.DetachChildren();
+		SetParentAndPosition(newToolObject.transform, toolSlot.transform);
+
+		toolDisplay.ShowToolImage ();
+		toolDisplay.SetToolImage (Player.CurrentTool.Icon);
 	}
 
 	private void SetParentAndPosition(Transform target, Transform holder) {
@@ -195,12 +190,9 @@ public class PlayerView : MonoBehaviour {
 
 	public void DisplayThoughtBubble (int thoughtDialogueId)
 	{
-
 		if (player.Thoughts == null) {
-			ReadJSON reader = FindObjectOfType<ReadJSON> ();
-			player.Thoughts = reader.GetCharacterDialogue ("playerThoughtBubbles");
+			InstantiateThoughts();
 		}
-
 		string text = "";
 
 		foreach (DialogueBlock dBlock in player.Thoughts) {
@@ -218,5 +210,13 @@ public class PlayerView : MonoBehaviour {
 
 	public void UpdatePlayerPosition(Vector2 newPosition) {
 		player.CurrentPosition = newPosition;
+	}
+
+	private void InstantiateThoughts() {
+		
+			ReadJSON reader = FindObjectOfType<ReadJSON> ();
+			player.Thoughts = reader.GetCharacterDialogue ("playerThoughtBubbles");
+		
+
 	}
 }

@@ -120,9 +120,9 @@ public class GameProgress : MonoBehaviour {
 	private void FirstEthanMeetingPositive ()
 	{
 		checkPoints ["SpokenToEthan"] = CP_STATUS.TRIGGERED;
-		GameObject grabber = Instantiate (Resources.Load ("Prefabs/Tools/Grabber")) as GameObject;
-		playerGameObject.AddTool (grabber);
-
+		//GameObject grabber = Instantiate (Resources.Load ("Prefabs/Tools/Grabber")) as GameObject;
+		//playerGameObject.AddTool (grabber);
+		playerGameObject.AddTool(new Grabber());
 		GameObject backpack = Instantiate (Resources.Load ("Prefabs/Wearables/Backpack")) as GameObject;
 		playerGameObject.SetWearable (backpack);
 		playerGameObject.InitialiseInventory(20);

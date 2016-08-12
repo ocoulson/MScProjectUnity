@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update ()
 	{
-		
-
 		if (!movementEnabled) {
 			anim.SetBool ("IsWalking", false);
 			rBody.velocity = Vector2.zero;
@@ -58,22 +56,24 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		Vector2 movement_vector = new Vector2 (xInput, yInput) * speed;
+
 		//move between the idle and moving blend trees in the animation controller
 		if (movement_vector != Vector2.zero) {
 
 			anim.SetBool ("IsWalking", true);
 			anim.SetFloat ("Input_x", movement_vector.x);
 			anim.SetFloat ("Input_y", movement_vector.y);
+			Vector2 newPosition = rBody.position + movement_vector * Time.deltaTime;
+
+			rBody.MovePosition (newPosition);
+			player.UpdatePlayerPosition(newPosition);
 	
 		} else {
 
 			anim.SetBool ("IsWalking", false);
 
 		}
-		Vector2 newPosition = rBody.position + movement_vector * Time.deltaTime;
 
-		rBody.MovePosition (newPosition);
-		player.UpdatePlayerPosition(newPosition);
 
 	}
 

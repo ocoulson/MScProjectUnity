@@ -25,7 +25,17 @@ public class PlayerModel : Subject {
 	public bool InventoryInitialised { get { return inventory != null; } }
 
 	private List<Tool> tools;
+
+	public List<Tool> Tools {
+		get {return tools;}
+	}
+
 	private Tool currentTool;
+
+	public Tool CurrentTool {
+		get {return currentTool;}
+		set {currentTool = value;}
+	}
 
 	private DialogueBlock[] thoughts;
 	public DialogueBlock[] Thoughts { get {return thoughts;} set {thoughts = value; } }
@@ -62,11 +72,8 @@ public class PlayerModel : Subject {
 
 	public void AddItem (InventoryItem item)
 	{
-		try {
-			inventory.AddItem(item);
-		} catch(UnityException ex) {
-			Debug.LogError(ex.Message);
-		}
+		inventory.AddItem(item);
+		
 	}
 
 	public void RemoveItem (InventoryItem item)
@@ -98,6 +105,14 @@ public class PlayerModel : Subject {
 		}
 		tools.Remove(toBeRemoved);
 		return true;
+	}
+
+	public void SetCurrentTool(int index) {
+		if (index > Tools.Count - 1) {
+			Debug.LogError ("Invalid tool choice");
+		} else {
+			CurrentTool = Tools[index];
+		}
 	}
 
 }
