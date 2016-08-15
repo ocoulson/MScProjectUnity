@@ -3,10 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Grabber : Tool {
+	private static Grabber instance;
+
+	public static Grabber Instance {
+		get {
+			if (instance == null) {
+				instance = new Grabber();
+			}
+			return instance;
+		}
+	}
 
 	private List<GameObject> interactionObjects;
 
-	public Grabber ()
+	private Grabber ()
 	{
 		toolName = "Grabber1";
 

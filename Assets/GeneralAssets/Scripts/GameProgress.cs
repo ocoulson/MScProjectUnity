@@ -4,12 +4,7 @@ using System;
 using System.Collections.Generic;
 
 public class GameProgress : MonoBehaviour {
-	//private Dictionary<string , CP_STATUS> checkPoints;
 
-//	public Dictionary<string, CP_STATUS> CheckPoints {
-//		get {return checkPoints;}
-//		private set {checkPoints = value;}
-//	}
 	private CheckPointList checkPoints;
 
 	public CheckPointList CheckPoints {
@@ -73,12 +68,6 @@ public class GameProgress : MonoBehaviour {
 		checkPoints.Add("MayorLeaveBeach");
 		checkPoints.Add("BeachRecyclePointFull1");
 
-		//checkPoints = new Dictionary<string,CP_STATUS>();
-//		checkPoints.Add("SpokenToMayorFirst", CP_STATUS.UNTRIGGERED);
-//		checkPoints.Add("SpokenToEthan", CP_STATUS.UNTRIGGERED);
-//		checkPoints.Add("FirstEthanMeetingPositive", CP_STATUS.UNTRIGGERED);
-//		checkPoints.Add("MayorLeaveBeach", CP_STATUS.UNTRIGGERED);
-//		checkPoints.Add("BeachRecyclePointFull1", CP_STATUS.UNTRIGGERED);
 	}	
 	// Update is called once per frame
 	void Update ()
@@ -121,9 +110,7 @@ public class GameProgress : MonoBehaviour {
 	private void FirstEthanMeetingPositive ()
 	{
 		checkPoints ["SpokenToEthan"] = CP_STATUS.TRIGGERED;
-		//GameObject grabber = Instantiate (Resources.Load ("Prefabs/Tools/Grabber")) as GameObject;
-		//playerGameObject.AddTool (grabber);
-		playerGameObject.AddTool(new Grabber());
+		playerGameObject.AddTool(Grabber.Instance);
 		GameObject backpack = Instantiate (Resources.Load ("Prefabs/Wearables/Backpack")) as GameObject;
 		playerGameObject.SetWearable (backpack);
 		playerGameObject.InitialiseInventory(20);

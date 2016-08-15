@@ -16,6 +16,8 @@ public class Player : Subject {
 
 	private Gender gender;
 
+	public Gender Gender { get { return gender; } }
+
 	private string spriteName;
 	public string SpriteName { get { return spriteName; } set { spriteName = value; } }
 
@@ -31,7 +33,7 @@ public class Player : Subject {
 	private Tool currentTool;
 	public Tool CurrentTool {
 		get {return currentTool;}
-		set {currentTool = value;}
+		private set {currentTool = value;}
 	}
 
 	private DialogueBlock[] thoughts;
@@ -45,17 +47,16 @@ public class Player : Subject {
 		tools = new List<Tool>();
 	}
 
-	public bool InitialiseInventory (int size)
+	public void InitialiseInventory (int size)
 	{
 		if (inventory != null) {
-			return false;
+			throw new UnityException("Inventory already initialised"); 
 		}
 		try {
 			inventory = new Inventory (size);
 		} catch (UnityException ex) {
 			Debug.LogError(ex.Message);
 		}
-		return true;
 	}
 
 	public void IncreaseInventorySize (int newSize)
@@ -73,13 +74,10 @@ public class Player : Subject {
 		
 	}
 
-	public void RemoveItem (InventoryItem item)
+	public InventoryItem RemoveItem (InventoryItem item)
 	{
-		try {
-			inventory.RemoveItem (item);
-		} catch (UnityException ex) {
-			Debug.LogError(ex.Message);
-		}
+		return inventory.RemoveItem (item);
+		
 	}
 
 	public bool AddTool (Tool newTool)
