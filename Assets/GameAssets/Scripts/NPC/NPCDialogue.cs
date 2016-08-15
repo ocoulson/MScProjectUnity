@@ -83,7 +83,7 @@ public class NPCDialogue : MonoBehaviour {
 
 	void ReadDialogueData ()
 	{
-		ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
+		ReadJson jsonReader = GameObject.FindObjectOfType<ReadJson> ();
 		dialogue = jsonReader.GetCharacterDialogue (npc.npcName);
 
 		SetCurrentDialogueBlock(0);
@@ -92,7 +92,7 @@ public class NPCDialogue : MonoBehaviour {
 	public void SetCurrentDialogueBlock (int id)
 	{
 		if (dialogue == null) {
-			ReadJSON jsonReader = GameObject.FindObjectOfType<ReadJSON> ();
+			ReadJson jsonReader = GameObject.FindObjectOfType<ReadJson> ();
 			dialogue = jsonReader.GetCharacterDialogue (npc.npcName);
 		}
 		DialogueBlock newBlock = null;

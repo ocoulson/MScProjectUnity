@@ -4,7 +4,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using ObserverPattern;
 
-namespace tests {
+namespace RegularTests {
 
 	[TestFixture]
 	public class InventoryTest {

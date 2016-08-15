@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 public class ItemDatabase : MonoBehaviour {
-	private ReadJSON reader;
+	private ReadJson reader;
 	
 	public InventoryItem[] resources;
 	public InventoryItem[] rubbish;
@@ -13,7 +13,7 @@ public class ItemDatabase : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		lastId = 1;
-		reader = FindObjectOfType<ReadJSON>();
+		reader = FindObjectOfType<ReadJson>();
 
 		resources = reader.GetResourceList();
 		rubbish = reader.GetRubbishList();

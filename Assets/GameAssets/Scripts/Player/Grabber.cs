@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Grabber : Tool {
 	private static Grabber instance;
 
+	//TODO: Investigate synchronisation with regards to unity
 	public static Grabber Instance {
 		get {
 			if (instance == null) {
@@ -16,17 +17,20 @@ public class Grabber : Tool {
 
 	private List<GameObject> interactionObjects;
 
+	public List<GameObject> InteractionObjects { get { return interactionObjects; } set { interactionObjects = value;}}
+
 	private Grabber ()
 	{
+		//Instantiate Tool fields
 		toolName = "Grabber1";
-
-		interactionObjects = new List<GameObject>();
-
 		Sprites = Resources.LoadAll<Sprite>("Equipment/" + toolName);
-
 		Icon = Resources.Load<Sprite>("Equipment/"+ toolName+ "Icon"); 
+
+		//Instantiate Grabber field
+		interactionObjects = new List<GameObject>();
 	}
 
+	#region implemented abstract members of Tool
 	public override InventoryItem Use ()
 	{
 		if (interactionObjects.Count > 0) {
@@ -40,10 +44,7 @@ public class Grabber : Tool {
 		}
 	}
 
-
-
-	#region implemented abstract members of Tool
-
+	//Methods used by the ToolAdapter OnTriggerEnter2D / Exit2D methods 
 	public override void OnTriggerEnter2DImpl (Collider2D col)
 	{
 		if (col.tag == "Rubbish") {

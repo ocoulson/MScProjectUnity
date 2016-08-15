@@ -2,7 +2,7 @@
 using UnityEditor;
 using NUnit.Framework;
 
-namespace tests {
+namespace RegularTests {
 	[TestFixture]
 	public class PlayerTest {
 

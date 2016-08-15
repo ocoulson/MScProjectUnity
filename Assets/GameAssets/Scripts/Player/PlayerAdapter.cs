@@ -224,7 +224,7 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 
 	private void InstantiateThoughts() {
 		
-			ReadJSON reader = FindObjectOfType<ReadJSON> ();
+			ReadJson reader = FindObjectOfType<ReadJson> ();
 			player.Thoughts = reader.GetCharacterDialogue ("playerThoughtBubbles");
 		
 

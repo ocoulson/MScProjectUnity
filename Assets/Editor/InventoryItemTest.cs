@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace tests {
+namespace RegularTests {
 	[TestFixture]
 	public class InventoryItemTest {
 

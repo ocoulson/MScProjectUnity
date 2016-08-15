@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using LitJson;
 
-namespace tests {
+namespace RegularTests {
 
 	[TestFixture]
 	public class JsonDataHandlerTest {
