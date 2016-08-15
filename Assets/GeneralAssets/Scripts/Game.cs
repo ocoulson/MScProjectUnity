@@ -5,14 +5,10 @@ using System.Collections.Generic;
 
 public class Game {
 
-	private PlayerModel player;
-	public PlayerModel Player {
-		get {
-			return player;
-		}
-		private set {
-			player = value;
-		}
+	private Player player;
+	public Player Player {
+		get {return player;}
+		private set {player = value;}
 	}
 
 	private List<NonPlayerCharacter> currentNpcs;
@@ -28,7 +24,7 @@ public class Game {
 
 	private CheckPointList checkPoints;
 
-	public Game (PlayerModel player)
+	public Game (Player player)
 	{
 		this.Player = player;
 		CurrentNpcs = new List<NonPlayerCharacter>();

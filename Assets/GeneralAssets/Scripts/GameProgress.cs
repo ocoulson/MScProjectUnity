@@ -21,7 +21,7 @@ public class GameProgress : MonoBehaviour {
 		}
 	}
 
-	private PlayerView playerGameObject;
+	private PlayerAdapter playerGameObject;
 
 	private List<NonPlayerCharacter> NPCs;
 
@@ -31,7 +31,7 @@ public class GameProgress : MonoBehaviour {
 	//Method to be re written when serialisation/deserialisation implemented.
 	private Game NewGame() {
 
-		Game game = new Game(new PlayerModel("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
+		Game game = new Game(new Player("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
 
 		return game;
 	}
@@ -41,7 +41,7 @@ public class GameProgress : MonoBehaviour {
 	{
 		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), currentGame.Player.CurrentPosition, Quaternion.identity) as GameObject;
 		player.name = "Player";
-		playerGameObject = player.GetComponent<PlayerView>();
+		playerGameObject = player.GetComponent<PlayerAdapter>();
 
 		playerGameObject.Player = currentGame.Player;
 		currentGame.Player.AddObserver(playerGameObject);

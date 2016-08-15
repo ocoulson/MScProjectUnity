@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour {
-	private PlayerView player;
+	private PlayerAdapter player;
 	private Rigidbody2D rBody;
 	private Animator anim;
 
@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
-		player = GetComponent<PlayerView>();
+		player = GetComponent<PlayerAdapter>();
 	}
 
 

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System;
 using ObserverPattern;
 
-public class PlayerView : MonoBehaviour, Observer  {
+public class PlayerAdapter : MonoBehaviour, Observer  {
 
-	private PlayerModel player;
-	public PlayerModel Player { get {return player;} set {player = value; } }
+	private Player player;
+	public Player Player { get {return player;} set {player = value; } }
 
 	public GameObject toolSlot;
 	public GameObject wearableSlot;
@@ -59,14 +59,12 @@ public class PlayerView : MonoBehaviour, Observer  {
 			}
 
 			if (pickedUp != null) {
-
 				try {
 					PutItemInInventory (pickedUp);
 				} catch (UnityException ex) {
 					Debug.Log (ex.Message);
 					StartCoroutine (InventoryFullEvent (pickedUp));
 				}
-
 			}
 
 		}
@@ -79,7 +77,7 @@ public class PlayerView : MonoBehaviour, Observer  {
 
 	}
 
-	//Player Sprite depends on the spriteName field of the PlayerModel
+	//Player Sprite depends on the spriteName field of the Player
 	void LateUpdate() {
 		string spriteName = spriteRenderer.sprite.name;
 		Sprite newSprite = Array.Find(sprites, sprite => sprite.name == spriteName);
@@ -158,13 +156,14 @@ public class PlayerView : MonoBehaviour, Observer  {
 	}
 
 
-	//TODO: Implement in PlayerModel
+	//TODO: Implement in Player
 	public void SetWearable (GameObject newWearable)
 	{
 		wearable = newWearable;
 		SetParentAndPosition(wearable.transform, wearableSlot.transform);
 	}
 
+	//TODO: Refactor out so tools are added directly to the Player object and Observer pattern updates this
 	public void AddTool(Tool tool) {
 		player.AddTool(tool);
 		Debug.Assert(player.CurrentTool == tool);
@@ -175,7 +174,7 @@ public class PlayerView : MonoBehaviour, Observer  {
 		Player.SetCurrentTool(index);
 	}
 
-	//Creates a new gameObject to hold the Tool currentTool in the playerModel and attaches it to the 
+	//Creates a new gameObject to hold the Tool currentTool in the Player and attaches it to the 
 	//Player game object.
 	private void UpdateCurrentTool ()
 	{

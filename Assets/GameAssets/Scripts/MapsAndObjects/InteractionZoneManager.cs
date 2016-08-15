@@ -9,7 +9,7 @@ public class InteractionZoneManager : MonoBehaviour {
 
 	private SpriteRenderer spriteRenderer;
 	private InstructionManager iManager;
-	private PlayerView player = null;
+	private PlayerAdapter player = null;
 	private bool playerInZone;
 
 	// Use this for initialization
@@ -44,7 +44,7 @@ public class InteractionZoneManager : MonoBehaviour {
 				iManager.ShowInstruction (instruction1, instructionKey, instruction2);
 			}
 			playerInZone = true;
-			player = col.gameObject.GetComponent<PlayerView> ();
+			player = col.gameObject.GetComponent<PlayerAdapter> ();
 		}
 	}
 

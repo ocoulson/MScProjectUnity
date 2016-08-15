@@ -3,12 +3,12 @@ using System.Collections;
 
 public class ToolRenderer : MonoBehaviour {
 
-	private PlayerView player;
+	private PlayerAdapter player;
 	private SpriteRenderer spriteRenderer;
 
 	void Start ()
 	{
-		player = GetComponentInParent<PlayerView>();
+		player = GetComponentInParent<PlayerAdapter>();
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
 	}

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using ObserverPattern;
 
 
-public class PlayerModel : Subject {
+public class Player : Subject {
 
 	private Vector2 currentPosition;
 
@@ -37,7 +37,7 @@ public class PlayerModel : Subject {
 	private DialogueBlock[] thoughts;
 	public DialogueBlock[] Thoughts { get {return thoughts;} set {thoughts = value; } }
 
-	public PlayerModel(string name, Gender gender, string spriteName, Vector2 startPosition) {
+	public Player(string name, Gender gender, string spriteName, Vector2 startPosition) {
 		this.name = name;
 		this.gender = gender;
 		this.spriteName = spriteName;

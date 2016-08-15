@@ -69,7 +69,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 		if (eventData.button == PointerEventData.InputButton.Right) {
 			if (!IsEmpty) {
 				InventoryItem item = RemoveItemFromSlot ();
-				PlayerView player = FindObjectOfType<PlayerView> ();
+				PlayerAdapter player = FindObjectOfType<PlayerAdapter> ();
 				player.DropItem (item);
 			}
 		}
