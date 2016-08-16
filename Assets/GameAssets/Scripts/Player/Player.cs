@@ -104,10 +104,19 @@ public class Player : Subject {
 
 	public void SetCurrentTool(int index) {
 		if (index > Tools.Count - 1) {
-			Debug.LogError ("Invalid tool choice");
+			throw new IndexOutOfRangeException("Tools length is less than index: " + index);
 		} else {
 			CurrentTool = Tools[index];
 			Notify();
+		}
+	}
+	public void SetCurrentTool (string name)
+	{
+		Tool newTool = Array.Find (Tools.ToArray (), tool => tool.toolName == name);
+		if (newTool != null) {
+			CurrentTool = newTool;
+		} else {
+			throw new ArgumentException("Tool with name: '"+ name +"' does not exist in the player");
 		}
 	}
 
