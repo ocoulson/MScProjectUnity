@@ -42,7 +42,12 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 		spriteRenderer.sprite = sprites [4];
 
 		if (player.CurrentTool != null) {
-			UpdateCurrentTool();
+			UpdateCurrentTool ();
+		}
+
+		if (InventoryInitialised) {
+			inventoryUiManager.LinkInventoryToUI(player.Inventory);
+			player.Inventory.Notify();
 		}
 	}
 

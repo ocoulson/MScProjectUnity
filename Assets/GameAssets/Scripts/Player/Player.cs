@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ObserverPattern;
 
-
+[System.Serializable]
 public class Player : Subject {
 
 	private Vector2 currentPosition;

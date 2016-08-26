@@ -74,7 +74,7 @@ public class RecyclePointUI : MonoBehaviour {
 		}
 		DropOffPointSlot[] slotArray = slots.ToArray();
 
-		DropOffPointSlot destinationSlot = Array.Find<DropOffPointSlot>(slotArray, slot => slot.slotItem.ItemName == rubbishItem.ItemName);
+		DropOffPointSlot destinationSlot = Array.Find<DropOffPointSlot>(slotArray, slot => slot.SlotItem.ItemName == rubbishItem.ItemName);
 
 		destinationSlot.PutItemInSlot(rubbishItem);
 		currentQuantityText.text = GetCurrentQuantity().ToString();
@@ -102,7 +102,7 @@ public class RecyclePointUI : MonoBehaviour {
 
 					DropOffPointSlot dropOffSlot = newSlotObject.GetComponent<DropOffPointSlot> ();
 					dropOffSlot.SetSize (slotSize, slotSize);
-					dropOffSlot.slotItem = allRubbishItems.Pop ();
+					dropOffSlot.SlotItem = allRubbishItems.Pop ();
 					dropOffSlot.SetSlotImage ();
 
 					RectTransform slotRect = newSlotObject.GetComponent<RectTransform> ();

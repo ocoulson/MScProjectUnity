@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class DropOffPointSlot : InventorySlot {
 
 	public Stack<InventoryItem> containedItems {get; private set;}
-	public InventoryItem slotItem;
 	public Text quantityText;
 
 	public int slotQuantity {
@@ -45,7 +44,7 @@ public class DropOffPointSlot : InventorySlot {
 		quantityText.text = containedItems.Count.ToString();
 	}
 	public void SetSlotImage() {
-		slotImage.sprite = slotItem.Sprite;
+		slotImage.sprite = SlotItem.Sprite;
 	}
 
 }

@@ -13,46 +13,6 @@ public class GameProgress : MonoBehaviour {
 
 	private Game currentGame;
 
-
-	//Method to be re written when serialisation/deserialisation implemented.
-	private Game NewGame() {
-
-		Game game = new Game(new Player("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
-
-		GameObject mayorSpawn = GameObject.Find("MayorSpawnLocation-Beach");
-		GameObject ethanSpawn = GameObject.Find("EthanSpawnLocation-Hut");
-
-		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
-		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
-
-		game.AddNpc(mayor);
-		game.AddNpc(ethan);
-
-		return game;
-	}
-
-	//TODO: Method to be re written when serialisation/deserialisation implemented.
-	private void InstantiatePlayer (Game game)
-	{
-		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), game.Player.CurrentPosition, Quaternion.identity) as GameObject;
-		player.name = "Player";
-		playerAdapter = player.GetComponent<PlayerAdapter>();
-
-		playerAdapter.Player = game.Player;
-		game.Player.AddObserver(playerAdapter);
-	}
-
-	//TODO: Method to be re written when serialisation/deserialisation implemented.
-	private void InstantiateNpc (Npc newNpc)
-	{
-		GameObject npcGameObject = Instantiate(Resources.Load("Prefabs/NPC"),newNpc.CurrentStartPosition, Quaternion.identity) as GameObject;
-		npcGameObject.name = newNpc.Name;
-
-		NpcAdapter adapter = npcGameObject.GetComponent<NpcAdapter>();
-		adapter.Npc = newNpc;
-		NPCs.Add(adapter);
-	}
-
 	// Use this for initialization
 	void Start ()
 	{
@@ -76,6 +36,7 @@ public class GameProgress : MonoBehaviour {
 		CheckPoints.Add("BeachRecyclePointFull1");
 
 	}	
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -98,6 +59,55 @@ public class GameProgress : MonoBehaviour {
 			CheckPoints["BeachRecyclePointFull1"] = CP_STATUS.FINISHED;
 		}
 	}
+
+	//Method to be re written when serialisation/deserialisation implemented.
+	private Game NewGame() {
+
+		Game game = new Game(new Player("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
+
+		GameObject mayorSpawn = GameObject.Find("MayorSpawnLocation-Beach");
+		GameObject ethanSpawn = GameObject.Find("EthanSpawnLocation-Hut");
+
+		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
+		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
+
+		game.AddNpc(mayor);
+		game.AddNpc(ethan);
+
+		return game;
+	}
+
+	public void SaveGame ()
+	{
+		SaveLoad.Save(currentGame);
+	}
+
+	//TODO: Method to be re written when serialisation/deserialisation implemented.
+	private void InstantiatePlayer (Game game)
+	{
+		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), game.Player.CurrentPosition, Quaternion.identity) as GameObject;
+		player.name = "Player";
+		playerAdapter = player.GetComponent<PlayerAdapter>();
+
+		playerAdapter.Player = game.Player;
+		game.Player.AddObserver(playerAdapter);
+	}
+
+	//TODO: Method to be re written when serialisation/deserialisation implemented.
+	private void InstantiateNpc (Npc newNpc)
+	{
+		GameObject npcGameObject = Instantiate(Resources.Load("Prefabs/NPC"),newNpc.CurrentStartPosition, Quaternion.identity) as GameObject;
+		npcGameObject.name = newNpc.Name;
+
+		NpcAdapter adapter = npcGameObject.GetComponent<NpcAdapter>();
+		adapter.Npc = newNpc;
+		NPCs.Add(adapter);
+		GameObject holder = GameObject.Find("NPCs");
+		npcGameObject.transform.parent = holder.transform;
+	}
+
+
+
 
 	public void AddNPC (NpcAdapter npc)
 	{

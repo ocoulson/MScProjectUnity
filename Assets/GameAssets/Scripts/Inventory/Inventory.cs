@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using ObserverPattern;
 
+[System.Serializable]
 public class Inventory : Subject
 {
 	public int Size {get; private set;}

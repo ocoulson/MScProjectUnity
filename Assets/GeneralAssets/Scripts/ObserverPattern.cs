@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace ObserverPattern {
-
+	[System.Serializable]
 	public abstract class Subject {
-
-		private List<Observer> observers = new List<Observer>();
+		[System.NonSerialized]
+		private List<Observer> observers = null;
 
 		public void AddObserver (Observer obs)
 		{
+			if (observers == null) {
+				observers = new List<Observer>();
+			}
 			if (!observers.Contains (obs)) {
 				observers.Add(obs);
 			}

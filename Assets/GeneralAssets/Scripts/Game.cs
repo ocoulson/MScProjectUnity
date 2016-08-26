@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
+[System.Serializable]
 public class Game {
 
 	private Player player;
@@ -13,8 +14,11 @@ public class Game {
 
 
 	private CheckPointList checkPoints;
-
 	public CheckPointList CheckPoints { get {return checkPoints;} }
+
+	private DateTime saveTime;
+
+	public DateTime SaveTime { get {return saveTime;}	set {saveTime = value;} }
 
 	public Game (Player player)
 	{

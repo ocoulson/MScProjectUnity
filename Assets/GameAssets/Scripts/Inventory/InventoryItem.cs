@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+[System.Serializable]
 public class InventoryItem 
 {
 	private int itemId;
