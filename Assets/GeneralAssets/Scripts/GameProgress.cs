@@ -5,20 +5,11 @@ using System.Collections.Generic;
 
 public class GameProgress : MonoBehaviour {
 
-	private CheckPointList checkPoints;
+	public CheckPointList CheckPoints {get {return currentGame.CheckPoints;} }
 
-	public CheckPointList CheckPoints {
-		get {
-			return checkPoints;
-		}
-		set {
-			checkPoints = value;
-		}
-	}
+	private PlayerAdapter playerAdapter;
 
-	private PlayerAdapter playerGameObject;
-
-	private List<NonPlayerCharacter> NPCs;
+	private List<NpcAdapter> NPCs;
 
 	private Game currentGame;
 
@@ -28,18 +19,38 @@ public class GameProgress : MonoBehaviour {
 
 		Game game = new Game(new Player("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
 
+		GameObject mayorSpawn = GameObject.Find("MayorSpawnLocation-Beach");
+		GameObject ethanSpawn = GameObject.Find("EthanSpawnLocation-Hut");
+
+		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
+		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
+
+		game.AddNpc(mayor);
+		game.AddNpc(ethan);
+
 		return game;
 	}
 
-	//Method to be re written when serialisation/deserialisation implemented.
-	private void InstantiatePlayer ()
+	//TODO: Method to be re written when serialisation/deserialisation implemented.
+	private void InstantiatePlayer (Game game)
 	{
-		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), currentGame.Player.CurrentPosition, Quaternion.identity) as GameObject;
+		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), game.Player.CurrentPosition, Quaternion.identity) as GameObject;
 		player.name = "Player";
-		playerGameObject = player.GetComponent<PlayerAdapter>();
+		playerAdapter = player.GetComponent<PlayerAdapter>();
 
-		playerGameObject.Player = currentGame.Player;
-		currentGame.Player.AddObserver(playerGameObject);
+		playerAdapter.Player = game.Player;
+		game.Player.AddObserver(playerAdapter);
+	}
+
+	//TODO: Method to be re written when serialisation/deserialisation implemented.
+	private void InstantiateNpc (Npc newNpc)
+	{
+		GameObject npcGameObject = Instantiate(Resources.Load("Prefabs/NPC"),newNpc.CurrentStartPosition, Quaternion.identity) as GameObject;
+		npcGameObject.name = newNpc.Name;
+
+		NpcAdapter adapter = npcGameObject.GetComponent<NpcAdapter>();
+		adapter.Npc = newNpc;
+		NPCs.Add(adapter);
 	}
 
 	// Use this for initialization
@@ -47,59 +58,55 @@ public class GameProgress : MonoBehaviour {
 	{
 		DontDestroyOnLoad (gameObject);
 		if (currentGame == null) {
-			currentGame = NewGame();
+			currentGame = NewGame ();
 		}
-		InstantiatePlayer();
+		InstantiatePlayer (currentGame);
 
 		if (NPCs == null) {
-			NPCs = new List<NonPlayerCharacter> ();
+			NPCs = new List<NpcAdapter> ();
 		}
-		foreach (NonPlayerCharacter npc in FindObjectsOfType<NonPlayerCharacter>()) {
-			if (!NPCs.Contains (npc)) {
-				AddNPC (npc);
-			}
+		foreach (Npc npc in currentGame.CurrentNpcs) {
+			InstantiateNpc(npc);
 		}
 
-		//Refactor this to be part of the Game object.
-		checkPoints = new CheckPointList();
-		checkPoints.Add("SpokenToMayorFirst");
-		checkPoints.Add("SpokenToEthan");
-		checkPoints.Add("FirstEthanMeetingPositive");
-		checkPoints.Add("MayorLeaveBeach");
-		checkPoints.Add("BeachRecyclePointFull1");
+		CheckPoints.Add("SpokenToMayorFirst");
+		CheckPoints.Add("SpokenToEthan");
+		CheckPoints.Add("FirstEthanMeetingPositive");
+		CheckPoints.Add("MayorLeaveBeach");
+		CheckPoints.Add("BeachRecyclePointFull1");
 
 	}	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (checkPoints ["FirstEthanMeetingPositive"] == CP_STATUS.TRIGGERED) {
+		if (CheckPoints ["FirstEthanMeetingPositive"] == CP_STATUS.TRIGGERED) {
 			FirstEthanMeetingPositive ();
-			checkPoints ["FirstEthanMeetingPositive"] = CP_STATUS.FINISHED;
+			CheckPoints ["FirstEthanMeetingPositive"] = CP_STATUS.FINISHED;
 		}
 
-		if (checkPoints ["SpokenToEthan"] == CP_STATUS.TRIGGERED) {
+		if (CheckPoints ["SpokenToEthan"] == CP_STATUS.TRIGGERED) {
 			SpokenToEthan ();
-			checkPoints ["SpokenToEthan"] = CP_STATUS.FINISHED;
+			CheckPoints ["SpokenToEthan"] = CP_STATUS.FINISHED;
 		}
 
-		if (checkPoints ["MayorLeaveBeach"] == CP_STATUS.TRIGGERED) {
+		if (CheckPoints ["MayorLeaveBeach"] == CP_STATUS.TRIGGERED) {
 			Debug.Log ("MayorLeaveBeach - not implemented");
 		}
-		if (checkPoints ["BeachRecyclePointFull1"] == CP_STATUS.TRIGGERED) {
-			NonPlayerCharacter ethan = FindNPC("Ethan");
-			ethan.GetComponent<NPCDialogue>().SetCurrentDialogueBlock(5);
-			checkPoints["BeachRecyclePointFull1"] = CP_STATUS.FINISHED;
+		if (CheckPoints ["BeachRecyclePointFull1"] == CP_STATUS.TRIGGERED) {
+			NpcAdapter ethan = FindNPC("Ethan");
+			ethan.GetComponent<NpcDialogue>().SetCurrentDialogueBlock(5);
+			CheckPoints["BeachRecyclePointFull1"] = CP_STATUS.FINISHED;
 		}
 	}
 
-	public void AddNPC (NonPlayerCharacter npc)
+	public void AddNPC (NpcAdapter npc)
 	{
 		NPCs.Add(npc);
 	}
 
-	private NonPlayerCharacter FindNPC (string name)
+	private NpcAdapter FindNPC (string name)
 	{
-		NonPlayerCharacter target = Array.Find (NPCs.ToArray (), npc => npc.npcName == name);
+		NpcAdapter target = Array.Find (NPCs.ToArray (), npc => npc.NpcName == name);
 		if (target == null) {
 			throw new UnityException ("NPC not found in list of NPCs");
 		} else {
@@ -109,20 +116,20 @@ public class GameProgress : MonoBehaviour {
 
 	private void FirstEthanMeetingPositive ()
 	{
-		checkPoints ["SpokenToEthan"] = CP_STATUS.TRIGGERED;
-		playerGameObject.AddTool(Grabber.Instance);
+		CheckPoints ["SpokenToEthan"] = CP_STATUS.TRIGGERED;
+		playerAdapter.AddTool(Grabber.Instance);
 		GameObject backpack = Instantiate (Resources.Load ("Prefabs/Wearables/Backpack")) as GameObject;
-		playerGameObject.SetWearable (backpack);
-		playerGameObject.InitialiseInventory(20);
+		playerAdapter.SetWearable (backpack);
+		playerAdapter.InitialiseInventory(20);
 	}
 
 	private void SpokenToEthan() {
-		NonPlayerCharacter mayor = FindNPC("Mayor");
+		NpcAdapter mayor = FindNPC("Mayor");
 		
-		if (checkPoints ["SpokenToMayorFirst"] == CP_STATUS.TRIGGERED) {
-			mayor.gameObject.GetComponent<NPCDialogue> ().SetCurrentDialogueBlock (2);
+		if (CheckPoints ["SpokenToMayorFirst"] == CP_STATUS.TRIGGERED) {
+			mayor.gameObject.GetComponent<NpcDialogue> ().SetCurrentDialogueBlock (2);
 		} else {
-			mayor.gameObject.GetComponent<NPCDialogue> ().SetCurrentDialogueBlock (3);
+			mayor.gameObject.GetComponent<NpcDialogue> ().SetCurrentDialogueBlock (3);
 		}
 	}
 }

@@ -50,6 +50,8 @@ public class InventoryUIManager : MonoBehaviour, Observer {
 
 	}
 
+
+	//ShowTooltip and HideTooltip are used by the event triggers on the InventorySlot prefab for mouse enter and exit to show / hide the tooltip
 	public void ShowTooltip (GameObject inventorySlot)
 	{
 		InventorySlot slot = inventorySlot.GetComponent<InventorySlot> ();

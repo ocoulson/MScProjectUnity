@@ -70,7 +70,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 			if (!IsEmpty) {
 				InventoryItem item = RemoveItemFromSlot ();
 				PlayerAdapter player = FindObjectOfType<PlayerAdapter> ();
-				player.DropItem (item);
+				player.DropItemFromInventory (item);
 			}
 		}
 	}

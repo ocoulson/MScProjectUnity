@@ -16,7 +16,7 @@ public class NpcInteractionZone : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if (!iManager.IsActive () && col.gameObject.tag == "Player") {
+		if (col.gameObject.tag == "Player" && !iManager.IsActive ()) {
 			iManager.ShowInstruction("Press", "Space", "to talk");
 			playerInZone = true;
 		}

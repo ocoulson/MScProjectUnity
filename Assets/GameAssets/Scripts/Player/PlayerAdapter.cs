@@ -119,10 +119,8 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 		return output;
 	}
 
-	public void DropItem(InventoryItem item) {
-
-		player.Inventory.RemoveItem(item);
-
+	public void DropItem (InventoryItem item)
+	{
 		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateItemGameObject(item);
 		rubbishItem.transform.parent = currentArea.GetComponentInChildren<RubbishSpawner>().transform;
 		float dropRadius = 0.2f;
@@ -130,11 +128,18 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 										 UnityEngine.Random.Range(-dropRadius,dropRadius));
 	}
 
+	public void DropItemFromInventory(InventoryItem item) {
+
+		player.Inventory.RemoveItem(item);
+
+		DropItem(item);
+	}
+
 	public void DropAllItems ()
 	{
 		InventoryItem[] items = Player.Inventory.Items.ToArray();
 		foreach (InventoryItem item in items) {
-			DropItem(item);
+			DropItemFromInventory(item);
 		}
 	}
 
