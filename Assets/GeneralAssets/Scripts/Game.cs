@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Text;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -16,8 +17,8 @@ public class Game {
 	private CheckPointList checkPoints;
 	public CheckPointList CheckPoints { get {return checkPoints;} }
 
+	//Set at savetime by the SaveLoad script
 	private DateTime saveTime;
-
 	public DateTime SaveTime { get {return saveTime;}	set {saveTime = value;} }
 
 	public Game (Player player)
@@ -30,6 +31,15 @@ public class Game {
 	public void AddNpc(Npc newNpc) {
 		CurrentNpcs.Add(newNpc);
 	}
+
+	public override string ToString ()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.Append (player.Name + "\n");
+		builder.Append("----------------\n");
+		builder.Append(saveTime.ToString());
+		return builder.ToString();
+	} 
 
 
 }

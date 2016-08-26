@@ -4,12 +4,16 @@ using UnityEngine.SceneManagement;
 
 
 public class LevelManager : MonoBehaviour { 
-	private Scene currentScene;
 
+	public Scene CurrentScene { get { return SceneManager.GetActiveScene();} }
+
+	void Start() {
+		DontDestroyOnLoad(gameObject);
+	}
 
 	public void LoadLevel (string name) {
 		SceneManager.LoadScene(name);
-		currentScene = SceneManager.GetActiveScene();
+		;
 	}
 
 	public void QuitRequest() {
@@ -19,7 +23,21 @@ public class LevelManager : MonoBehaviour {
 
 	public void LoadNextLevel () {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
-		currentScene = SceneManager.GetActiveScene();
+
 	}
 
+	public void LoadGame(Game game) {
+		
+		GameManager manager = FindObjectOfType<GameManager>();
+		manager.CurrentGame = game; 
+		SceneManager.LoadScene("Game");
+
+	}
+
+	public void StartNewGame() {
+		
+		GameManager manager = FindObjectOfType<GameManager>();
+		manager.CurrentGame = null; 
+		SceneManager.LoadScene("Game");
+	}
 }

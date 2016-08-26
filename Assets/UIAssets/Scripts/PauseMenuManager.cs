@@ -5,7 +5,11 @@ using UnityEngine.UI;
 public class PauseMenuManager : MonoBehaviour {
 
 	public GameObject pauseMenuPanel;
-	 
+	PlayerMovement movement;
+
+	void Start() {
+		movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+	}
 	
 	// Update is called once per frame
 	void Update ()
@@ -19,7 +23,6 @@ public class PauseMenuManager : MonoBehaviour {
 	void ToggleMenuVisible ()
 	{
 		bool active = pauseMenuPanel.activeInHierarchy;
-		PlayerMovement movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
 
 		if (active == true) {
 			Time.timeScale = 1.0f;
@@ -30,5 +33,10 @@ public class PauseMenuManager : MonoBehaviour {
 		}
 
 		pauseMenuPanel.SetActive(!active);
+	}
+
+	public void QuitToMainMenu() {
+		ToggleMenuVisible();
+		FindObjectOfType<LevelManager>().LoadLevel("MainMenu");
 	}
 }

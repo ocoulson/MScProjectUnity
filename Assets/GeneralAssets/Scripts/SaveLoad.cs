@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic; 
 using System.Runtime.Serialization.Formatters.Binary; 
@@ -30,9 +31,6 @@ public static class SaveLoad {
 		Debug.Log(Application.persistentDataPath);
 		AddNewSavedGame (game);
 		BinaryFormatter bf = new BinaryFormatter ();
-		if (File.Exists (Application.persistentDataPath + "/savedGames.gd")) {
-			File.Delete(Application.persistentDataPath + "/savedGames.gd");
-		}
 	    FileStream file = File.Create (Application.persistentDataPath + "/savedGames.gd");
 	    bf.Serialize(file, SaveLoad.savedGames);
 	    file.Close();
@@ -50,4 +48,12 @@ public static class SaveLoad {
 		}
 	}
 
+	public static string ToString ()
+	{
+		StringBuilder builder = new StringBuilder ();
+		foreach (Game g in savedGames) {
+			builder.Append(g.ToString());
+		}
+		return builder.ToString();
+	}
 }

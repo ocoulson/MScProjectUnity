@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class RecyclePointUI : MonoBehaviour {
 	private ItemDatabase itemDatabase;
-	private GameProgress gameProgress;
+	private GameManager gameProgress;
 
 	public int numberOfSlots;
 	public int numberOfRows;
@@ -33,7 +33,7 @@ public class RecyclePointUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gameProgress = FindObjectOfType<GameProgress>();
+		gameProgress = FindObjectOfType<GameManager>();
 		itemDatabase = FindObjectOfType<ItemDatabase>();
 		slotsObjects = new List<GameObject>();
 		slots = new List<DropOffPointSlot>();

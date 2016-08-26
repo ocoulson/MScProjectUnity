@@ -2,8 +2,9 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
-public class GameProgress : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
 	public CheckPointList CheckPoints {get {return currentGame.CheckPoints;} }
 
@@ -11,15 +12,31 @@ public class GameProgress : MonoBehaviour {
 
 	private List<NpcAdapter> NPCs;
 
-	private Game currentGame;
+	private static Game currentGame;
 
+	public Game CurrentGame {
+		get {
+			return currentGame;
+		}
+		set {
+			currentGame = value;
+		}
+	}
+
+	private bool GameStarted = false;
 	// Use this for initialization
 	void Start ()
 	{
 		DontDestroyOnLoad (gameObject);
+	}	
+
+	public void StartGame ()
+	{
+		
 		if (currentGame == null) {
 			currentGame = NewGame ();
 		}
+
 		InstantiatePlayer (currentGame);
 
 		if (NPCs == null) {
@@ -35,11 +52,14 @@ public class GameProgress : MonoBehaviour {
 		CheckPoints.Add("MayorLeaveBeach");
 		CheckPoints.Add("BeachRecyclePointFull1");
 
-	}	
+		GameStarted = true;
+	}
 
 	// Update is called once per frame
 	void Update ()
 	{
+		if (!GameStarted) return;
+
 		if (CheckPoints ["FirstEthanMeetingPositive"] == CP_STATUS.TRIGGERED) {
 			FirstEthanMeetingPositive ();
 			CheckPoints ["FirstEthanMeetingPositive"] = CP_STATUS.FINISHED;
@@ -79,7 +99,8 @@ public class GameProgress : MonoBehaviour {
 
 	public void SaveGame ()
 	{
-		SaveLoad.Save(currentGame);
+		Debug.Log("Save game: " + CurrentGame.ToString());
+		SaveLoad.Save(CurrentGame);
 	}
 
 	//TODO: Method to be re written when serialisation/deserialisation implemented.

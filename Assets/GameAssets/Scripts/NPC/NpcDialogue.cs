@@ -166,8 +166,8 @@ public class NpcDialogue : MonoBehaviour {
 			if (currentHasEffect) {
 				string effectName = (currentDialogueBlock as LinearEffectDialogueBlock).effectName;
 
-				if (FindObjectOfType<GameProgress> ().CheckPoints [effectName] == CP_STATUS.UNTRIGGERED) {
-					FindObjectOfType<GameProgress> ().CheckPoints [effectName] = CP_STATUS.TRIGGERED;
+				if (FindObjectOfType<GameManager> ().CheckPoints [effectName] == CP_STATUS.UNTRIGGERED) {
+					FindObjectOfType<GameManager> ().CheckPoints [effectName] = CP_STATUS.TRIGGERED;
 				}
 
 			}
