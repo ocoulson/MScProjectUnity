@@ -7,9 +7,9 @@ using ObserverPattern;
 [System.Serializable]
 public class Player : Subject {
 
-	private Vector2 currentPosition;
+	private Vector2Serializable currentPosition;
 
-	public Vector2 CurrentPosition { get {return currentPosition;} set {currentPosition = value;} }
+	public Vector2 CurrentPosition { get {return currentPosition.Vector2;} set {currentPosition.Vector2 = value;} }
 
 	private string name;
 	public string Name { get {return name;} }
@@ -43,7 +43,7 @@ public class Player : Subject {
 		this.name = name;
 		this.gender = gender;
 		this.spriteName = spriteName;
-		currentPosition = startPosition;
+		currentPosition = new Vector2Serializable(startPosition);
 		tools = new List<Tool>();
 	}
 

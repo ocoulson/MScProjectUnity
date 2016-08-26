@@ -26,7 +26,8 @@ public static class SaveLoad {
 	}
 
 	public static void Save (Game game)
-	{
+	{	
+		Debug.Log(Application.persistentDataPath);
 		AddNewSavedGame (game);
 		BinaryFormatter bf = new BinaryFormatter ();
 		if (File.Exists (Application.persistentDataPath + "/savedGames.gd")) {

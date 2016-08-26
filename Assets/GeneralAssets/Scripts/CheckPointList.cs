@@ -2,10 +2,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+[Serializable]
 public class CheckPointList {
 
-	[SerializeField] private List<CheckPoint> baseList;
+	private List<CheckPoint> baseList;
 
 	public CP_STATUS this [string nameKey] {
 		get { 

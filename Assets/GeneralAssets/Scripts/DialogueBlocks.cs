@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 
-
 public interface DialogueBlock {
 	int id{ get; set; }
 	string name{ get; set; }
@@ -12,6 +11,7 @@ public interface DialogueBlock {
 
 }
 
+[Serializable]
 public class LinearDialogueBlock : DialogueBlock {
 	public int id{ get; set; }
 	public string name{ get; set; }
@@ -28,6 +28,7 @@ public class LinearDialogueBlock : DialogueBlock {
 
 }
 
+[Serializable]
 public class LinearEffectDialogueBlock : LinearDialogueBlock {
 	public string effectName {get; set;}
 	public override string ToString ()
@@ -36,6 +37,7 @@ public class LinearEffectDialogueBlock : LinearDialogueBlock {
 	}
 }
 
+[Serializable]
 public class BranchDialogueBlock : DialogueBlock {
 	public int id{ get; set; }
 	public string name{ get; set; }

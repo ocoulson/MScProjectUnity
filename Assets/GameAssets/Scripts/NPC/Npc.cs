@@ -13,8 +13,8 @@ public class Npc {
 	private DialogueBlock currentDialogueBlock;
 	public DialogueBlock CurrentDialogueBlock {get {return currentDialogueBlock;}	set {currentDialogueBlock = value;}}
 
-	private Vector2 currentStartPosition;
-	public Vector2 CurrentStartPosition {get {return currentStartPosition;}	set {currentStartPosition = value;}}
+	private Vector2Serializable currentStartPosition;
+	public Vector2 CurrentStartPosition {get {return currentStartPosition.Vector2;}	set {currentStartPosition.Vector2 = value;}}
 
 	private float movementBoxSize;
 	public float MovementBoxSize {get {return movementBoxSize;} }
@@ -23,7 +23,7 @@ public class Npc {
 	{
 		this.name = name;
 		this.spriteName = spriteName;
-		this.currentStartPosition = currentStartPosition;
+		this.currentStartPosition = new Vector2Serializable(currentStartPosition);
 		this.movementBoxSize = boxSize;
 
 	}
