@@ -5,6 +5,7 @@ using System.Collections;
 public class NPCDialogue : MonoBehaviour {
 
 	private NonPlayerCharacter npc;
+
 	//private NpcController npcController;
 	private NPC_BoxMovementController npcController;
 	private NpcInteractionZone zone;
@@ -136,6 +137,7 @@ public class NPCDialogue : MonoBehaviour {
 	*/ 
 	private void EnableCharacterMovement ()
 	{
+
 		player.GetComponent<PlayerMovement>().movementEnabled = true;
 		gameObject.GetComponent<NPC_BoxMovementController>().movementEnabled = true;
 
