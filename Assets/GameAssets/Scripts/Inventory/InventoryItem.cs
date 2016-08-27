@@ -12,6 +12,7 @@ public class InventoryItem
 	private ItemType itemType;
 	private List<String> containedResources;
 
+	[System.NonSerialized]
 	private Sprite sprite;
 
 	public int ItemId {

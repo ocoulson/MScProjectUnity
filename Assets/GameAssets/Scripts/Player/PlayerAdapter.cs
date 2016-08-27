@@ -199,7 +199,7 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 		SetParentAndPosition(newToolObject.transform, toolSlot.transform);
 
 		toolDisplay.ShowToolImage ();
-		toolDisplay.SetToolImage (Player.CurrentTool.Icon);
+		toolDisplay.SetToolImage (toolAdapter.Icon);
 	}
 
 	private void SetParentAndPosition(Transform target, Transform holder) {

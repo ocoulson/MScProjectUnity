@@ -34,7 +34,14 @@ public class GameManager : MonoBehaviour {
 	{
 		
 		if (currentGame == null) {
-			currentGame = NewGame ();
+			//TODO: Call this method from main menu - give player options to set parameters.
+			currentGame = NewGame ("Eve", Gender.FEMALE, "Eve2");
+			CheckPoints.Add("SpokenToMayorFirst");
+			CheckPoints.Add("SpokenToEthan");
+			CheckPoints.Add("FirstEthanMeetingPositive");
+			CheckPoints.Add("MayorLeaveBeach");
+			CheckPoints.Add("BeachRecyclePointFull1");
+
 		}
 
 		InstantiatePlayer (currentGame);
@@ -43,14 +50,15 @@ public class GameManager : MonoBehaviour {
 			NPCs = new List<NpcAdapter> ();
 		}
 		foreach (Npc npc in currentGame.CurrentNpcs) {
-			InstantiateNpc(npc);
+			InstantiateNpc (npc);
 		}
 
-		CheckPoints.Add("SpokenToMayorFirst");
-		CheckPoints.Add("SpokenToEthan");
-		CheckPoints.Add("FirstEthanMeetingPositive");
-		CheckPoints.Add("MayorLeaveBeach");
-		CheckPoints.Add("BeachRecyclePointFull1");
+		if (currentGame.Player.InventoryInitialised) {
+			foreach (InventoryItem item in currentGame.Player.Inventory.Items) {
+				item.InitialiseItem();
+			}
+		}
+
 
 		GameStarted = true;
 	}
@@ -81,9 +89,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	//Method to be re written when serialisation/deserialisation implemented.
-	private Game NewGame() {
+	private Game NewGame(string playerName, Gender gender, string spriteName) {
 
-		Game game = new Game(new Player("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
+		Game game = new Game(new Player(playerName, gender, spriteName, GameObject.Find("StartGamePosition").transform.position));
 
 		GameObject mayorSpawn = GameObject.Find("MayorSpawnLocation-Beach");
 		GameObject ethanSpawn = GameObject.Find("EthanSpawnLocation-Hut");

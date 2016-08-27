@@ -39,8 +39,7 @@ namespace TestSceneTests
 		[Test]
 		public void TestGrabberSingletonConstructor()  {
 			Assert.That(toolGrabber.toolName == "Grabber1");
-			Assert.NotNull(toolGrabber.Icon);
-			Assert.NotNull(toolGrabber.Sprites);
+
 
 			Assert.NotNull(grabber.InteractionObjects);
 			Assert.That(grabber.InteractionObjects.Count == 0);

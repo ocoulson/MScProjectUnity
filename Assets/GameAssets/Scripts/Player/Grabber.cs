@@ -24,8 +24,7 @@ public class Grabber : Tool {
 	{
 		//Instantiate Tool fields
 		toolName = "Grabber1";
-		Sprites = Resources.LoadAll<Sprite>("Equipment/" + toolName);
-		Icon = Resources.Load<Sprite>("Equipment/"+ toolName+ "Icon"); 
+
 
 		//Instantiate Grabber field
 		interactionObjects = new List<GameObject>();

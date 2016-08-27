@@ -2,24 +2,19 @@
 using System.Collections;
 
 public class ToolAdapter : MonoBehaviour {
+
 	private Tool tool;
+	public Tool Tool { get {return tool;} set {tool = value;} }
 
-	public Tool Tool {
-		get {
-			return tool;
-		}
-		set {
-			tool = value;
-		}
-	}
 
-	public string ToolName {
-		get { return tool.toolName; }
-	}
-	public Sprite Icon {
-		get { return tool.Icon; }
-		set { tool.Icon = value; }
-	}
+	public string ToolName {get { return tool.toolName; }}
+
+	private Sprite[] sprites;
+	public Sprite[] Sprites { get { return sprites; } set { sprites = value; } }
+
+	private Sprite icon;
+	public Sprite Icon { get {return icon;} set { icon = value; } }
+
 
 	private Animator anim;
 	public Animator Anim {
@@ -35,7 +30,10 @@ public class ToolAdapter : MonoBehaviour {
 
 	public void InitialiseSprite ()
 	{
-		GetComponent<SpriteRenderer>().sprite = tool.Sprites[0];
+		Sprites = Resources.LoadAll<Sprite>("Equipment/" + ToolName);
+		Icon = Resources.Load<Sprite>("Equipment/"+ ToolName + "Icon"); 
+
+		GetComponent<SpriteRenderer>().sprite = Sprites[0];
 	}
 	public InventoryItem Use ()
 	{

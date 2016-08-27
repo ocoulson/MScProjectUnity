@@ -23,7 +23,7 @@ public class Player : Subject {
 
 	private Inventory inventory;
 	public Inventory Inventory {get {return inventory;}}
-	public bool InventoryInitialised { get { return inventory != null; } }
+	public bool InventoryInitialised { get { return Inventory != null; } }
 
 	private List<Tool> tools;
 	public List<Tool> Tools {
