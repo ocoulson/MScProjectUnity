@@ -48,7 +48,7 @@ public static class SaveLoad {
 		}
 	}
 
-	public static string ToString ()
+	public static new string ToString ()
 	{
 		StringBuilder builder = new StringBuilder ();
 		foreach (Game g in savedGames) {

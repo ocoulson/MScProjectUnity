@@ -24,12 +24,11 @@ public class LoadGameMenuManager : MonoBehaviour {
 	{
 		GameObject titleObject = Instantiate(title, title.GetComponent<RectTransform>().anchoredPosition,Quaternion.identity) as GameObject;
 		titleObject.transform.SetParent(canvas.transform,false);
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1f);
+		DisplayLoadGames();
 		GameObject backButtonObject = Instantiate(backButton) as GameObject;
 		backButtonObject.transform.SetParent(canvas.transform,false);
 
-		yield return new WaitForSeconds(1.5f);
-		DisplayLoadGames();
 	}
 
 	void DisplayLoadGames ()
@@ -47,7 +46,7 @@ public class LoadGameMenuManager : MonoBehaviour {
 			LoadGamePanel loadGamePanel = ActivatePanel(i);
 			loadGamePanel.PanelGame = SaveLoad.savedGames[i];
 			loadGamePanel.SetText(SaveLoad.savedGames[i].ToString());
-			loadGamePanel.SetImage(Resources.Load<Sprite>("Player/" + SaveLoad.savedGames[i].Player.SpriteName + "/Front0"));
+			loadGamePanel.SetImage(Resources.LoadAll<Sprite>("Player/" + SaveLoad.savedGames[i].Player.SpriteName)[4]);
 		}
 
 	}
