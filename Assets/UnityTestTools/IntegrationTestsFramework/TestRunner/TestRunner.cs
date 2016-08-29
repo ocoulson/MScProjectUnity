@@ -166,7 +166,7 @@ namespace UnityTest
             {
                 var msg = condition;
                 if (msg.StartsWith(k_Prefix)) msg = msg.Substring(k_Prefix.Length + 1);
-                if (currentTest != null && msg.EndsWith("(" + currentTest.name + ')')) msg = msg.Substring(0, msg.LastIndexOf('('));
+				if (currentTest != null && msg.EndsWith("(" + currentTest.name + ')')) msg = msg.Substring(0, msg.LastIndexOf('('));
                 m_TestMessages += msg + "\n";
             }
             switch (type)
@@ -348,7 +348,7 @@ namespace UnityTest
             if (currentTest != null && currentTest.IsExludedOnThisPlatform())
             {
                 m_TestState = TestState.Ignored;
-                Debug.Log(currentTest.gameObject.name + " is excluded on this platform");
+				Debug.Log(currentTest.gameObject.name + " is excluded on this platform");
             }
 
             // don't ignore test if user initiated it from the runner and it's the only test that is being run

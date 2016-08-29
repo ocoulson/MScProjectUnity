@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 public class ReskinAnimation : MonoBehaviour {
+	
 	public string folder;
 	public string SpriteSheetName;
 	void LateUpdate ()

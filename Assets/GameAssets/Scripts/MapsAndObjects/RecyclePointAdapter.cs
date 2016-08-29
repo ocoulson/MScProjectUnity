@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 public class RecyclePointAdapter : MonoBehaviour {
-	public string name;
+	public string RecyclePointName;
 	private RecyclePoint recyclePoint;
 
 	public RecyclePoint RecyclePoint {
@@ -15,7 +15,7 @@ public class RecyclePointAdapter : MonoBehaviour {
 			recyclePoint = value;
 		}
 	}
-
+	private GameManager gameProgress;
 	private RecyclePointUI ui;
 	private InventoryUIManager inventoryUI;
 	private PlayerAdapter player;
@@ -26,12 +26,17 @@ public class RecyclePointAdapter : MonoBehaviour {
 	{
 		ui = FindObjectOfType<RecyclePointUI>();
 		inventoryUI = FindObjectOfType<InventoryUIManager>();
+		gameProgress = FindObjectOfType<GameManager>();
 	}
 
 	void Update ()
 	{
-		if (ui.IsFull) {
+		if (recyclePoint.IsFull) {
 			gameObject.GetComponent<SpriteRenderer> ().sprite = full;
+			if (gameProgress.CheckPoints [recyclePoint.Name + "Full"] == CP_STATUS.UNTRIGGERED) {
+				gameProgress.CheckPoints [recyclePoint.Name + "Full"] = CP_STATUS.TRIGGERED;
+			}
+
 		} else {
 			gameObject.GetComponent<SpriteRenderer>().sprite = empty;
 		}

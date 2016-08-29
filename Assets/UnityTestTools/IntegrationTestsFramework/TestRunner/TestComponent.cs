@@ -160,7 +160,7 @@ namespace UnityTest
         {
             if (obj == NullTestComponent)
                 return 1;
-            var result = gameObject.name.CompareTo(obj.gameObject.name);
+			var result = gameObject.name.CompareTo(obj.gameObject.name);
             if (result == 0)
                 result = gameObject.GetInstanceID().CompareTo(obj.gameObject.GetInstanceID());
             return result;
@@ -177,7 +177,7 @@ namespace UnityTest
             return false;
         }
 
-        public string Name { get { return gameObject == null ? "" : gameObject.name; } }
+		public string Name { get { return gameObject == null ? "" : gameObject.name; } }
 
         public ITestComponent GetTestGroup()
         {

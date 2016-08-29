@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 			CheckPoints.Add ("SpokenToEthan");
 			CheckPoints.Add ("FirstEthanMeetingPositive");
 			CheckPoints.Add ("MayorLeaveBeach");
-			CheckPoints.Add ("BeachRecyclePointFull1");
+			CheckPoints.Add ("BeachRecyclePointFull");
 			CheckPoints.Add("StartSortingMiniGame");
 
 		}
@@ -84,10 +84,10 @@ public class GameManager : MonoBehaviour {
 		if (CheckPoints ["MayorLeaveBeach"] == CP_STATUS.TRIGGERED) {
 			Debug.Log ("MayorLeaveBeach - not implemented");
 		}
-		if (CheckPoints ["BeachRecyclePointFull1"] == CP_STATUS.TRIGGERED) {
+		if (CheckPoints ["BeachRecyclePointFull"] == CP_STATUS.TRIGGERED) {
 			NpcAdapter ethan = FindNPC("Ethan");
 			ethan.GetComponent<NpcDialogue>().SetCurrentDialogueBlock(5);
-			CheckPoints["BeachRecyclePointFull1"] = CP_STATUS.FINISHED;
+			CheckPoints["BeachRecyclePointFull"] = CP_STATUS.FINISHED;
 		}
 	}
 
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour {
 		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
 		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
 
-		RecyclePoint beachPoint = new RecyclePoint("SurfShackRecyclePoint", 50);
+		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 50);
 		game.RecyclePoints.Add(beachPoint);
 
 		game.AddNpc(mayor);
@@ -143,12 +143,16 @@ public class GameManager : MonoBehaviour {
 
 	private void InstantiateRecyclePoint (RecyclePoint point)
 	{
-		RecyclePointAdapter[] adapters = GameObject.FindObjectsOfType<RecyclePointAdapter>();
+		RecyclePointAdapter adapter = Array.Find (GameObject.FindObjectsOfType<RecyclePointAdapter> (), RPAdapter => RPAdapter.RecyclePointName == point.Name);
 
-		Array.Find(adapters, RPAdapter => RPAdapter.name == point.Name).RecyclePoint = point;
+		if (adapter != null) {
+			adapter.RecyclePoint = point;
 
-		RecyclePointUI uiObserver = GameObject.FindObjectOfType<RecyclePointUI>();
-		point.AddObserver(uiObserver);
+			RecyclePointUI uiObserver = GameObject.FindObjectOfType<RecyclePointUI> ();
+			point.AddObserver (uiObserver);
+		} else {
+			Debug.LogError("RecyclePointAdapter with name: " + point.Name + " not found");
+		}
 	}
 
 

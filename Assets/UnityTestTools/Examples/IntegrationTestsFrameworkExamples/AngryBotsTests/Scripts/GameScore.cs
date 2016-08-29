@@ -108,7 +108,7 @@ public class GameScore : MonoBehaviour
         }
         else if (deadObject.layer == enemyLayer)
         {
-            Instance.m_Kills[deadObject.name] = Instance.m_Kills.ContainsKey(deadObject.name) ? Instance.m_Kills[deadObject.name] + 1 : 1;
+			Instance.m_Kills[deadObject.name] = Instance.m_Kills.ContainsKey(deadObject.name) ? Instance.m_Kills[deadObject.name] + 1 : 1;
         }
     }
 

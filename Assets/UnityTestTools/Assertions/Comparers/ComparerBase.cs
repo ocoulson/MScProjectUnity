@@ -64,7 +64,7 @@ namespace UnityTest
 
         public override string GetFailureMessage()
         {
-            var message = GetType().Name + " assertion failed.\n" + go.name + "." + thisPropertyPath + " " + compareToType;
+			var message = GetType().Name + " assertion failed.\n" + go.name + "." + thisPropertyPath + " " + compareToType;
             switch (compareToType)
             {
                 case CompareToType.CompareToObject:

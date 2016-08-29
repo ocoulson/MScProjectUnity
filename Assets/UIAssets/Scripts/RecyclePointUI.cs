@@ -9,7 +9,7 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 	private RecyclePoint currentPoint;
 
 	private ItemDatabase itemDatabase;
-	private GameManager gameProgress;
+
 
 	public int numberOfSlots;
 	public int numberOfRows;
@@ -19,7 +19,7 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 			if (currentPoint != null) {
 				return currentPoint.capacity; 
 			} else {
-				return 0;
+				return Int32.MaxValue;
 			} 
 		}
 	}
@@ -44,7 +44,6 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 
 	// Use this for initialization
 	void Start () {
-		gameProgress = FindObjectOfType<GameManager>();
 		itemDatabase = FindObjectOfType<ItemDatabase>();
 		slotsObjects = new List<GameObject>();
 		slots = new List<DropOffPointSlot>();
@@ -58,10 +57,6 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 	{
 		if (IsFull) {
 			DisableDepositButton ();
-			if (gameProgress.CheckPoints ["BeachRecyclePointFull1"] == CP_STATUS.UNTRIGGERED) {
-				gameProgress.CheckPoints ["BeachRecyclePointFull1"] = CP_STATUS.TRIGGERED;
-			}
-
 		} else {
 			EnableDepositButton();
 		}

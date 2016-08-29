@@ -30,7 +30,7 @@ namespace UnityTest
             id = testComponent.gameObject.GetInstanceID().ToString();
             dynamicTest = testComponent.dynamic;
 
-            if (m_Go != null) m_Name = m_Go.name;
+			if (m_Go != null) m_Name = m_Go.name;
 
             if (dynamicTest)
                 id = testComponent.dynamicTypeName;
@@ -81,7 +81,7 @@ namespace UnityTest
         public string Message { get { return messages; } }
         public string Logs { get { return null; } }
         public bool Executed { get { return resultType != ResultType.NotRun; } }
-        public string Name { get { if (m_Go != null) m_Name = m_Go.name; return m_Name; } }
+		public string Name { get { if (m_Go != null) m_Name = m_Go.name; return m_Name; } }
         public string Id { get { return id; } }
         public bool IsSuccess { get { return resultType == ResultType.Success; } }
         public bool IsTimeout { get { return resultType == ResultType.Timeout; } }
@@ -96,7 +96,7 @@ namespace UnityTest
                     var tempGo = m_Go.transform.parent;
                     while (tempGo != null)
                     {
-                        fullName = tempGo.name + "." + fullName;
+						fullName = tempGo.name + "." + fullName;
                         tempGo = tempGo.transform.parent;
                     }
                 }
