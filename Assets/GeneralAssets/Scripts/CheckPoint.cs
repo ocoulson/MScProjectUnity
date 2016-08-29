@@ -29,4 +29,11 @@ public class CheckPoint {
 		Name = name;
 		Status = CP_STATUS.UNTRIGGERED;
 	}
+
+	public CheckPoint Copy ()
+	{
+		CheckPoint copy = new CheckPoint(name);
+		copy.Status = Status;
+		return copy;
+	}
 }

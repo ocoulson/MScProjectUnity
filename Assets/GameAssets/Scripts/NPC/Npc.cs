@@ -27,4 +27,13 @@ public class Npc {
 		this.movementBoxSize = boxSize;
 
 	}
+
+	public Npc Copy ()
+	{
+		Npc copy = new Npc (name, spriteName, CurrentStartPosition, MovementBoxSize);
+		if (CurrentDialogueBlock != null) {
+			copy.CurrentDialogueBlock = CurrentDialogueBlock.Copy ();
+		}
+		return copy;
+	}
 }

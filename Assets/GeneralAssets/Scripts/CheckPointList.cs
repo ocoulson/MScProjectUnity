@@ -42,4 +42,13 @@ public class CheckPointList {
 	{
 		return Array.Exists(baseList.ToArray(), cp => cp.Name == key); 
 	}
+
+	public CheckPointList Copy ()
+	{
+		CheckPointList copy = new CheckPointList ();
+		foreach (CheckPoint cp in baseList) {
+			copy.baseList.Add(cp.Copy());
+		}
+		return copy;
+	}
 }

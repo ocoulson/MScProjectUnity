@@ -41,5 +41,13 @@ public class Game {
 		return builder.ToString();
 	} 
 
-
+	public Game Copy ()
+	{
+		Game copy = new Game (player.Copy ());
+		foreach (Npc npc in currentNpcs) {
+			copy.CurrentNpcs.Add(npc.Copy());
+		}
+		copy.checkPoints = CheckPoints.Copy();
+		return copy;
+	}
 }

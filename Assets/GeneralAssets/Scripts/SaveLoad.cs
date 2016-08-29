@@ -29,7 +29,7 @@ public static class SaveLoad {
 	public static void Save (Game game)
 	{	
 		Debug.Log(Application.persistentDataPath);
-		AddNewSavedGame (game);
+		AddNewSavedGame (game.Copy());
 		BinaryFormatter bf = new BinaryFormatter ();
 	    FileStream file = File.Create (Application.persistentDataPath + "/savedGames.gd");
 	    bf.Serialize(file, SaveLoad.savedGames);

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Grabber : Tool {
 
+	[System.NonSerialized]
 	private List<GameObject> interactionObjects;
 
 	public List<GameObject> InteractionObjects { get { return interactionObjects; } set { interactionObjects = value;}}
@@ -22,6 +23,7 @@ public class Grabber : Tool {
 	#region implemented abstract members of Tool
 	public override InventoryItem Use ()
 	{
+
 		if (interactionObjects.Count > 0) {
 			InventoryItem item = interactionObjects [0].GetComponent<Collectable> ().item;
 			GameObject go = interactionObjects [0];
@@ -42,13 +44,22 @@ public class Grabber : Tool {
 	public override void OnTriggerEnter2DImpl (Collider2D col)
 	{
 		if (col.tag == "Rubbish") {
+			//because field is not serialised, need to reinitialise it after deserialisation
+			if (interactionObjects == null) {
+				interactionObjects = new List<GameObject>();
+			}
 			interactionObjects.Add(col.gameObject);
 		}
 	}
 
 	public override void OnTriggerExit2DImpl (Collider2D col)
 	{
+		
 		if (col.tag == "Rubbish") {
+			//because field is not serialised, need to reinitialise it after deserialisation
+			if (interactionObjects == null) {
+				interactionObjects = new List<GameObject>();
+			}
 			if (interactionObjects.Contains(col.gameObject)) {
 				interactionObjects.Remove(col.gameObject);
 			}
