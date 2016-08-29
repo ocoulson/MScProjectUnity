@@ -8,7 +8,7 @@ public interface DialogueBlock {
 	string speaker{ get; set; }
 	string[] script_en_GB{ get; set; }
 
-
+	DialogueBlock Copy();
 }
 
 [Serializable]
@@ -24,7 +24,16 @@ public class LinearDialogueBlock : DialogueBlock {
 	{
 		return speaker + " "+ name + " " + id + ". Next Block = " + nextId;
 	}
-
+	public DialogueBlock Copy ()
+	{
+		LinearDialogueBlock copy = new LinearDialogueBlock();
+		copy.id = id;
+		copy.name = name;
+		copy.speaker = speaker;
+		copy.script_en_GB = script_en_GB;
+		copy.nextId = nextId;
+		return copy;
+	}
 
 }
 
@@ -34,6 +43,17 @@ public class LinearEffectDialogueBlock : LinearDialogueBlock {
 	public override string ToString ()
 	{
 		return base.ToString() + ", EffectName:" + effectName;
+	}
+	public DialogueBlock Copy ()
+	{
+		LinearEffectDialogueBlock copy = new LinearEffectDialogueBlock();
+		copy.id = id;
+		copy.name = name;
+		copy.speaker = speaker;
+		copy.script_en_GB = script_en_GB;
+		copy.nextId = nextId;
+		copy.effectName = effectName;
+		return copy;
 	}
 }
 
@@ -52,6 +72,17 @@ public class BranchDialogueBlock : DialogueBlock {
 		return speaker + " "+ name + " " + id + ". YesNext: " + yesNextId + " NoNext: " + noNextId;
 	}
 
+	public DialogueBlock Copy ()
+	{
+		BranchDialogueBlock copy = new BranchDialogueBlock();
+		copy.id = id;
+		copy.name = name;
+		copy.speaker = speaker;
+		copy.script_en_GB = script_en_GB;
+		copy.yesNextId = yesNextId;
+		copy.noNextId = noNextId;
+		return copy;
+	}
 
 }
 

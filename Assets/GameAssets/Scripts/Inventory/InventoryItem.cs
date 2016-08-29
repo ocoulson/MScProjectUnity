@@ -50,7 +50,7 @@ public class InventoryItem
 		ContainedResources = new List<string>();
 	}
 
-	//Initialises the icon and list of contained resources after the object has been made from the json.
+	//Initialises the icon and list of contained resources after the object has been made from the json or deserialized.
 	public void InitialiseItem ()
 	{
 		Sprite = Resources.Load<Sprite> ("InventoryItems/" + ItemName + "Icon");

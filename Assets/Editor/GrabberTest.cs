@@ -15,8 +15,8 @@ namespace TestSceneTests
 		public void Init() {
 			
 			rubbishItem = GetRubbishItem("Rubbish Item");
-			toolGrabber = Grabber.Instance;
-			grabber = Grabber.Instance;
+			toolGrabber = new Grabber();
+			grabber = new Grabber();
 		}
 
 		private GameObject GetRubbishItem(string name) {

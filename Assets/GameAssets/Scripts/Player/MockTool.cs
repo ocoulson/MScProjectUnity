@@ -15,6 +15,10 @@ public class MockTool : Tool {
 		return new InventoryItem();
 	}
 
+	public override Tool Copy() {
+		return new MockTool(toolName);
+	}
+
 	public override void OnTriggerEnter2DImpl (Collider2D col)
 	{
 		Debug.Log("MockTool OnTriggerEnter2DImpl");

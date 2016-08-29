@@ -140,11 +140,11 @@ namespace RegularTests {
 		{
 			Assert.Null(player1.CurrentTool);
 			Assert.That(player1.Tools.Count == 0);
-			Tool grabber1 = Grabber.Instance;
+			Tool grabber1 = new Grabber();
 			player1.AddTool(grabber1);
 			Assert.NotNull(player1.CurrentTool);
 			Assert.That(player1.Tools.Count == 1);
-			Assert.That(player1.CurrentTool == Grabber.Instance);
+			Assert.That(player1.CurrentTool == grabber1);
 		}
 
 		[Test]

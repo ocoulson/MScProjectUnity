@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour {
 	private void FirstEthanMeetingPositive ()
 	{
 		CheckPoints ["SpokenToEthan"] = CP_STATUS.TRIGGERED;
-		playerAdapter.AddTool(Grabber.Instance);
+		playerAdapter.AddTool(new Grabber());
 		GameObject backpack = Instantiate (Resources.Load ("Prefabs/Wearables/Backpack")) as GameObject;
 		playerAdapter.SetWearable (backpack);
 		playerAdapter.InitialiseInventory(20);

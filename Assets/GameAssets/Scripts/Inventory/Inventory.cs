@@ -102,4 +102,15 @@ public class Inventory : Subject
 	
 		return builder.ToString();
 	}
+
+	public Inventory Copy ()
+	{
+		Inventory copy = new Inventory (Size);
+
+		foreach (InventoryItem item in Items) {
+			copy.Items.Add(item.GetCopy());
+		}
+
+		return copy;
+	}
 }

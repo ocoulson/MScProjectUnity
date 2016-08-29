@@ -120,6 +120,30 @@ public class Player : Subject {
 		}
 	}
 
+	public Player Copy ()
+	{
+		Player copy = new Player (Name, Gender, SpriteName, CurrentPosition);
+		if (InventoryInitialised) {
+			copy.inventory = Inventory.Copy ();
+		}
+		foreach (Tool tool in Tools) {
+			copy.Tools.Add (tool.Copy ());
+		}
+		if (currentTool != null) {
+			copy.currentTool = currentTool.Copy ();
+		}
+
+		if (Thoughts != null) {
+			List<DialogueBlock> thoughtsCopy = new List<DialogueBlock> ();
+			foreach (DialogueBlock block in Thoughts) {
+				thoughtsCopy.Add(block.Copy());
+			}
+			copy.Thoughts = thoughtsCopy.ToArray();
+		}
+		return copy;
+	}
+
+
 }
 
 public enum Gender {MALE,FEMALE}

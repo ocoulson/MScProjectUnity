@@ -4,23 +4,12 @@ using System.Collections.Generic;
 
 [System.Serializable]
 public class Grabber : Tool {
-	private static Grabber instance;
-
-	//TODO: Investigate synchronisation with regards to unity
-	public static Grabber Instance {
-		get {
-			if (instance == null) {
-				instance = new Grabber();
-			}
-			return instance;
-		}
-	}
 
 	private List<GameObject> interactionObjects;
 
 	public List<GameObject> InteractionObjects { get { return interactionObjects; } set { interactionObjects = value;}}
 
-	private Grabber ()
+	public Grabber ()
 	{
 		//Instantiate Tool fields
 		toolName = "Grabber1";
@@ -42,6 +31,11 @@ public class Grabber : Tool {
 		} else {
 			throw new UnityException("No item in range of grabber");
 		}
+	}
+
+	public override Tool Copy ()
+	{
+		return new Grabber();
 	}
 
 	//Methods used by the ToolAdapter OnTriggerEnter2D / Exit2D methods 
