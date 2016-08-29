@@ -3,15 +3,26 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ObserverPattern;
 
-public class RecyclePointUI : MonoBehaviour {
+public class RecyclePointUI : MonoBehaviour, Observer {
+	private RecyclePoint currentPoint;
+
 	private ItemDatabase itemDatabase;
 	private GameManager gameProgress;
 
 	public int numberOfSlots;
 	public int numberOfRows;
 
-	public int capacity;
+	public int Capacity {
+		get {
+			if (currentPoint != null) {
+				return currentPoint.capacity; 
+			} else {
+				return 0;
+			} 
+		}
+	}
 
 	public float paddingLeft, paddingTop; 
 
@@ -23,7 +34,7 @@ public class RecyclePointUI : MonoBehaviour {
 	public Image fullImage;
 
 	public bool IsFull {
-		get { return GetCurrentQuantity() >= capacity;} 
+		get { return GetCurrentQuantity() >= Capacity;} 
 	}
 	public Text capacityText;
 	public Text currentQuantityText;
@@ -38,7 +49,7 @@ public class RecyclePointUI : MonoBehaviour {
 		slotsObjects = new List<GameObject>();
 		slots = new List<DropOffPointSlot>();
 		SetupRecyclePointUI();
-		capacityText.text = capacity.ToString();
+		capacityText.text = Capacity.ToString();
 		currentQuantityText.text = "0";
 		fullImage.gameObject.SetActive(false);
 	}
@@ -67,18 +78,15 @@ public class RecyclePointUI : MonoBehaviour {
 		fullImage.gameObject.SetActive(false);
 	}
 
-	public InventoryItem AddRubbishItem (InventoryItem rubbishItem)
+	public void AddItem (InventoryItem rubbishItem)
 	{
-		if (IsFull) {
-			return rubbishItem;
-		}
 		DropOffPointSlot[] slotArray = slots.ToArray();
 
 		DropOffPointSlot destinationSlot = Array.Find<DropOffPointSlot>(slotArray, slot => slot.SlotItem.ItemName == rubbishItem.ItemName);
 
 		destinationSlot.PutItemInSlot(rubbishItem);
 		currentQuantityText.text = GetCurrentQuantity().ToString();
-		return null;
+
 	}
 
 	//TODO: Edit if more rubbish items are added to the DB
@@ -118,13 +126,21 @@ public class RecyclePointUI : MonoBehaviour {
 		}
 	}
 
-	public void ShowUI() {
+	public void ShowUI (RecyclePoint point)
+	{
+		currentPoint = point;
+		foreach (InventoryItem item in currentPoint.RecyclingItems) {
+			AddItem(item);
+		}
 		mainBlock.SetActive(true);
 		slotHolder.SetActive(true);
 	}
 	public void HideUI() {
+		
 		mainBlock.SetActive(false);
 		slotHolder.SetActive(false);
+		ClearSlots();
+		currentPoint = null;
 	}
 
 	public int GetCurrentQuantity ()
@@ -135,4 +151,26 @@ public class RecyclePointUI : MonoBehaviour {
 		}
 		return total;
 	}
+
+	private void ClearSlots ()
+	{
+		foreach (DropOffPointSlot slot in slots) {
+			slot.EmptySlot();
+		}
+	}
+
+
+
+
+	#region Observer implementation
+	public void OnNotify ()
+	{
+		if (currentPoint != null) {
+			ClearSlots();
+			foreach (InventoryItem item in currentPoint.RecyclingItems) {
+				AddItem(item);
+			}
+		}
+	}
+	#endregion
 }

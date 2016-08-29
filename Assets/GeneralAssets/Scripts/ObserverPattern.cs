@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace ObserverPattern {
 	[System.Serializable]
 	public abstract class Subject {
+
 		[System.NonSerialized]
 		private List<Observer> observers = null;
 
@@ -37,6 +38,11 @@ namespace ObserverPattern {
 	public interface Observer {
 		void OnNotify();
 	}
+
+
+
+
+
 
 }
 

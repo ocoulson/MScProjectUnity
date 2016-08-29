@@ -47,4 +47,7 @@ public class DropOffPointSlot : InventorySlot {
 		slotImage.sprite = SlotItem.Sprite;
 	}
 
+	public void EmptySlot() {
+		containedItems = new Stack<InventoryItem>();
+	}
 }

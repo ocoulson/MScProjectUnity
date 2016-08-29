@@ -23,7 +23,7 @@ public class Grabber : Tool {
 	#region implemented abstract members of Tool
 	public override InventoryItem Use ()
 	{
-
+		InitialiseInteractionObjects();
 		if (interactionObjects.Count > 0) {
 			InventoryItem item = interactionObjects [0].GetComponent<Collectable> ().item;
 			GameObject go = interactionObjects [0];
@@ -44,10 +44,7 @@ public class Grabber : Tool {
 	public override void OnTriggerEnter2DImpl (Collider2D col)
 	{
 		if (col.tag == "Rubbish") {
-			//because field is not serialised, need to reinitialise it after deserialisation
-			if (interactionObjects == null) {
-				interactionObjects = new List<GameObject>();
-			}
+			InitialiseInteractionObjects();
 			interactionObjects.Add(col.gameObject);
 		}
 	}
@@ -56,10 +53,7 @@ public class Grabber : Tool {
 	{
 		
 		if (col.tag == "Rubbish") {
-			//because field is not serialised, need to reinitialise it after deserialisation
-			if (interactionObjects == null) {
-				interactionObjects = new List<GameObject>();
-			}
+			InitialiseInteractionObjects();
 			if (interactionObjects.Contains(col.gameObject)) {
 				interactionObjects.Remove(col.gameObject);
 			}
@@ -67,4 +61,11 @@ public class Grabber : Tool {
 	}
 
 	#endregion
+
+	private void InitialiseInteractionObjects() {
+		//because field is not serialised, need to reinitialise it after deserialisation
+		if (interactionObjects == null) {
+			interactionObjects = new List<GameObject>();
+		}
+	}
 }

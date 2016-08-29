@@ -29,6 +29,7 @@ public static class SaveLoad {
 	public static void Save (Game game)
 	{	
 		Debug.Log(Application.persistentDataPath);
+		//Add a Copy of the game, not the game itself, so multiple games can be saved not multiple references to the same one.
 		AddNewSavedGame (game.Copy());
 		BinaryFormatter bf = new BinaryFormatter ();
 	    FileStream file = File.Create (Application.persistentDataPath + "/savedGames.gd");

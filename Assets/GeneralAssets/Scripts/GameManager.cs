@@ -36,11 +36,12 @@ public class GameManager : MonoBehaviour {
 		if (currentGame == null) {
 			//TODO: Call this method from main menu - give player options to set parameters.
 			currentGame = NewGame ("Eve", Gender.FEMALE, "Eve2");
-			CheckPoints.Add("SpokenToMayorFirst");
-			CheckPoints.Add("SpokenToEthan");
-			CheckPoints.Add("FirstEthanMeetingPositive");
-			CheckPoints.Add("MayorLeaveBeach");
-			CheckPoints.Add("BeachRecyclePointFull1");
+			CheckPoints.Add ("SpokenToMayorFirst");
+			CheckPoints.Add ("SpokenToEthan");
+			CheckPoints.Add ("FirstEthanMeetingPositive");
+			CheckPoints.Add ("MayorLeaveBeach");
+			CheckPoints.Add ("BeachRecyclePointFull1");
+			CheckPoints.Add("StartSortingMiniGame");
 
 		}
 
@@ -52,7 +53,9 @@ public class GameManager : MonoBehaviour {
 		foreach (Npc npc in currentGame.CurrentNpcs) {
 			InstantiateNpc (npc);
 		}
-
+		foreach (RecyclePoint point in currentGame.RecyclePoints) {
+			InstantiateRecyclePoint(point);
+		}
 		if (currentGame.Player.InventoryInitialised) {
 			foreach (InventoryItem item in currentGame.Player.Inventory.Items) {
 				item.InitialiseItem();
@@ -99,6 +102,9 @@ public class GameManager : MonoBehaviour {
 		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
 		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
 
+		RecyclePoint beachPoint = new RecyclePoint("SurfShackRecyclePoint", 50);
+		game.RecyclePoints.Add(beachPoint);
+
 		game.AddNpc(mayor);
 		game.AddNpc(ethan);
 
@@ -133,6 +139,16 @@ public class GameManager : MonoBehaviour {
 		NPCs.Add(adapter);
 		GameObject holder = GameObject.Find("NPCs");
 		npcGameObject.transform.parent = holder.transform;
+	}
+
+	private void InstantiateRecyclePoint (RecyclePoint point)
+	{
+		RecyclePointAdapter[] adapters = GameObject.FindObjectsOfType<RecyclePointAdapter>();
+
+		Array.Find(adapters, RPAdapter => RPAdapter.name == point.Name).RecyclePoint = point;
+
+		RecyclePointUI uiObserver = GameObject.FindObjectOfType<RecyclePointUI>();
+		point.AddObserver(uiObserver);
 	}
 
 

@@ -13,6 +13,8 @@ public class Game {
 	private List<Npc> currentNpcs;
 	public List<Npc> CurrentNpcs { get {return currentNpcs;}	set {currentNpcs = value;} }
 
+	private List<RecyclePoint> recyclePoints;
+	public List<RecyclePoint> RecyclePoints { get { return recyclePoints; } set { recyclePoints = value; } }
 
 	private CheckPointList checkPoints;
 	public CheckPointList CheckPoints { get {return checkPoints;} }
@@ -25,6 +27,7 @@ public class Game {
 	{
 		this.Player = player;
 		CurrentNpcs = new List<Npc>();
+		recyclePoints = new List<RecyclePoint>();
 		checkPoints = new CheckPointList();
 	}
 
@@ -45,9 +48,13 @@ public class Game {
 	{
 		Game copy = new Game (player.Copy ());
 		foreach (Npc npc in currentNpcs) {
-			copy.CurrentNpcs.Add(npc.Copy());
+			copy.CurrentNpcs.Add (npc.Copy ());
+		}
+		foreach (RecyclePoint point in recyclePoints) {
+			copy.RecyclePoints.Add(point.Copy());
 		}
 		copy.checkPoints = CheckPoints.Copy();
+		
 		return copy;
 	}
 }

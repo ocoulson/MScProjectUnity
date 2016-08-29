@@ -1,70 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using ObserverPattern;
 
-public class RecyclePoint : MonoBehaviour {
+[System.Serializable]
+public class RecyclePoint : Subject {
 
-	private RecyclePointUI ui;
-	private InventoryUIManager inventoryUI;
-	private PlayerAdapter player;
-	public Sprite empty;
-	public Sprite full;
-	// Use this for initialization
-	void Start ()
+	private List<InventoryItem> recyclingItems;
+	public List<InventoryItem> RecyclingItems { get {return recyclingItems;} set {recyclingItems = value;} }
+	private string name;
+
+	public string Name {get {return name;}}
+
+	public int capacity;
+
+	public int Count { get { return recyclingItems.Count;} }
+	public bool IsFull { get { return Count >= capacity; } }
+	public bool IsEmpty { get { return Count == 0; } }
+
+
+	public RecyclePoint (string name, int capacity)
 	{
-		ui = FindObjectOfType<RecyclePointUI>();
-		inventoryUI = FindObjectOfType<InventoryUIManager>();
+		this.name = name;
+		this.capacity = capacity;
+		this.recyclingItems = new List<InventoryItem>();
 	}
 
-	void Update ()
+	public InventoryItem AddRubbishItem (InventoryItem rubbishItem)
 	{
-		if (ui.IsFull) {
-			gameObject.GetComponent<SpriteRenderer> ().sprite = full;
-		} else {
-			gameObject.GetComponent<SpriteRenderer>().sprite = empty;
+		if (IsFull) {
+			return rubbishItem;
 		}
+		recyclingItems.Add(rubbishItem);
+		return null;
 	}
 
-	//Method to add a list of items (ie from the player inventory) into the recycle point
-	//The RecyclePoint UI object actually contains the items.
-	//Any items added when the point is at capacity are returned to the player's inventory directly.
-	public void DropOff (List<InventoryItem> input)
+	public RecyclePoint Copy ()
 	{
-		input.ForEach (item => Debug.Log (item.ItemName));
-
-		for (int i = 0; i < input.Count; i++) {
-			InventoryItem item = input [i];
-
-			InventoryItem returned = ui.AddRubbishItem (item);	
-			if (returned != null) {
-				player.PutItemInInventory(returned);
-			}	
-		} 
-	
-	}
-
-	//A method which calls the DropOff method and puts in the player's inventory
-	//Called by the Deposit button on the UI object
-	public void GetPlayerDeposit ()
-	{
-		DropOff(player.DepositEntireInventory());
-	}
-
-	void OnTriggerEnter2D (Collider2D col)
-	{
-		ui.ShowUI ();
-		if (col.gameObject.tag == "Player") {
-			player = col.GetComponent<PlayerAdapter> ();
-			if (player.InventoryInitialised) {
-				inventoryUI.ShowUI();
-			}
-
+		RecyclePoint copy = new RecyclePoint (name, capacity);
+		foreach (InventoryItem item in recyclingItems) {
+			copy.AddRubbishItem(item.GetCopy());
 		}
+		return copy;
 	}
-	void OnTriggerExit2D(Collider2D col) {
-		ui.HideUI();
-		if (col.gameObject.tag == "Player") {
-			inventoryUI.HideUI();
-		}
-	}
+
 }

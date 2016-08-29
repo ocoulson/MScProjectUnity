@@ -2,10 +2,16 @@
 using UnityEditor;
 using System;
 using NUnit.Framework;
+using ObserverPattern;
 
 namespace RegularTests {
 	[TestFixture]
 	public class PlayerTest {
+
+		private Observer player1Observer;
+		private Observer fullPlayerObserver;
+		private Observer player1InventoryObserver;
+		private Observer fullPlayerInventoryObserver;
 
 		private Player player1;
 		private Player fullPlayer;
@@ -15,10 +21,20 @@ namespace RegularTests {
 
 	    [SetUp]
 	    public void Init ()
-		{
+		{	
+			player1Observer = new MockObserver("Player1 Observer");
+			fullPlayerObserver = new MockObserver("FullPlayer Observer");
+			player1InventoryObserver = new MockObserver("Player 1 Inventory Observer");
+			fullPlayerInventoryObserver = new MockObserver("FullPlayer Inventory Observer");
+
 			player1 = new Player ("Player1", Gender.FEMALE, "Eve2", new Vector2 (0, 0));
+			player1.AddObserver(player1Observer);
+
+
 			fullPlayer = new Player ("Ollie", Gender.MALE, "Evan1", Vector2.zero);
 			fullPlayer.InitialiseInventory (20);
+			fullPlayer.AddObserver(fullPlayerObserver);
+			fullPlayer.Inventory.AddObserver(fullPlayerInventoryObserver);
 
 			for (int i = 0; i < 20; i++) {
 				InventoryItem item = new InventoryItem();
@@ -72,6 +88,7 @@ namespace RegularTests {
 			player1.InitialiseInventory(10);
 			Assert.That(player1.InventoryInitialised);
 			Assert.That(player1.Inventory.Size == 10);
+			player1.Inventory.AddObserver(player1InventoryObserver);
 			player1.IncreaseInventorySize(20);
 
 			Assert.That(player1.Inventory.Size == 20);
@@ -99,6 +116,7 @@ namespace RegularTests {
 		{
 			player1.InitialiseInventory(10);
 			Assert.That(player1.InventoryInitialised);
+			player1.Inventory.AddObserver(player1InventoryObserver);
 			InventoryItem item = new InventoryItem();
 			item.ItemName = "Item1";
 			player1.AddItem(item);
@@ -191,5 +209,23 @@ namespace RegularTests {
 		{
 			Assert.That (1 == 1);
 		}
+	}
+
+	class MockObserver : Observer {
+		public string name;
+		public MockObserver (string name)
+		{
+			this.name = name;
+		}
+		#region Observer implementation
+
+		public void OnNotify ()
+		{
+			Debug.Log(name + " notified");
+		}
+
+		#endregion
+
+
 	}
 }
