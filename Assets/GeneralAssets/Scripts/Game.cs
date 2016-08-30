@@ -23,7 +23,7 @@ public class Game {
 	private DateTime saveTime;
 	public DateTime SaveTime { get {return saveTime;}	set {saveTime = value;} }
 
-	public bool IsNewGame;
+	public bool IsNewGame = true;
 
 	public Game (Player player)
 	{
@@ -31,7 +31,6 @@ public class Game {
 		CurrentNpcs = new List<Npc>();
 		recyclePoints = new List<RecyclePoint>();
 		checkPoints = new CheckPointList();
-		IsNewGame = true;
 	}
 
 	public void AddNpc(Npc newNpc) {

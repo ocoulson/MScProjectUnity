@@ -8,12 +8,11 @@ public class RecyclePoint : Subject {
 
 	private List<InventoryItem> recyclingItems;
 	public List<InventoryItem> RecyclingItems { get {return recyclingItems;} set {recyclingItems = value;} }
-	private string name;
 
+	private string name;
 	public string Name {get {return name;}}
 
 	private int capacity;
-
 	public int Capacity {
 		get {
 			return capacity;

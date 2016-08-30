@@ -79,7 +79,8 @@ public class RecyclePointAdapter : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		ui.ShowUI (recyclePoint);
+		ui.ShowUI (this);
+		Debug.Log(recyclePoint.Name);
 		if (col.gameObject.tag == "Player") {
 			if (player.InventoryInitialised) {
 				inventoryUI.ShowUI();

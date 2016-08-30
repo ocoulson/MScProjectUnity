@@ -78,7 +78,7 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 
 		DropOffPointSlot destinationSlot = Array.Find<DropOffPointSlot>(slotArray, slot => slot.SlotItem.ItemName == rubbishItem.ItemName);
 
-		destinationSlot.PutItemInSlot(rubbishItem);
+		destinationSlot.PutItemInSlot();
 		currentQuantityText.text = GetCurrentQuantity().ToString();
 
 	}
@@ -120,13 +120,14 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 		}
 	}
 
-	public void ShowUI (RecyclePoint point)
+	public void ShowUI (RecyclePointAdapter adapter)
 	{
-		currentPoint = point;
+		currentPoint = adapter.RecyclePoint;
 		capacityText.text = Capacity.ToString();
 		foreach (InventoryItem item in currentPoint.RecyclingItems) {
 			AddItem(item);
-		}
+		} 
+		depositButton.onClick.AddListener(() => adapter.GetPlayerDeposit());
 		mainBlock.SetActive(true);
 		slotHolder.SetActive(true);
 	}

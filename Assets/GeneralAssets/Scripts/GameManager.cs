@@ -33,9 +33,10 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame ()
 	{
-		if (currentGame.IsNewGame) {
-			CurrentGame = NewGame(currentGame.Player);
+		if (currentGame == null) {
+			currentGame = NewGame(new Player("Eve", Gender.FEMALE, "Eve2", GameObject.Find("StartGamePosition").transform.position));
 		}
+
 		InstantiatePlayer (currentGame);
 
 		if (NPCs == null) {
@@ -86,7 +87,6 @@ public class GameManager : MonoBehaviour {
 	public Game NewGame(Player newPlayer) {
 
 		Game game = new Game(newPlayer);
-		game.Player.CurrentPosition = GameObject.Find("StartGamePosition").transform.position;
 	
 		GameObject mayorSpawn = GameObject.Find("MayorSpawnLocation-Beach");
 		GameObject ethanSpawn = GameObject.Find("EthanSpawnLocation-Hut");
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour {
 		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
 		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
 
-		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 30);
+		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 50);
 		game.RecyclePoints.Add(beachPoint);
 
 		game.AddNpc(mayor);
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour {
 		game.CheckPoints.Add ("FirstEthanMeetingPositive");
 		game.CheckPoints.Add ("MayorLeaveBeach");
 		game.CheckPoints.Add ("BeachRecyclePointFull");
-		game.CheckPoints.Add("StartSortingMiniGame");
+		game.CheckPoints.Add ("StartSortingMiniGame");
 
 		game.IsNewGame = false;
 		return game;

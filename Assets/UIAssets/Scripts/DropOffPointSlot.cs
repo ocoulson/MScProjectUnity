@@ -6,34 +6,28 @@ using System.Collections.Generic;
 
 public class DropOffPointSlot : InventorySlot {
 
-	public Stack<InventoryItem> containedItems {get; private set;}
+	private int quantity;
 	public Text quantityText;
 
 	public int slotQuantity {
-		get { 
-			if (containedItems != null) {
-				return containedItems.Count;
-			} else
-				return 0;
-		}
+		get {return quantity;}
 	}
 	// Use this for initialization
 	void Start () {
-		containedItems = new Stack<InventoryItem>();
+		quantity = 0;
 		emptySlotImage = Resources.Load<Sprite>("InventoryItems/EmptyIcon");
 	}
 
-	public override void PutItemInSlot (InventoryItem item)
+	public void PutItemInSlot ()
 	{
-		containedItems.Push(item);
+		quantity ++;
 		ChangeQuantityText();
 	}
 
-	public override InventoryItem RemoveItemFromSlot() {
-		InventoryItem output = containedItems.Pop();
+	public void RemoveItemFromSlot() {
+		quantity --;
 		ChangeQuantityText();
 
-		return output;
 	}
 
 	public override void OnPointerClick (PointerEventData eventData)
@@ -41,13 +35,13 @@ public class DropOffPointSlot : InventorySlot {
 		Debug.Log("Do nothing");
 	}
 	private void ChangeQuantityText() {
-		quantityText.text = containedItems.Count.ToString();
+		quantityText.text = quantity.ToString();
 	}
 	public void SetSlotImage() {
 		slotImage.sprite = SlotItem.Sprite;
 	}
 
 	public void EmptySlot() {
-		containedItems = new Stack<InventoryItem>();
+		quantity = 0;
 	}
 }
