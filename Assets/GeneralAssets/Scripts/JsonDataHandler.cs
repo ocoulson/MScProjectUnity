@@ -22,16 +22,19 @@ public class JsonDataHandler  {
 
 	public JsonDataHandler() {
 
-		dialogueJsonData = GetJsonDataObjectFromFile("/Resources/JSON/Dialogue.json");
+		dialogueJsonData = GetJsonDataObjectFromFile("Dialogue");
 
-		itemsJsonData = GetJsonDataObjectFromFile("/Resources/JSON/InventoryItems.json");
+		itemsJsonData = GetJsonDataObjectFromFile("InventoryItems");
 	}
 
-	public JsonData GetJsonDataObjectFromFile (string filePath) 
+	public JsonData GetJsonDataObjectFromFile (string filePath)
 	{
-		string jsonString = File.ReadAllText (Application.dataPath + filePath);
-		JsonData jsonData = JsonMapper.ToObject(jsonString);
+		TextAsset asset = (TextAsset) Resources.Load(filePath);
+		JsonData jsonData = JsonMapper.ToObject(asset.text);
 		return jsonData;
+//		string jsonString = File.ReadAllText (Application.dataPath + filePath);
+//		JsonData jsonData = JsonMapper.ToObject(jsonString);
+//		return jsonData;
 	}
 
 
