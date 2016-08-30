@@ -24,7 +24,7 @@ public class LinearDialogueBlock : DialogueBlock {
 	{
 		return speaker + " "+ name + " " + id + ". Next Block = " + nextId;
 	}
-	public DialogueBlock Copy ()
+	public virtual DialogueBlock Copy ()
 	{
 		LinearDialogueBlock copy = new LinearDialogueBlock();
 		copy.id = id;
@@ -44,7 +44,7 @@ public class LinearEffectDialogueBlock : LinearDialogueBlock {
 	{
 		return base.ToString() + ", EffectName:" + effectName;
 	}
-	public DialogueBlock Copy ()
+	public override DialogueBlock Copy ()
 	{
 		LinearEffectDialogueBlock copy = new LinearEffectDialogueBlock();
 		copy.id = id;

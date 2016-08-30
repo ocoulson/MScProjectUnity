@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private bool GameStarted = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -32,19 +33,9 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame ()
 	{
-		
-		if (currentGame == null) {
-			//TODO: Call this method from main menu - give player options to set parameters.
-			currentGame = NewGame ("Eve", Gender.FEMALE, "Eve2");
-			CheckPoints.Add ("SpokenToMayorFirst");
-			CheckPoints.Add ("SpokenToEthan");
-			CheckPoints.Add ("FirstEthanMeetingPositive");
-			CheckPoints.Add ("MayorLeaveBeach");
-			CheckPoints.Add ("BeachRecyclePointFull");
-			CheckPoints.Add("StartSortingMiniGame");
-
+		if (currentGame.IsNewGame) {
+			CurrentGame = NewGame(currentGame.Player);
 		}
-
 		InstantiatePlayer (currentGame);
 
 		if (NPCs == null) {
@@ -92,22 +83,31 @@ public class GameManager : MonoBehaviour {
 	}
 
 	//Method to be re written when serialisation/deserialisation implemented.
-	private Game NewGame(string playerName, Gender gender, string spriteName) {
+	public Game NewGame(Player newPlayer) {
 
-		Game game = new Game(new Player(playerName, gender, spriteName, GameObject.Find("StartGamePosition").transform.position));
-
+		Game game = new Game(newPlayer);
+		game.Player.CurrentPosition = GameObject.Find("StartGamePosition").transform.position;
+	
 		GameObject mayorSpawn = GameObject.Find("MayorSpawnLocation-Beach");
 		GameObject ethanSpawn = GameObject.Find("EthanSpawnLocation-Hut");
 
 		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
 		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
 
-		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 50);
+		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 30);
 		game.RecyclePoints.Add(beachPoint);
 
 		game.AddNpc(mayor);
 		game.AddNpc(ethan);
 
+		game.CheckPoints.Add ("SpokenToMayorFirst");
+		game.CheckPoints.Add ("SpokenToEthan");
+		game.CheckPoints.Add ("FirstEthanMeetingPositive");
+		game.CheckPoints.Add ("MayorLeaveBeach");
+		game.CheckPoints.Add ("BeachRecyclePointFull");
+		game.CheckPoints.Add("StartSortingMiniGame");
+
+		game.IsNewGame = false;
 		return game;
 	}
 
@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour {
 	private void InstantiatePlayer (Game game)
 	{
 		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), game.Player.CurrentPosition, Quaternion.identity) as GameObject;
+
 		player.name = "Player";
 		playerAdapter = player.GetComponent<PlayerAdapter>();
 

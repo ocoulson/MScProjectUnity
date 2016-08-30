@@ -15,7 +15,6 @@ public class Player : Subject {
 	public string Name { get {return name;} }
 
 	private Gender gender;
-
 	public Gender Gender { get { return gender; } }
 
 	private string spriteName;

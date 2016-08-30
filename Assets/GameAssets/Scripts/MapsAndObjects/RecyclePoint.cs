@@ -12,10 +12,16 @@ public class RecyclePoint : Subject {
 
 	public string Name {get {return name;}}
 
-	public int capacity;
+	private int capacity;
+
+	public int Capacity {
+		get {
+			return capacity;
+		}
+	}
 
 	public int Count { get { return recyclingItems.Count;} }
-	public bool IsFull { get { return Count >= capacity; } }
+	public bool IsFull { get { return Count >= Capacity; } }
 	public bool IsEmpty { get { return Count == 0; } }
 
 
@@ -37,7 +43,7 @@ public class RecyclePoint : Subject {
 
 	public RecyclePoint Copy ()
 	{
-		RecyclePoint copy = new RecyclePoint (name, capacity);
+		RecyclePoint copy = new RecyclePoint (name, Capacity);
 		foreach (InventoryItem item in recyclingItems) {
 			copy.AddRubbishItem(item.GetCopy());
 		}

@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 
 public class RecyclePointAdapter : MonoBehaviour {
-	public string RecyclePointName;
-	private RecyclePoint recyclePoint;
 
+	public string RecyclePointName;
+
+	private RecyclePoint recyclePoint;
 	public RecyclePoint RecyclePoint {
 		get {
 			return recyclePoint;
@@ -27,6 +29,7 @@ public class RecyclePointAdapter : MonoBehaviour {
 		ui = FindObjectOfType<RecyclePointUI>();
 		inventoryUI = FindObjectOfType<InventoryUIManager>();
 		gameProgress = FindObjectOfType<GameManager>();
+		player = FindObjectOfType<PlayerAdapter> ();
 	}
 
 	void Update ()
@@ -43,7 +46,7 @@ public class RecyclePointAdapter : MonoBehaviour {
 	}
 
 	//Method to add a list of items (ie from the player inventory) into the recycle point
-	//The RecyclePoint UI object actually contains the items.
+	//The RecyclePoint object actually contains the items.
 	//Any items added when the point is at capacity are returned to the player's inventory directly.
 	public void DropOff (List<InventoryItem> input)
 	{
@@ -65,17 +68,19 @@ public class RecyclePointAdapter : MonoBehaviour {
 	//Called by the Deposit button on the UI object
 	public void GetPlayerDeposit ()
 	{
+		if (player == null) {
+			player = FindObjectOfType<PlayerAdapter>();
+		}
 		DropOff(player.DepositEntireInventory());
 	}
 
 
 	//TODO: When there are more than 1 Recycle Point, we need to ensure the UI displays the information for this Recycle point
-	//Probably send this recyclePoint as an arguement to ShowUi
+
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		ui.ShowUI (recyclePoint);
 		if (col.gameObject.tag == "Player") {
-			player = col.GetComponent<PlayerAdapter> ();
 			if (player.InventoryInitialised) {
 				inventoryUI.ShowUI();
 			}

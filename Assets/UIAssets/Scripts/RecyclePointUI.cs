@@ -17,7 +17,7 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 	public int Capacity {
 		get {
 			if (currentPoint != null) {
-				return currentPoint.capacity; 
+				return currentPoint.Capacity; 
 			} else {
 				return Int32.MaxValue;
 			} 
@@ -48,7 +48,6 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 		slotsObjects = new List<GameObject>();
 		slots = new List<DropOffPointSlot>();
 		SetupRecyclePointUI();
-		capacityText.text = Capacity.ToString();
 		currentQuantityText.text = "0";
 		fullImage.gameObject.SetActive(false);
 	}
@@ -124,6 +123,7 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 	public void ShowUI (RecyclePoint point)
 	{
 		currentPoint = point;
+		capacityText.text = Capacity.ToString();
 		foreach (InventoryItem item in currentPoint.RecyclingItems) {
 			AddItem(item);
 		}
@@ -165,6 +165,7 @@ public class RecyclePointUI : MonoBehaviour, Observer {
 			foreach (InventoryItem item in currentPoint.RecyclingItems) {
 				AddItem(item);
 			}
+
 		}
 	}
 	#endregion

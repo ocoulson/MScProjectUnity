@@ -13,7 +13,6 @@ public class LevelManager : MonoBehaviour {
 
 	public void LoadLevel (string name) {
 		SceneManager.LoadScene(name);
-		;
 	}
 
 	public void QuitRequest() {
@@ -37,7 +36,8 @@ public class LevelManager : MonoBehaviour {
 	public void StartNewGame() {
 		
 		GameManager manager = FindObjectOfType<GameManager>();
-		manager.CurrentGame = null; 
+
 		SceneManager.LoadScene("Game");
+		manager.CurrentGame = new Game(new Player("Eve", Gender.FEMALE, "Eve2", Vector2.zero));
 	}
 }
