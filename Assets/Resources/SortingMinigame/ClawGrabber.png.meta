@@ -1,0 +1,118 @@
+fileFormatVersion: 2
+guid: ac5030ea08b9e44d0be4b175700c40e4
+timeCreated: 1472591523
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ClawGrabber_0
+    21300002: ClawGrabber_1
+    21300004: ClawGrabber_2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 200
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: ClawGrabber_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 36
+        width: 113
+        height: 169
+      alignment: 9
+      pivot: {x: 0.88, y: 0.89}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13.559998, y: 18.589996}
+        - {x: -12.440002, y: 18.589996}
+        - {x: -99.44, y: -25.410004}
+        - {x: -99.44, y: -46.410004}
+        - {x: -44.440002, y: -150.41}
+        - {x: -31.440002, y: -150.41}
+        - {x: -10.440002, y: -137.41}
+        - {x: -31.440002, y: -95.41}
+        - {x: 13.559998, y: -21.410004}
+    - name: ClawGrabber_1
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 6
+        width: 64
+        height: 203
+      alignment: 9
+      pivot: {x: 0.4929881, y: 0.115347065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -31.551239, y: -7.415451}
+        - {x: -22.551239, y: -23.415451}
+        - {x: 32.44876, y: -23.415451}
+        - {x: 32.44876, y: 128.58455}
+        - {x: 21.448761, y: 179.58455}
+        - {x: -9.551239, y: 179.58455}
+        - {x: -31.551239, y: 115.58455}
+    - name: ClawGrabber_2
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 34
+        width: 113
+        height: 169
+      alignment: 9
+      pivot: {x: 0.12, y: 0.89}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6.5599976, y: 18.589996}
+        - {x: -13.559998, y: 8.589996}
+        - {x: -13.559998, y: -87.41}
+        - {x: 17.440002, y: -150.41}
+        - {x: 56.440002, y: -150.41}
+        - {x: 63.440002, y: -136.41}
+        - {x: 99.44, y: -44.410004}
+        - {x: 99.44, y: -28.410004}
+        - {x: 3.4400024, y: 18.589996}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
