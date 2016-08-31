@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SortingGameSpawner : MonoBehaviour {
-
+	public float frequency;
 	private ItemDatabase itemDB;
 	private float timer;
 	// Use this for initialization
@@ -16,7 +16,7 @@ public class SortingGameSpawner : MonoBehaviour {
 	{
 		timer += Time.deltaTime;
 		//Debug.Log(timer);
-		if (timer > 3f) {
+		if (timer > frequency) {
 			SpawnRubbish();
 			timer = 0;
 		}

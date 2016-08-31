@@ -232,6 +232,28 @@
 				],
 				"nextId": 3
 			}
+		],
+		"sortingGameIntro": [
+			{
+				"id": 0,
+				"name": "sortingIntroWelcome",
+				"speaker": "Ethan",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"Welcome to the Sorting Minigame",
+					"In the next room, all the rubbish you collected will come past on a conveyor belt",
+					"Above the conveyer, there are 4 grabber claws, one for each of the 4 types of rubbish we can recycle",
+					"Theres one for PLASTIC, GLASS, PAPER and METAL",
+					"The game is simple: when a piece of rubbish goes under a claw, press the button above the claw to grab it!",
+					"Your timing has got to be good though, you don't want to miss any!",
+					"If you pick up a piece of rubbish with the correct claw, you get 100 points",
+					"But, if you use the wrong claw, you lose 50 points because we'll just have to sort through that box again later",
+					"If you miss one, you lose 25 points, but don't worry, that piece of rubbish will go round again",
+					"You can press Esc to pause at any time",
+					"When you're ready, press Enter to begin!"
+				],
+				"nextId": 0
+			}
 		]
 
 	}
