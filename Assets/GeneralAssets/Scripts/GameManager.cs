@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 	void Start ()
 	{
 		DontDestroyOnLoad (gameObject);
+
 	}	
 
 	public void StartGame ()
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!GameStarted) return;
+		if (!GameStarted || currentGame == null) return;
 
 		if (CheckPoints ["FirstEthanMeetingPositive"] == CP_STATUS.TRIGGERED) {
 			FirstEthanMeetingPositive ();
@@ -80,6 +81,10 @@ public class GameManager : MonoBehaviour {
 			NpcAdapter ethan = FindNPC("Ethan");
 			ethan.GetComponent<NpcDialogue>().SetCurrentDialogueBlock(5);
 			CheckPoints["BeachRecyclePointFull"] = CP_STATUS.FINISHED;
+		}
+		if (CheckPoints["StartSortingMiniGame"] == CP_STATUS.TRIGGERED) {
+			StartSortingMinigame();
+			CheckPoints["StartSortingMiniGame"] = CP_STATUS.FINISHED;
 		}
 	}
 
@@ -190,6 +195,13 @@ public class GameManager : MonoBehaviour {
 			mayor.gameObject.GetComponent<NpcDialogue> ().SetCurrentDialogueBlock (2);
 		} else {
 			mayor.gameObject.GetComponent<NpcDialogue> ().SetCurrentDialogueBlock (3);
+		}
+	}
+
+	private void StartSortingMinigame ()
+	{
+		if (CheckPoints ["StartSortingMiniGame"] == CP_STATUS.TRIGGERED) {
+			FindObjectOfType<LevelManager>().LoadLevel("Sorter");
 		}
 	}
 }

@@ -120,7 +120,13 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 
 	public List<InventoryItem> DepositEntireInventory ()
 	{
-		List<InventoryItem> output = player.Inventory.RemoveAll();
+		List<InventoryItem> output = new List<InventoryItem>();
+		try {
+			output = player.Inventory.RemoveAll ();
+		} catch (UnityException ex) {
+			Debug.Log(ex.Message);
+		}
+		
 		return output;
 	}
 

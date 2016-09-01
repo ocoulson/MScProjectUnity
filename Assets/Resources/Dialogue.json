@@ -14,7 +14,8 @@
 					"My name is Diana and I’m the Mayor of the little village just north of here.",
 					"Anyway, it’s really good to meet you, but you had really better get going! There’s a lot to do!",
 					"I know that Ethan needs you for something.",
-					"Why don’t you head straight over to the BEACH west of here. You’ll find him at his SURF SHACK."
+					"Why don’t you head straight over to the BEACH west of here. You’ll find him at his SURF SHACK.",
+					"To get there, just follow the path through the forest to the west"
 
 				],
 				"nextId": 1,
@@ -27,8 +28,9 @@
 				"speaker": "Mayor",
 				"type": "linearDialogue",
 				"script_en_GB": [
-					"Head over to see Ethan at his SURF SHACK on the BEACH west of here.",
-					"I know he needs your help with something."
+					"Head over to the SURF SHACK on the BEACH west of here.",
+					"To get there, just follow the path through the forest to the west",
+					"I know Ethan needs your help with something."
 				],
 				"nextId": 1 
 			},
