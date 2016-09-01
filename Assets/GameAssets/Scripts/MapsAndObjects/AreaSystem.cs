@@ -2,14 +2,19 @@
 using System.Collections;
 
 public class AreaSystem : MonoBehaviour {
+	
 	private GameArea area;
 
 	public GameArea Area {
 		get {
 			return area;
 		}
+		protected set { 
+			area = value;
+		}
 	}
 	private GameObject particleSystemObject;
+
 	public GameObject particleSystemLocation;
 
 	void Start() {

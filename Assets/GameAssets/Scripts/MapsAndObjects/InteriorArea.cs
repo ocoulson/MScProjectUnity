@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InteriorArea : MonoBehaviour {
+public class InteriorArea : AreaSystem {
+
+	void Start() {
+		Area = new GameArea(gameObject.name);
+
+	}
+
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
