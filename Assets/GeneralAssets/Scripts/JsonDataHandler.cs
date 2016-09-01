@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class JsonDataHandler  {
 
-	//Might want to make this a singleton 
-
-
 	private JsonData dialogueJsonData;
 	private JsonData itemsJsonData;
 
@@ -32,9 +29,6 @@ public class JsonDataHandler  {
 		TextAsset asset = (TextAsset) Resources.Load(filePath);
 		JsonData jsonData = JsonMapper.ToObject(asset.text);
 		return jsonData;
-//		string jsonString = File.ReadAllText (Application.dataPath + filePath);
-//		JsonData jsonData = JsonMapper.ToObject(jsonString);
-//		return jsonData;
 	}
 
 

@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour {
 		game.Player.AddObserver (playerAdapter);
 
 		if (playerAdapter.Player.CurrentArea != null) {
-			GameAreaAdapter[] adapters = GameObject.FindObjectsOfType<GameAreaAdapter>();
+			AreaSystem[] adapters = GameObject.FindObjectsOfType<AreaSystem>();
 			playerAdapter.Player.CurrentArea = Array.Find(adapters, adapter => adapter.Area.AreaName == playerAdapter.Player.CurrentArea.AreaName).Area;
 		}
 	}

@@ -29,8 +29,8 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 	private bool ToolEquipped { get { return player.CurrentTool != null; } }
 	public bool IsThoughtBubbleActive {get { return thoughtBubbleManager.IsThoughtBubbleActive (); }}
 
-	private GameAreaAdapter currentArea;
-	public GameAreaAdapter CurrentArea { 
+	private AreaSystem currentArea;
+	public AreaSystem CurrentArea { 
 		get { 
 			return currentArea;
 		} 
