@@ -28,7 +28,17 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 	public bool InventoryInitialised { get { return player.InventoryInitialised;} }
 	private bool ToolEquipped { get { return player.CurrentTool != null; } }
 	public bool IsThoughtBubbleActive {get { return thoughtBubbleManager.IsThoughtBubbleActive (); }}
-	public  GameObject currentArea {get; set;}
+
+	private GameAreaAdapter currentArea;
+	public GameAreaAdapter CurrentArea { 
+		get { 
+			return currentArea;
+		} 
+		set{
+			player.CurrentArea = value.Area;
+			currentArea = value;
+		}
+	}
 
 	void Start ()
 	{
@@ -46,9 +56,10 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 		}
 
 		if (InventoryInitialised) {
-			inventoryUiManager.LinkInventoryToUI(player.Inventory);
-			player.Inventory.Notify();
+			inventoryUiManager.LinkInventoryToUI (player.Inventory);
+			player.Inventory.Notify ();
 		}
+
 	}
 
 	void Update ()
@@ -133,7 +144,7 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 	public void DropItem (InventoryItem item)
 	{
 		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateItemGameObject(item);
-		rubbishItem.transform.parent = currentArea.GetComponentInChildren<RubbishSpawner>().transform;
+		rubbishItem.transform.parent = CurrentArea.gameObject.GetComponentInChildren<RubbishSpawner>().transform;
 		float dropRadius = 0.2f;
 		rubbishItem.transform.position = gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-dropRadius,dropRadius),
 										 UnityEngine.Random.Range(-dropRadius,dropRadius));

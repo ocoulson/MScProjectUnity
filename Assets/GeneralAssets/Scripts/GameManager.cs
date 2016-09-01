@@ -128,10 +128,15 @@ public class GameManager : MonoBehaviour {
 		GameObject player = Instantiate (Resources.Load ("Prefabs/Player"), game.Player.CurrentPosition, Quaternion.identity) as GameObject;
 
 		player.name = "Player";
-		playerAdapter = player.GetComponent<PlayerAdapter>();
+		playerAdapter = player.GetComponent<PlayerAdapter> ();
 
 		playerAdapter.Player = game.Player;
-		game.Player.AddObserver(playerAdapter);
+		game.Player.AddObserver (playerAdapter);
+
+		if (playerAdapter.Player.CurrentArea != null) {
+			GameAreaAdapter[] adapters = GameObject.FindObjectsOfType<GameAreaAdapter>();
+			playerAdapter.Player.CurrentArea = Array.Find(adapters, adapter => adapter.Area.AreaName == playerAdapter.Player.CurrentArea.AreaName).Area;
+		}
 	}
 
 	//TODO: Method to be re written when serialisation/deserialisation implemented.
@@ -160,6 +165,7 @@ public class GameManager : MonoBehaviour {
 			Debug.LogError("RecyclePointAdapter with name: " + point.Name + " not found");
 		}
 	}
+
 
 
 

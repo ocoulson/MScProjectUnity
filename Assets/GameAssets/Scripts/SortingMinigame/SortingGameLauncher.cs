@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SortingGameSetup : MonoBehaviour {
+public class SortingGameLauncher : MonoBehaviour {
 	public GameObject startPanel;
+
 
 	private DialogueUIManager dManager;
 	private ReadJson reader;
@@ -16,6 +17,7 @@ public class SortingGameSetup : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		dManager = FindObjectOfType<DialogueUIManager>();
 		reader = FindObjectOfType<ReadJson>();
 		dialogue = reader.GetCharacterDialogue("sortingGameIntro");

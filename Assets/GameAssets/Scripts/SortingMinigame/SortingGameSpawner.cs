@@ -7,28 +7,59 @@ public class SortingGameSpawner : MonoBehaviour {
 	private ItemDatabase itemDB;
 	private float timer;
 	private List<InventoryItem> toBeSpawned;
+	private GameManager gameManager;
 
-	public int Remaining {
-		get { return toBeSpawned.Count; }
-	}
+	public int StartCount;
+	public int Recycled;
+	public int Remaining;
+
+	public bool partOfGame;
 	// Use this for initialization
-	void Start () {
-		toBeSpawned = new List<InventoryItem>();
-		itemDB = FindObjectOfType<ItemDatabase>();
+	void Start ()
+	{
+		gameManager = FindObjectOfType<GameManager> ();
+		itemDB = FindObjectOfType<ItemDatabase> ();
 		timer = 0;
-		for (int i = 0; i<20; i++) {
-			toBeSpawned.Add(itemDB.rubbish[Random.Range(0, itemDB.rubbish.Length)].GetCopy());
+
+		if (gameManager.CurrentGame == null || gameManager.CurrentGame.RecyclePoints [0].IsEmpty) {
+			toBeSpawned = GetRandomRubbish (30);
+			partOfGame = false;
+		} else {
+			toBeSpawned = gameManager.CurrentGame.RecyclePoints[0].RecyclingItems;
+			gameManager.CurrentGame.RecyclePoints[0].RecyclingItems = new List<InventoryItem>();
+			partOfGame = true;
 		}
+		StartCount = toBeSpawned.Count;
+		Remaining = StartCount;
+		Recycled = 0;
 	}
-	
+
+	private List<InventoryItem> GetRandomRubbish(int quantity) {
+		List<InventoryItem> output = new List<InventoryItem>();
+		for (int i = 0; i < quantity; i++) {
+			output.Add(itemDB.rubbish[Random.Range(0, itemDB.rubbish.Length)].GetCopy());
+		}
+		return output;
+	}
 	// Update is called once per frame
 	void Update ()
 	{
 		timer += Time.deltaTime;
 		//Debug.Log(timer);
 		if (timer > frequency && toBeSpawned.Count > 0) {
-			SpawnRubbish();
+			SpawnRubbish ();
 			timer = 0;
+		}
+
+		//TODO: Load a score screen giving feedback on results before returning to the main menu or the game
+		if (Remaining == 0 && Recycled == StartCount) {
+			LevelManager levelManager = FindObjectOfType<LevelManager> ();
+			if (partOfGame) {
+				levelManager.LoadGame (gameManager.CurrentGame);
+			} else {
+				levelManager.LoadLevel("MainMenu");
+			}
+				
 		}
 	}
 	private void SpawnRubbish() {
@@ -46,9 +77,10 @@ public class SortingGameSpawner : MonoBehaviour {
 
 		Destroy(newRubbishItem.GetComponent<Collider2D>());
 		newRubbishItem.AddComponent<PolygonCollider2D>();
-
+		Remaining --;
 	}
 	public void ReturnMissedRubbish(InventoryItem missed) {
 		toBeSpawned.Add(missed);
+		Remaining ++;
 	}
 }

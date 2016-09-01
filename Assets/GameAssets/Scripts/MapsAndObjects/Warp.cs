@@ -12,8 +12,6 @@ public class Warp : MonoBehaviour {
 			//Debug.Log ("Triggered: " + target.name);
 
 			StartCoroutine(WarpTime(col));
-
-			col.GetComponent<PlayerAdapter>().currentArea = target.parent.parent.gameObject;
 		}
 
 	}

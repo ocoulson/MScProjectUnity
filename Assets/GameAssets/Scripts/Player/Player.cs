@@ -38,6 +38,9 @@ public class Player : Subject {
 	private DialogueBlock[] thoughts;
 	public DialogueBlock[] Thoughts { get {return thoughts;} set {thoughts = value; } }
 
+	private GameArea currentArea;
+	public GameArea CurrentArea { get { return currentArea; } set { currentArea = value; } }
+
 	public Player(string name, Gender gender, string spriteName, Vector2 startPosition) {
 		this.name = name;
 		this.gender = gender;
