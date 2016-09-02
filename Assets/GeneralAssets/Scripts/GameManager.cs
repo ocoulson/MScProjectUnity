@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour {
 
 	private PlayerAdapter playerAdapter;
 
-	private List<NpcAdapter> NPCs;
+	private NpcAdapter[] NPCs {
+		get { return FindObjectsOfType<NpcAdapter>();}
+	}
 
 	private static Game currentGame;
 
@@ -40,9 +42,6 @@ public class GameManager : MonoBehaviour {
 
 		InstantiatePlayer (currentGame);
 
-		if (NPCs == null) {
-			NPCs = new List<NpcAdapter> ();
-		}
 		foreach (Npc npc in currentGame.CurrentNpcs) {
 			InstantiateNpc (npc);
 		}
@@ -99,11 +98,11 @@ public class GameManager : MonoBehaviour {
 		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
 		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
 
-		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 50);
-		game.RecyclePoints.Add(beachPoint);
-
 		game.AddNpc(mayor);
 		game.AddNpc(ethan);
+
+		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 50);
+		game.RecyclePoints.Add(beachPoint);
 
 		game.CheckPoints.Add ("SpokenToMayorFirst");
 		game.CheckPoints.Add ("SpokenToEthan");
@@ -147,7 +146,6 @@ public class GameManager : MonoBehaviour {
 
 		NpcAdapter adapter = npcGameObject.GetComponent<NpcAdapter>();
 		adapter.Npc = newNpc;
-		NPCs.Add(adapter);
 		GameObject holder = GameObject.Find("NPCs");
 		npcGameObject.transform.parent = holder.transform;
 	}
@@ -168,18 +166,11 @@ public class GameManager : MonoBehaviour {
 
 
 
-
-
-	public void AddNPC (NpcAdapter npc)
-	{
-		NPCs.Add(npc);
-	}
-
 	private NpcAdapter FindNPC (string name)
 	{
-		NpcAdapter target = Array.Find (NPCs.ToArray (), npc => npc.NpcName == name);
+		NpcAdapter target = Array.Find (NPCs, npc => npc.NpcName == name);
 		if (target == null) {
-			throw new UnityException ("NPC not found in list of NPCs");
+			throw new UnityException ("NPC called '" + name + "' not found in list of NPCs");
 		} else {
 			return target;
 		}

@@ -144,7 +144,7 @@ public class PlayerAdapter : MonoBehaviour, Observer  {
 	public void DropItem (InventoryItem item)
 	{
 		GameObject rubbishItem = GameObject.FindObjectOfType<ItemDatabase>().CreateItemGameObject(item);
-		rubbishItem.transform.parent = CurrentArea.gameObject.GetComponentInChildren<RubbishSpawner>().transform;
+		rubbishItem.transform.parent = CurrentArea.transform.parent.GetComponentInChildren<RubbishSpawner>().transform;
 		float dropRadius = 0.2f;
 		rubbishItem.transform.position = gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-dropRadius,dropRadius),
 										 UnityEngine.Random.Range(-dropRadius,dropRadius));
