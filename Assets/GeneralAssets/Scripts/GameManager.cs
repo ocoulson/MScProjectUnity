@@ -141,13 +141,14 @@ public class GameManager : MonoBehaviour {
 	//TODO: Method to be re written when serialisation/deserialisation implemented.
 	private void InstantiateNpc (Npc newNpc)
 	{
-		GameObject npcGameObject = Instantiate(Resources.Load("Prefabs/NPC"),newNpc.CurrentStartPosition, Quaternion.identity) as GameObject;
+		GameObject npcGameObject = Instantiate (Resources.Load ("Prefabs/NPC"), newNpc.CurrentStartPosition, Quaternion.identity) as GameObject;
 		npcGameObject.name = newNpc.Name;
 
-		NpcAdapter adapter = npcGameObject.GetComponent<NpcAdapter>();
+		NpcAdapter adapter = npcGameObject.GetComponent<NpcAdapter> ();
 		adapter.Npc = newNpc;
-		GameObject holder = GameObject.Find("NPCs");
+		GameObject holder = GameObject.Find ("NPCs");
 		npcGameObject.transform.parent = holder.transform;
+
 	}
 
 	private void InstantiateRecyclePoint (RecyclePoint point)

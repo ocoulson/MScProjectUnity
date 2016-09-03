@@ -49,21 +49,26 @@ public class PlayerMovement : MonoBehaviour {
 			xInput = -1f;
 		} else if (right) {
 			xInput = 1f;
-		} else if (up) {
+		}
+		if (up) {
 			yInput = 1f;
 		} else if (down) {
 			yInput = -1f;
 		}
 
-		Vector2 movement_vector = new Vector2 (xInput, yInput) * speed;
+		Vector2 direction_vector = new Vector2 (xInput, yInput);
 
 		//move between the idle and moving blend trees in the animation controller
-		if (movement_vector != Vector2.zero) {
+		if (direction_vector != Vector2.zero) {
 
 			anim.SetBool ("IsWalking", true);
-			anim.SetFloat ("Input_x", movement_vector.x);
-			anim.SetFloat ("Input_y", movement_vector.y);
-			Vector2 newPosition = rBody.position + movement_vector * Time.deltaTime;
+			anim.SetFloat ("Input_x", direction_vector.x);
+			anim.SetFloat ("Input_y", direction_vector.y);
+
+			if (direction_vector.x != 0 && direction_vector.y != 0) {
+				speed = speed * 0.75f;
+			}
+			Vector2 newPosition = rBody.position + direction_vector * speed * Time.deltaTime;
 
 			rBody.MovePosition (newPosition);
 			player.UpdatePlayerPosition(newPosition);
