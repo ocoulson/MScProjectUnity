@@ -2,21 +2,17 @@
 using System;
 using System.Collections;
 
-public interface DialogueBlock {
-	int id{ get; set; }
-	string name{ get; set; }
-	string speaker{ get; set; }
-	string[] script_en_GB{ get; set; }
-
-	DialogueBlock Copy();
-}
-
-[Serializable]
-public class LinearDialogueBlock : DialogueBlock {
+public abstract class DialogueBlock {
 	public int id{ get; set; }
 	public string name{ get; set; }
 	public string speaker{ get; set; }
 	public string[] script_en_GB{ get; set; }
+
+	public abstract DialogueBlock Copy();
+}
+
+[Serializable]
+public class LinearDialogueBlock : DialogueBlock {
 
 	public int nextId{ get; set; }
 
@@ -24,7 +20,7 @@ public class LinearDialogueBlock : DialogueBlock {
 	{
 		return speaker + " "+ name + " " + id + ". Next Block = " + nextId;
 	}
-	public virtual DialogueBlock Copy ()
+	public override DialogueBlock Copy ()
 	{
 		LinearDialogueBlock copy = new LinearDialogueBlock();
 		copy.id = id;
@@ -59,10 +55,6 @@ public class LinearEffectDialogueBlock : LinearDialogueBlock {
 
 [Serializable]
 public class BranchDialogueBlock : DialogueBlock {
-	public int id{ get; set; }
-	public string name{ get; set; }
-	public string speaker{ get; set; }
-	public string[] script_en_GB{ get; set; }
 
 	public int yesNextId{ get; set; }
 	public int noNextId{ get; set; }
@@ -72,7 +64,7 @@ public class BranchDialogueBlock : DialogueBlock {
 		return speaker + " "+ name + " " + id + ". YesNext: " + yesNextId + " NoNext: " + noNextId;
 	}
 
-	public DialogueBlock Copy ()
+	public override DialogueBlock Copy ()
 	{
 		BranchDialogueBlock copy = new BranchDialogueBlock();
 		copy.id = id;

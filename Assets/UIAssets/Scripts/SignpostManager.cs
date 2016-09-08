@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class SignpostManager : MonoBehaviour {
-
+	private DialogueUIManager dialogue;
 	public GameObject signpostBox;
 	public Text signText;
 
@@ -11,6 +11,10 @@ public class SignpostManager : MonoBehaviour {
 
 	public SignDirectionManager directionMan;
 
+
+	void Start() {
+		dialogue = FindObjectOfType<DialogueUIManager>();
+	}
 	public void ShowSignText (string newText)
 	{	
 		isActive = true;
@@ -38,6 +42,13 @@ public class SignpostManager : MonoBehaviour {
 			directionMan.HideAll();
 		}
 		signpostBox.SetActive(false);
+	}
+
+	void Update ()
+	{
+		if (dialogue.IsActive) {
+			HideSign();
+		}
 	}
 }
  

@@ -48,7 +48,7 @@ public class NpcDialogue : MonoBehaviour {
 			ReadDialogueData ();
 		}
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			if (!dManager.DialogueActive ()) {
+			if (!dManager.IsActive) {
 				iManager.HideInstruction ();
 				player.GetComponent<PlayerMovement> ().movementEnabled = false;
 			}
@@ -70,7 +70,7 @@ public class NpcDialogue : MonoBehaviour {
 		if (blockFinished && !currentIsBranch && Input.GetKeyDown (KeyCode.C) ) {
 			CloseDialogue (true);
 
-		} else if (dManager.DialogueActive () && Input.GetKeyDown (KeyCode.Escape)) {
+		} else if (dManager.IsActive && Input.GetKeyDown (KeyCode.Escape)) {
 			CloseDialogue (false);
 		}
 	}

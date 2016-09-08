@@ -10,6 +10,10 @@ public class DialogueUIManager : MonoBehaviour {
 	public Text rightInstruction;
 	public Text midInstruction;
 
+	public bool IsActive {
+		get {return dialogueBox.activeInHierarchy;}
+	}
+
 	public void ShowDialogueBox(string newText) {
 		UpdateText(newText);	
 		dialogueBox.SetActive(true);
@@ -22,10 +26,6 @@ public class DialogueUIManager : MonoBehaviour {
 	public void HideDialogueBox ()
 	{
 		dialogueBox.SetActive(false);
-	}
-
-	public bool DialogueActive() {
-		return dialogueBox.activeInHierarchy;
 	}
 
 	public void ShowLeftInstruction (string instruction)

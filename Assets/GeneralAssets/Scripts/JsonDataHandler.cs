@@ -24,7 +24,7 @@ public class JsonDataHandler  {
 		itemsJsonData = GetJsonDataObjectFromFile("InventoryItems");
 	}
 
-	public JsonData GetJsonDataObjectFromFile (string filePath)
+	private JsonData GetJsonDataObjectFromFile (string filePath)
 	{
 		TextAsset asset = (TextAsset) Resources.Load(filePath);
 		JsonData jsonData = JsonMapper.ToObject(asset.text);

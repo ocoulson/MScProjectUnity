@@ -5,22 +5,22 @@ public class SpriteManager : MonoBehaviour {
 
 	private RubbishSpawner rubbishSpawner;
 
-	private Spawner[] spawners = null;
+	private SpriteSpawner[] spawners = null;
 
 	void Awake () {
-		spawners = transform.parent.GetComponentsInChildren<Spawner>();
+		spawners = transform.parent.GetComponentsInChildren<SpriteSpawner>();
 		rubbishSpawner = transform.parent.GetComponentInChildren<RubbishSpawner>();
 	}
 	
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		if (spawners != null) {
-			foreach (Spawner s in spawners) {
+			foreach (SpriteSpawner s in spawners) {
 				s.Spawn ();
 			}
 		}
 		if (!rubbishSpawner.rubbishSpawned) {
-			rubbishSpawner.SpawnRubbish();
+			rubbishSpawner.Spawn();
 			rubbishSpawner.rubbishSpawned = true;
 		}
 
@@ -28,13 +28,13 @@ public class SpriteManager : MonoBehaviour {
 	void OnTriggerExit2D (Collider2D col)
 	{
 		if (spawners != null) {
-			foreach (Spawner s in spawners) {
+			foreach (SpriteSpawner s in spawners) {
 				s.Despawn ();
 
 			}
 		}
 		if (rubbishSpawner.rubbishSpawned) {
-			rubbishSpawner.DespawnRubbish();
+			rubbishSpawner.Despawn();
 			rubbishSpawner.rubbishSpawned = false;
 		}
 	}

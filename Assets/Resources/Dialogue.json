@@ -99,7 +99,10 @@
 					"That's fantastic! Thanks so much!!",
 					"Now, I’ve been working on a good way to collect all this rubbish, quickly and safely",
 					"I mean, you don’t want to cut your hand on some rusty can or get covered in melted ice cream do you?",
-					"So here, take this rubbish picker and this backpack, you can store quite a lot of rubbish in there.",
+					"So here, take this rubbish GRABBER and this BACKPACK, you can store quite a lot of rubbish in there.",
+					"By pressing 'E', you can use the GRABBER to pick up an item of rubbish on the ground and put it in your BACKPACK",
+					"If you want to check the contents of your BACKPACK, press 'i'.",
+					"You can press it again to hide the contents",
 					"When you've filled it up, you can deposit the rubbish at the Recycling Point next to the Shack",
 					"Come back and see me if you manage to fill up the Recycling Point, then we'll have to sort out all that rubbish!"
 				],

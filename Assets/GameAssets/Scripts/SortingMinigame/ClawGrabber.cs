@@ -32,6 +32,8 @@ public class ClawGrabber : MonoBehaviour {
 	public void Release ()
 	{
 		if (objectGrabbed) {
+			//layer 20 is the CollectedRubbish layer which only interacts with layer 21, the recycing container
+			//Changing this will stop the interaction between the rubbish and the claw meaning it drops.
 			grabbedObject.layer = 20;
 			grabbedObject.transform.parent = null;
 			grabbedObject.AddComponent<Rigidbody2D>();
@@ -51,8 +53,8 @@ public class ClawGrabber : MonoBehaviour {
 
 	void OnTriggerStay2D (Collider2D col)
 	{
-		//col.transform.position = transform.position + new Vector3(0, -0.75f,0);
-
+		//Because the claw shrinks during the successful grab animation to give the impression of moving backwards to deposit
+		//the collected rubbish, any collected rubbish must shrink by the same factor.
 		col.transform.localScale = new Vector2( col.transform.localScale.x * transform.localScale.x, col.transform.localScale.y * transform.localScale.y);
 	}
 

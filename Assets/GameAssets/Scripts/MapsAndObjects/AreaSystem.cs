@@ -13,20 +13,20 @@ public class AreaSystem : MonoBehaviour {
 			area = value;
 		}
 	}
-	private GameObject particleSystemObject;
+	private GameObject smokeObject;
 
-	public GameObject particleSystemLocation;
+	public GameObject smokeLocation;
 
 	void Start() {
 		area = new GameArea(gameObject.name);
-		particleSystemObject = GameObject.FindGameObjectWithTag("Smoke");
+		smokeObject = GameObject.FindGameObjectWithTag("Smoke");
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		if (col.gameObject.name == "Player") {
 			col.GetComponent<PlayerAdapter>().CurrentArea = GetComponentInParent<AreaSystem>();
-			particleSystemObject.transform.position = particleSystemLocation.transform.position;
+			smokeObject.transform.position = smokeLocation.transform.position;
 		}
 	}
 }

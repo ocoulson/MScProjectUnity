@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RubbishSpawner : MonoBehaviour {
+public class RubbishSpawner : MonoBehaviour, Spawner {
 	public int rubbishCount;
 
 	private ItemDatabase itemDB;
@@ -35,7 +35,7 @@ public class RubbishSpawner : MonoBehaviour {
 	}
 
 
-	public void SpawnRubbish ()
+	public void Spawn ()
 	{
 			for (int i = 0; i < rubbishCount; i++) {
 				GameObject rubbishItem = itemDB.CreateRandomRubbishItem();
@@ -45,7 +45,7 @@ public class RubbishSpawner : MonoBehaviour {
 			}
 	}
 
-	public void DespawnRubbish ()
+	public void Despawn ()
 	{
 		for (int i = 0; i < transform.childCount; i++) {
 			Destroy(transform.GetChild(i).gameObject);

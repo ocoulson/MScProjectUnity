@@ -38,7 +38,7 @@ public class CrabMovement : NPC_MovementController {
 
 	public override void ChooseDirection ()
 	{
-		if (previousDirection != Vector2.left && previousDirection != Vector2.right) {
+		if (previousDirection != Vector2.zero) {
 			if (Random.Range (0, 1f) > 0.5f) {
 				currentDirection = Vector2.right;
 			} else {
@@ -64,7 +64,6 @@ public class CrabMovement : NPC_MovementController {
 			moveCounter = moveTime * 2; 
 			body.velocity = Vector2.zero;
 
-			//Move away from the player but not directly
 			ChooseOppositeDirection(col.transform.position.x, transform.position.x);
 		} else {
 			isMoving = false;
