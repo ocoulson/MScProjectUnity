@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 
+[Serializable]
 public abstract class DialogueBlock {
 	public int id{ get; set; }
 	public string name{ get; set; }

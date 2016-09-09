@@ -17,5 +17,7 @@ public class Vector2Serializable {
 		this.y = vector.y;
 	}
 
-	public Vector2 Vector2 { get { return new Vector2 (x, y); } set { Apply (value); } }
+	public Vector2 Vector2 { 
+		get { return new Vector2 (x, y); } 
+		set { Apply (value); } }
 }

@@ -9,7 +9,8 @@ public class CheckPointList {
 
 	public CP_STATUS this [string nameKey] {
 		get { 
-			CheckPoint target = Array.Find (baseList.ToArray (), cp => cp.Name == nameKey);
+			
+			CheckPoint target = baseList.Find(cp => cp.Name == nameKey);
 
 			if (target != null) {
 				return target.Status;
@@ -18,7 +19,7 @@ public class CheckPointList {
 			}
 		}
 		set { 
-			CheckPoint target = Array.Find (baseList.ToArray (), cp => cp.Name == nameKey);
+			CheckPoint target = baseList.Find(cp => cp.Name == nameKey);
 
 			if (target != null) {
 				target.Status = value;
