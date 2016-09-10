@@ -21,7 +21,7 @@ public class NpcAdapter : MonoBehaviour {
 
 	public DialogueBlock CurrentDialogueBlock { get { return npc.CurrentDialogueBlock;} set {npc.CurrentDialogueBlock = value;} }
 
-
+	public bool CanMove { get { return npc.CanMove;}}
 	// Use this for initialization
 	void Start () {
 		Sprites = Resources.LoadAll<Sprite> ("NPCs/" + npc.SpriteName);
@@ -29,6 +29,8 @@ public class NpcAdapter : MonoBehaviour {
 		spriteRenderer.sprite = Sprites[4];
 
 		GetComponent<NPC_BoxMovementController>().SetMovementBox(MovementBoxSize,MovementBoxSize);
+		GetComponent<NPC_BoxMovementController>().movementEnabled = CanMove;
+
 	}
 
 	void LateUpdate() {

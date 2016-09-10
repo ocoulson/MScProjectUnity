@@ -71,7 +71,6 @@
 				"effectName": "MayorLeaveBeach" 
 			}
 		],
-
 		"Ethan": [
 			{
 				"id": 0,
@@ -195,6 +194,74 @@
 				"noNextId": 7
 			}
 
+		],
+		"Jenna": [
+			
+			{
+				"id": 0,
+				"name": "JennaMeeting1",
+				"speaker": "Jenna",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"I can't get throught to the logging camp! All this rubbish is in the way!",
+					"I'm supposed go plant new trees to replace some of the ones cut down",
+					"but if I can't get through...",
+					"..."
+				],
+				"nextId": 1
+			},
+			{
+				"id": 1,
+				"name": "JennaMeeting2",
+				"speaker": "Jenna",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"I've got to get through to start planting new trees!",
+					"Someone needs to come and move all this rubbish!"
+				],
+				"nextId": 1
+			}
+			
+		],
+		"Fisher": [
+			{
+				"id": 0,
+				"name": "FisherMeeting1",
+				"speaker": "Fisher",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"I used to love coming here to fish!",
+					"They'd be biting all day long, I'd just sit here and reel 'em in!",
+					"Haven't been biting in a while now though...",
+					"Too much rubbish floating around is what it is!",
+					"Something's gotta be done about all this rubbish..."
+				],
+				"nextId": 1
+			},
+			{
+				"id": 1,
+				"name": "FisherMeeting2",
+				"speaker": "Fisher",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"Oh you're going to help clean up the island!",
+					"That's great!",
+					"Come back and see me when you've cleared up a bit of the rubbish.",
+					"If you've cleared enough, the fish'll be biting again and I can show you how"
+				],
+				"nextId": 2
+			},
+			{
+				"id": 2,
+				"name": "FisherLoop1",
+				"speaker": "Fisher",
+				"type": "linearDialogue",
+				"script_en_GB": [
+					"How's the rubbish clean-up going?",
+					"Still not much fish biting around here!"
+				],
+				"nextId": 2
+			}
 		],
 		"playerThoughtBubbles": [
 			{

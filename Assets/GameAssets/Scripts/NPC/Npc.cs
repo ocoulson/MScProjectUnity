@@ -19,18 +19,30 @@ public class Npc {
 	private float movementBoxSize;
 	public float MovementBoxSize {get {return movementBoxSize;} }
 
-	public Npc (string name, string spriteName, Vector2 currentStartPosition, float boxSize)
+	private bool canMove;
+
+	public bool CanMove {
+		get {
+			return canMove;
+		}
+		set {
+			canMove = value;
+		}
+	}
+
+	public Npc (string name, string spriteName, Vector2 currentStartPosition, float boxSize, bool canMove)
 	{
 		this.name = name;
 		this.spriteName = spriteName;
 		this.currentStartPosition = new Vector2Serializable(currentStartPosition);
 		this.movementBoxSize = boxSize;
+		this.canMove = canMove;
 
 	}
 
 	public Npc Copy ()
 	{
-		Npc copy = new Npc (name, spriteName, CurrentStartPosition, MovementBoxSize);
+		Npc copy = new Npc (name, spriteName, CurrentStartPosition, MovementBoxSize, canMove);
 		if (CurrentDialogueBlock != null) {
 			copy.CurrentDialogueBlock = CurrentDialogueBlock.Copy ();
 		}

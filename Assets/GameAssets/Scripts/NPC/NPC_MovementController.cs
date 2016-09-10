@@ -35,8 +35,6 @@ public class NPC_MovementController : MonoBehaviour {
 			Vector2.down,
 			Vector2.left, 
 			Vector2.right};
-
-		movementEnabled = true;
 	}
 
 	void Update ()

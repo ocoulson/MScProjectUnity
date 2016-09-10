@@ -58,8 +58,6 @@ public class SignTextHolder : MonoBehaviour {
 			signpostDisplayed = false;
 		}
 
-
-
 	}
 
 

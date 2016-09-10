@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		
 		if (!GameStarted || currentGame == null) return;
 
 		if (CheckPoints ["FirstEthanMeetingPositive"] == CP_STATUS.TRIGGERED) {
@@ -94,12 +95,19 @@ public class GameManager : MonoBehaviour {
 	
 		GameObject mayorSpawn = GameObject.Find("MayorSpawnLocation-Beach");
 		GameObject ethanSpawn = GameObject.Find("EthanSpawnLocation-Hut");
+		GameObject jennaSpawn = GameObject.Find("JennaSpawnPoint-forest");
+		GameObject fisherSpawn = GameObject.Find("FisherSpawnPoint-headland");
 
-		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f);
-		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f);
+
+		Npc mayor = new Npc("Mayor", "Mayor", mayorSpawn.transform.position, 1f, true);
+		Npc ethan = new Npc("Ethan", "Ethan", ethanSpawn.transform.position, 0.2f, true);
+		Npc jenna = new Npc("Jenna", "npc1", jennaSpawn.transform.position,0.3f, true);
+		Npc fisher = new Npc("Fisher", "fisher", fisherSpawn.transform.position,0f, false);
 
 		game.AddNpc(mayor);
 		game.AddNpc(ethan);
+		game.AddNpc(jenna);
+		game.AddNpc(fisher);
 
 		RecyclePoint beachPoint = new RecyclePoint("BeachRecyclePoint", 50);
 		game.RecyclePoints.Add(beachPoint);
@@ -148,6 +156,8 @@ public class GameManager : MonoBehaviour {
 		adapter.Npc = newNpc;
 		GameObject holder = GameObject.Find ("NPCs");
 		npcGameObject.transform.parent = holder.transform;
+
+
 
 	}
 

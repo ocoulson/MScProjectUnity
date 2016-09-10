@@ -36,17 +36,21 @@ public class NpcDialogue : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (dialogue == null) {
+			ReadDialogueData ();
+			return;
+		}
 		if (!zone.playerInZone) {
-			npcController.movementEnabled = true;
+			if (npcAdapter.CanMove) {
+				npcController.movementEnabled = true;
+			}
 			return;
 		}
 
 		npcController.TurnTowards (player.transform.position);
 		npcController.movementEnabled = false;
 
-		if (dialogue == null) {
-			ReadDialogueData ();
-		}
+
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			if (!dManager.IsActive) {
 				iManager.HideInstruction ();
