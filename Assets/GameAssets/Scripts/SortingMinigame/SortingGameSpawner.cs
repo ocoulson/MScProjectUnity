@@ -8,13 +8,16 @@ public class SortingGameSpawner : MonoBehaviour {
 	private float timer;
 	private List<InventoryItem> toBeSpawned;
 	private GameManager gameManager;
+	public Canvas feedback;
 
 	public int StartCount;
 	public int Recycled;
 	public int Remaining;
 
 	public bool partOfGame;
-	// Use this for initialization
+	private bool GameFinished;
+
+
 	void Start ()
 	{
 		gameManager = FindObjectOfType<GameManager> ();
@@ -32,6 +35,8 @@ public class SortingGameSpawner : MonoBehaviour {
 		StartCount = toBeSpawned.Count;
 		Remaining = StartCount;
 		Recycled = 0;
+
+		GameFinished = false;
 	}
 
 	private List<InventoryItem> GetRandomRubbish(int quantity) {
@@ -44,6 +49,9 @@ public class SortingGameSpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (GameFinished) {
+			return;
+		}
 		timer += Time.deltaTime;
 		//Debug.Log(timer);
 		if (timer > frequency && toBeSpawned.Count > 0) {
@@ -53,13 +61,9 @@ public class SortingGameSpawner : MonoBehaviour {
 
 		//TODO: Load a score screen giving feedback on results before returning to the main menu or the game
 		if (Remaining == 0 && Recycled == StartCount) {
-			LevelManager levelManager = FindObjectOfType<LevelManager> ();
-			if (partOfGame) {
-				levelManager.LoadGame (gameManager.CurrentGame);
-			} else {
-				levelManager.LoadLevel("MainMenu");
-			}
-				
+			feedback.gameObject.SetActive(true);
+			FindObjectOfType<SortingGameFeedback>().DisplayFeedback(partOfGame);
+			GameFinished = true;
 		}
 	}
 	private void SpawnRubbish() {

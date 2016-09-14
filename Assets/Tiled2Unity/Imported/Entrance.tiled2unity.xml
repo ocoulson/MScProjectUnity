@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 11/07/2016 20:47:54-->
+<!--Last exported: 13/09/2016 17:25:02-->
 <Tiled2Unity version="1.0.7.1">
   <AssignMaterial mesh="mesh_0001" material="ground" />
   <AssignMaterial mesh="mesh_0002" material="beach" />
@@ -22,9 +22,14 @@
   <AssignMaterial mesh="mesh_0017" material="palms" />
   <AssignMaterial mesh="mesh_0018" material="objects" />
   <Prefab name="Entrance" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="11" numTilesWide="40" numTilesHigh="100" tileWidth="16" tileHeight="16" exportScale="0.01" mapWidthInPixels="640" mapHeightInPixels="1600">
-    <GameObject name="Beach+Water" x="0" y="0" z="0">
+    <GameObject name="Beach+Water" x="0" y="0" z="0" layer="Terrain">
       <GameObject name="ground" copy="mesh_0001" sortingLayerName="Floor" sortingOrder="0" opacity="1" />
       <GameObject name="beach" copy="mesh_0002" sortingLayerName="Floor" sortingOrder="0" opacity="1" />
+      <GameObject name="Collision">
+        <PolygonCollider2D>
+          <Path>6.07,-7.67 6.07,-7.51 3.67,-7.51 3.67,-8.95 3.03,-8.95 3.03,-7.51 0.31,-7.51 0.31,-7.67 0,-7.67 0,-16 6.39,-16 6.39,-7.67</Path>
+        </PolygonCollider2D>
+      </GameObject>
     </GameObject>
     <GameObject name="BeachFeatures" x="0" y="0" z="0">
       <GameObject name="beach" copy="mesh_0003" sortingLayerName="FloorFeatures" sortingOrder="1" opacity="1" />

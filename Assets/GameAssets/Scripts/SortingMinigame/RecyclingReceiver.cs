@@ -5,7 +5,13 @@ using System.Collections;
 public class RecyclingReceiver : MonoBehaviour {
 
 	public string intendedContents;
+	public Sprite contentIcon;
 	private List<InventoryItem> depositedItems;
+
+	public List<InventoryItem> DepositedItems {
+		get {return depositedItems;}
+	}
+
 	private SortingGameScorer scorer;
 	private SortingGameSpawner spawner;
 

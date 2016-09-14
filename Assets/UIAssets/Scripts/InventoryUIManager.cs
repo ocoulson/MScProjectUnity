@@ -120,7 +120,7 @@ public class InventoryUIManager : MonoBehaviour, Observer {
 			for (int x = 0; x < numberOfColumns; x++) {
 				 GameObject newSlot = Instantiate(slotPrefab) as GameObject;
 				 newSlot.GetComponent<InventorySlot>().SetSize(slotSize, slotSize);
-				newSlot.name = "Slot";
+				 newSlot.name = "Slot";
 				 newSlot.transform.SetParent(slotHolder.transform);
 
 				 RectTransform slotRect = newSlot.GetComponent<RectTransform>();
