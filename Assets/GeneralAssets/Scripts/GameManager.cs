@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+	
+
 	public CheckPointList CheckPoints {get {return currentGame.CheckPoints;} }
 
 	private PlayerAdapter playerAdapter;
@@ -126,7 +128,9 @@ public class GameManager : MonoBehaviour {
 	public void SaveGame ()
 	{
 		Debug.Log("Save game: " + CurrentGame.ToString());
-		SaveLoad.Save(CurrentGame);
+		//SaveLoad.Save(CurrentGame);
+
+		FindObjectOfType<ServerHandler>().SaveGame(CurrentGame);
 	}
 
 	//TODO: Method to be re written when serialisation/deserialisation implemented.

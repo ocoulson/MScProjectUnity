@@ -39,7 +39,7 @@ public class Login : MonoBehaviour {
 		response.text = loginOutput;
 
 		if (server.PlayerLoggedIn) {
-			FindObjectOfType<LevelManager>().LoadLevel("MainMenu");
+			FindObjectOfType<LevelManager>().LoadLevel("Initialising");
 		}
 	}
 

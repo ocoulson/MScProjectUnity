@@ -8,6 +8,7 @@ public class LoadGameMenuManager : MonoBehaviour {
 
 	public GameObject title;
 	public Canvas canvas;
+	public GameObject updateButton;
 	public GameObject backButton;
 	public GameObject[] panels;
 
@@ -15,17 +16,30 @@ public class LoadGameMenuManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		HidePanels();
-		SaveLoad.Load();
-		Debug.Log(SaveLoad.ToString());
+
 		StartCoroutine("Display");
+	}
+
+	public void CheckForSaveGames() {
+		string output = FindObjectOfType<ServerHandler>().LoadGame();
+		Debug.Log(output);
+		//SaveLoad.Load();
+		//Debug.Log(SaveLoad.ToString());
+		DisplayLoadGames();
 	}
 
 	IEnumerator Display()
 	{
+		HidePanels();
 		GameObject titleObject = Instantiate(title, title.GetComponent<RectTransform>().anchoredPosition,Quaternion.identity) as GameObject;
 		titleObject.transform.SetParent(canvas.transform,false);
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.5f);
+		GameObject updateButtonObject = Instantiate(updateButton, updateButton.GetComponent<RectTransform>().anchoredPosition,Quaternion.identity) as GameObject;
+		updateButtonObject.transform.SetParent(canvas.transform,false);
+		yield return new WaitForSeconds(0.5f);
 		DisplayLoadGames();
+		yield return new WaitForSeconds(0.5f);
+	
 		GameObject backButtonObject = Instantiate(backButton) as GameObject;
 		backButtonObject.transform.SetParent(canvas.transform,false);
 
@@ -33,8 +47,10 @@ public class LoadGameMenuManager : MonoBehaviour {
 
 	void DisplayLoadGames ()
 	{
-
-		if (SaveLoad.savedGames.Count == 0) {
+		HidePanels();
+		List<Game> savedGames = FindObjectOfType<ServerHandler>().SavedGames;
+		//List<Game> savedGames = SaveLoad.savedGames;
+		if (savedGames.Count == 0) {
 			
 			LoadGamePanel loadGamePanel = ActivatePanel(0);
 			loadGamePanel.SetText ("No Saved Games Found");
@@ -42,11 +58,11 @@ public class LoadGameMenuManager : MonoBehaviour {
 			return;
 		}
 
-		for (int i = 0; i < SaveLoad.savedGames.Count; i++) {
+		for (int i = 0; i < savedGames.Count; i++) {
 			LoadGamePanel loadGamePanel = ActivatePanel(i);
-			loadGamePanel.PanelGame = SaveLoad.savedGames[i];
-			loadGamePanel.SetText(SaveLoad.savedGames[i].ToString());
-			loadGamePanel.SetImage(Resources.LoadAll<Sprite>("Player/" + SaveLoad.savedGames[i].Player.SpriteName)[4]);
+			loadGamePanel.PanelGame = savedGames[i];
+			loadGamePanel.SetText(savedGames[i].ToString());
+			loadGamePanel.SetImage(Resources.LoadAll<Sprite>("Player/" + savedGames[i].Player.SpriteName)[4]);
 		}
 
 	}

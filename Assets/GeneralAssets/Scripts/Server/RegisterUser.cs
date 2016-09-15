@@ -46,9 +46,9 @@ public class RegisterUser : MonoBehaviour {
 		if (!CheckInput ()) {
 			return;
 		}
-		response.text = "test";
+		//response.text = "test";
 		response.text = server.RegisterNewUser (username.text, password.text, secretQuestion.value, secretAnswer.text);
-		response.text = "test2";
+		//response.text = "test2";
 	}
 
 	private bool CheckInput ()

@@ -9,6 +9,7 @@ public class DomeTitleSpawner : MonoBehaviour {
 	public GameObject startText;
 	bool textSpawned = false;
 	float timer = 0;
+
 	
 	// Update is called once per frame
 	void Update ()
