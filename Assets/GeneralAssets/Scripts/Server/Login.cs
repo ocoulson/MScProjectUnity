@@ -34,12 +34,36 @@ public class Login : MonoBehaviour {
 			return;
 		}
 
-		string loginOutput = server.Login (username.text, password.text);
+		StartCoroutine(LoginCoroutine(username.text, password.text));
 
-		response.text = loginOutput;
+	}
 
-		if (server.PlayerLoggedIn) {
-			FindObjectOfType<LevelManager>().LoadLevel("Initialising");
+	IEnumerator LoginCoroutine (string username, string password)
+	{
+		WWWForm loginForm = new WWWForm ();
+		loginForm.AddField ("myform_username", username);
+		loginForm.AddField ("myform_password", password);
+		loginForm.AddField ("myform_hash", server.SecretKey);
+
+		WWW www = new WWW (server.Url + "/php/Login.php", loginForm);
+		yield return www;
+
+		if (www.error != null) {
+			response.text = "Error communicating with server: " + www.error;
+		} else {
+			string wwwOutput = www.text;
+			if (wwwOutput == "PASSWORD CORRECT") {
+
+				server.Login (username, password);
+
+				response.text = wwwOutput;
+				yield return new WaitForSeconds(0.5f);
+				FindObjectOfType<LevelManager> ().LoadLevel ("Initialising");
+			
+			} else {
+				response.text = wwwOutput;
+			}
+
 		}
 	}
 

@@ -18,11 +18,12 @@ public class LoadGamePanel : MonoBehaviour {
 	}
 
 	public void SetText (string newText)
-	{
+	{  
 		panelText.text = newText;
 	}
 
 	public void SetImage(Sprite newImage) {
+		panelImage.gameObject.SetActive(true);
 		panelImage.sprite = newImage;
 	}
 
@@ -31,8 +32,11 @@ public class LoadGamePanel : MonoBehaviour {
 		panelImage.gameObject.SetActive(false);
 	}
 
-	public void LoadGame() {
-		LevelManager manager = FindObjectOfType<LevelManager>();
-		manager.LoadGame(panelGame);
+	public void LoadGame ()
+	{
+		if (panelGame != null) {
+			LevelManager manager = FindObjectOfType<LevelManager> ();
+			manager.LoadGame (panelGame);
+		}
 	}
 }

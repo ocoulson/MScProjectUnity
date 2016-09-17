@@ -3,29 +3,25 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
-	
+	public List<Game> SavedGames = new List<Game>();
+	private ServerHandler server;
+
+	private GameObject saveGameCanvas;
 
 	public CheckPointList CheckPoints {get {return currentGame.CheckPoints;} }
 
 	private PlayerAdapter playerAdapter;
 
-	private NpcAdapter[] NPCs {
-		get { return FindObjectsOfType<NpcAdapter>();}
-	}
+	private NpcAdapter[] NPCs { get { return FindObjectsOfType<NpcAdapter> (); }}
 
 	private static Game currentGame;
-
-	public Game CurrentGame {
-		get {
-			return currentGame;
-		}
-		set {
-			currentGame = value;
-		}
-	}
+	public Game CurrentGame {get {return currentGame;} set {currentGame = value;}}
 
 	private bool GameStarted = false;
 
@@ -128,9 +124,58 @@ public class GameManager : MonoBehaviour {
 	public void SaveGame ()
 	{
 		Debug.Log("Save game: " + CurrentGame.ToString());
+
 		//SaveLoad.Save(CurrentGame);
 
-		FindObjectOfType<ServerHandler>().SaveGame(CurrentGame);
+
+		AddNewSavedGame(CurrentGame.Copy());
+		BinaryFormatter bf = new BinaryFormatter ();
+
+	    MemoryStream stream = new MemoryStream();
+	    bf.Serialize(stream, SavedGames);
+
+	    string base64Data = Convert.ToBase64String(stream.ToArray());
+
+
+		StartCoroutine(SaveCoroutine(base64Data));
+	}
+
+	IEnumerator SaveCoroutine (string saveGameData)
+	{
+		if (server == null) server = FindObjectOfType<ServerHandler>();
+
+		WWWForm saveForm = new WWWForm ();
+		saveForm.AddField ("myform_username", server.PlayerUsername);
+		saveForm.AddField ("myform_password", server.PlayerPassword);
+		saveForm.AddField ("myform_savedata", saveGameData);
+		saveForm.AddField ("myform_hash", server.SecretKey);
+
+		WWW www = new WWW (server.Url + "/php/SaveGame.php", saveForm);
+		yield return www;
+
+		if (www.error != null) {
+			Debug.LogError(www.error);
+
+		} else {
+			Debug.Log(www.text);
+			saveGameCanvas = Instantiate(Resources.Load("Prefabs/UI/SaveGameCanvas")) as GameObject;
+			saveGameCanvas.SetActive(true);
+			yield return new WaitForSeconds(1f);
+			saveGameCanvas.SetActive(false);
+		}
+
+	}
+
+	private void AddNewSavedGame (Game game)
+	{
+		
+		if (SavedGames.Count >= 3) {
+			Game earliest = SavedGames.OrderBy(g => g.SaveTime).First();
+			SavedGames.Remove(earliest);
+		} 
+			
+		game.SaveTime = System.DateTime.Now;
+	    SavedGames.Add(game);
 	}
 
 	//TODO: Method to be re written when serialisation/deserialisation implemented.

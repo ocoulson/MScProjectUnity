@@ -46,9 +46,31 @@ public class RegisterUser : MonoBehaviour {
 		if (!CheckInput ()) {
 			return;
 		}
-		//response.text = "test";
-		response.text = server.RegisterNewUser (username.text, password.text, secretQuestion.value, secretAnswer.text);
-		//response.text = "test2";
+
+		StartCoroutine( RegisterCoroutine(username.text, password.text, secretQuestion.value, secretAnswer.text));
+	}
+
+	IEnumerator RegisterCoroutine (string username, string password, int question, string answer)
+	{
+
+		WWWForm registerForm = new WWWForm ();
+		registerForm.AddField ("myform_username", username);
+		registerForm.AddField ("myform_password", password);
+		registerForm.AddField ("myform_question", question);
+		registerForm.AddField ("myform_answer", answer);
+		registerForm.AddField ("myform_hash", server.SecretKey);
+
+		WWW www = new WWW (server.Url + "/php/Register.php", registerForm);
+		yield return www;
+
+		if (www.error != null) {
+			Debug.LogError(www.error);
+			response.text = www.error;
+		} else {
+			Debug.Log(www.text);
+			response.text = www.text;
+		}
+	
 	}
 
 	private bool CheckInput ()
